@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>یوسف خان ماربل فیکٹری | مزدور و فی فٹ کھاتہ سسٹم</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(135deg, #0b1320, #162238);
+      color: #f8fafc;
+      min-height: 100vh;
+      padding: 16px;
+      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
+      line-height: 1.75;
+    }
+    .app {
+      max-width: 760px;
+      margin: 0 auto 36px;
+    }
+    .header {
+      background: rgba(22, 34, 56, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 16px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+    }
+    .header h1 {
+      font-size: 24px;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+    .header p {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 600px) {
+      .summary-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .stat-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .stat-value.green { color: #4ade80; }
+    .stat-value.amber { color: #fbbf24; }
+
+    .card {
+      background: rgba(22, 34, 56, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+    .card h2 {
+      font-size: 18px;
+      color: #7dd3fc;
+      margin-bottom: 14px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 560px) {
+      .row.two { grid-template-columns: 1fr 1fr; }
+      .row.three { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      color: #e2e8f0;
+      margin-bottom: 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0b1320;
+      color: #fff;
+      font-size: 14px;
+      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
+    }
+    .calc-box {
+      background: #0b1320;
+      border: 1px dashed #38bdf8;
+      border-radius: 14px;
+      padding: 14px;
+      margin: 14px 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+    .calc-box div span {
+      display: block;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .calc-box div strong {
+      font-size: 16px;
+      color: #f8fafc;
+    }
+    .calc-box div strong.balance {
+      color: #fbbf24;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
+    }
+    .btn-save { background: #0284c7; color: #fff; }
+    .btn-clear { background: #334155; color: #fff; }
+    .btn-danger {
+      background: #991b1b;
+      color: #fecaca;
+      padding: 6px 10px;
+      min-width: auto;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .entry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .entry-item {
+      background: #0b1320;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: rgba(2, 132, 199, 0.25);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .entry-meta {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+    .entry-nums {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      padding-top: 8px;
+      border-top: 1px solid #1e293b;
+    }
+    .empty {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 14px;
+      padding: 20px;
+    }
+    .hint {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <h1>یوسف خان ماربل فیکٹری</h1>
+      <p>ورٹیکل + اٹھارہ (7 روپے/فٹ) • سیکشن (1 روپیہ/فٹ) • ری سائز (1 روپیہ/فٹ)</p>
+    </div>
+
+    <div class="summary-grid">
+      <div class="stat-card">
+        <div class="stat-label">کل فٹ کام</div>
+        <div id="sumFeet" class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">کل اجرت (روپے)</div>
+        <div id="sumGross" class="stat-value green">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">ایڈوانس / ادائیگی</div>
+        <div id="sumPaid" class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">کل بقایا (روپے)</div>
+        <div id="sumBalance" class="stat-value amber">0</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>نئی کام و کھاتہ انٹری درج کریں</h2>
+      <form id="entryForm">
+        <div class="row two">
+          <div>
+            <label for="entryDate">تاریخ</label>
+            <input type="date" id="entryDate" required />
+          </div>
+          <div>
+            <label for="unitSelect">مشین / یونٹ</label>
+            <select id="unitSelect">
+              <option value="vertical_athara" data-rate="7">ورٹیکل + اٹھارہ (مشترکہ — 7 روپے/فٹ)</option>
+              <option value="section" data-rate="1">سیکشن (الگ — 1 روپیہ/فٹ)</option>
+              <option value="resize" data-rate="1">ری سائز (الگ — 1 روپیہ/فٹ)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label for="workers">مزدور / استاد و ہیلپر کے نام</label>
+            <input type="text" id="workers" placeholder="مثال: استاد علی + ہیلپر بلال (یا 1-2 مزدور)" required />
+            <div class="hint">ورٹیکل/اٹھارہ میں استاد و ہیلپر، سیکشن میں 1 یا 2 مزدور، ری سائز میں 2 مزدور لکھ سکتے ہیں۔</div>
+          </div>
+          <div>
+            <label for="feetWorked">مکمل کام (فٹ میں)</label>
+            <input type="number" id="feetWorked" min="0" step="0.01" placeholder="مثال: 250" required />
+          </div>
+        </div>
+
+        <div class="row three">
+          <div>
+            <label for="ratePerFoot">فی فٹ ریٹ (روپے)</label>
+            <input type="number" id="ratePerFoot" min="0" step="0.01" value="7" required />
+          </div>
+          <div>
+            <label for="advanceAmt">ایڈوانس لیا (روپے)</label>
+            <input type="number" id="advanceAmt" min="0" step="0.01" value="0" />
+          </div>
+          <div>
+            <label for="paidAmt">نقد ادائیگی کی (روپے)</label>
+            <input type="number" id="paidAmt" min="0" step="0.01" value="0" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="notes">تفصیل / نوٹ (اختیاری)</label>
+            <input type="text" id="notes" placeholder="مثال: دوپہر شفٹ کا حساب یا بقایا نوٹ" />
+          </div>
+        </div>
+
+        <div class="calc-box">
+          <div>
+            <span>کل اجرت</span>
+            <strong id="calcGross">0 روپے</strong>
+          </div>
+          <div>
+            <span>کل کٹوتی / ادائیگی</span>
+            <strong id="calcPaid">0 روپے</strong>
+          </div>
+          <div>
+            <span>بقایا واجب الادا</span>
+            <strong id="calcBalance" class="balance">0 روپے</strong>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="btn-save">ریکارڈ محفوظ کریں</button>
+          <button type="button" class="btn-clear" onclick="resetForm()">فارم صاف کریں</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>محفوظ شدہ ریکارڈ</h2>
+      <div id="entryList" class="entry-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "yousaf_khan_marble_factory_records_v1";
+    const entryForm = document.getElementById("entryForm");
+    const entryDate = document.getElementById("entryDate");
+    const unitSelect = document.getElementById("unitSelect");
+    const workersInput = document.getElementById("workers");
+    const feetInput = document.getElementById("feetWorked");
+    const rateInput = document.getElementById("ratePerFoot");
+    const advanceInput = document.getElementById("advanceAmt");
+    const paidInput = document.getElementById("paidAmt");
+    const notesInput = document.getElementById("notes");
+
+    const calcGross = document.getElementById("calcGross");
+    const calcPaid = document.getElementById("calcPaid");
+    const calcBalance = document.getElementById("calcBalance");
+
+    const sumFeet = document.getElementById("sumFeet");
+    const sumGross = document.getElementById("sumGross");
+    const sumPaid = document.getElementById("sumPaid");
+    const sumBalance = document.getElementById("sumBalance");
+    const entryList = document.getElementById("entryList");
+
+    entryDate.valueAsDate = new Date();
+
+    unitSelect.addEventListener("change", () => {
+      const selectedOption = unitSelect.options[unitSelect.selectedIndex];
+      rateInput.value = selectedOption.getAttribute("data-rate") || "1";
+      updateCalc();
+    });
+
+    function getCalculations() {
+      const feet = parseFloat(feetInput.value) || 0;
+      const rate = parseFloat(rateInput.value) || 0;
+      const advance = parseFloat(advanceInput.value) || 0;
+      const paid = parseFloat(paidInput.value) || 0;
+      const gross = feet * rate;
+      const totalPaid = advance + paid;
+      const balance = gross - totalPaid;
+      return { feet, rate, advance, paid, gross, totalPaid, balance };
+    }
+
+    function updateCalc() {
+      const { gross, totalPaid, balance } = getCalculations();
+      calcGross.textContent = gross.toLocaleString() + " روپے";
+      calcPaid.textContent = totalPaid.toLocaleString() + " روپے";
+      calcBalance.textContent = balance.toLocaleString() + " روپے";
+    }
+
+    [feetInput, rateInput, advanceInput, paidInput].forEach(el => {
+      el.addEventListener("input", updateCalc);
+    });
+
+    function loadRecords() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveRecords(records) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    }
+
+    function render() {
+      const records = loadRecords();
+      let totalFeet = 0;
+      let totalGross = 0;
+      let totalSettled = 0;
+      let totalBal = 0;
+
+      records.forEach(r => {
+        totalFeet += Number(r.feet) || 0;
+        totalGross += Number(r.gross) || 0;
+        totalSettled += (Number(r.advance) || 0) + (Number(r.paid) || 0);
+        totalBal += Number(r.balance) || 0;
+      });
+
+      sumFeet.textContent = totalFeet.toLocaleString();
+      sumGross.textContent = totalGross.toLocaleString();
+      sumPaid.textContent = totalSettled.toLocaleString();
+      sumBalance.textContent = totalBal.toLocaleString();
+
+      if (records.length === 0) {
+        entryList.innerHTML = '<div class="empty">ابھی تک کوئی انٹری محفوظ نہیں کی گئی۔ اوپر فارم بھر کر ریکارڈ شامل کریں۔</div>';
+        return;
+      }
+
+      entryList.innerHTML = records.map(r => `
+        <div class="entry-item">
+          <div class="entry-top">
+            <span class="badge">${r.unitLabel}</span>
+            <span style="font-size:12px;color:#94a3b8;">${r.date}</span>
+          </div>
+          <div class="entry-meta">
+            <strong>عملہ / مزدور:</strong> ${r.workers}
+            ${r.notes ? `<br/><strong>نوٹ:</strong> ${r.notes}` : ""}
+          </div>
+          <div class="entry-nums">
+            <span><strong>فٹ:</strong> ${Number(r.feet).toLocaleString()}</span>
+            <span><strong>ریٹ:</strong> ${Number(r.rate).toLocaleString()}</span>
+            <span><strong>کل اجرت:</strong> ${Number(r.gross).toLocaleString()}</span>
+            <span><strong>ایڈوانس/ادائیگی:</strong> ${((Number(r.advance) || 0) + (Number(r.paid) || 0)).toLocaleString()}</span>
+            <span style="color:#fbbf24;"><strong>بقایا:</strong> ${Number(r.balance).toLocaleString()}</span>
+            <button type="button" class="btn-danger" onclick="deleteRecord('${r.id}')">حذف</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function deleteRecord(id) {
+      const updated = loadRecords().filter(r => r.id !== id);
+      saveRecords(updated);
+      render();
+    }
+
+    function resetForm() {
+      entryForm.reset();
+      entryDate.valueAsDate = new Date();
+      unitSelect.value = "vertical_athara";
+      rateInput.value = "7";
+      advanceInput.value = "0";
+      paidInput.value = "0";
+      updateCalc();
+    }
+
+    entryForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const { feet, rate, advance, paid, gross, balance } = getCalculations();
+      const unitLabel = unitSelect.options[unitSelect.selectedIndex].text;
+
+      const newRecord = {
+        id: Date.now().toString(),
+        date: entryDate.value,
+        unit: unitSelect.value,
+        unitLabel,
+        workers: workersInput.value.trim(),
+        feet,
+        rate,
+        advance,
+        paid,
+        gross,
+        balance,
+        notes: notesInput.value.trim()
+      };
+
+      const records = loadRecords();
+      records.unshift(newRecord);
+      saveRecords(records);
+      render();
+      resetForm();
+    });
+
+    updateCalc();
+    render();
+  </script>
+</body>
+  </html>
+  
