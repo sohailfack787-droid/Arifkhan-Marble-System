@@ -16,7 +16,7 @@
       --danger: #f43f5e;
       --border: rgba(148, 163, 184, 0.2);
     }
-     { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
     body {
       margin: 0;
       background: var(--bg);
@@ -192,11 +192,13 @@
       </div>
       <div id="dbStatus" class="status-pill">Firebase کنیکٹ ہو رہا ہے...</div>
     </div>
+
     <div class="tabs">
       <button type="button" class="tab-btn active" onclick="switchTab('production', this)">پروڈکشن لاگ</button>
       <button type="button" class="tab-btn" onclick="switchTab('summary', this)">خلاصہ و اجرت</button>
       <button type="button" class="tab-btn" onclick="switchTab('secret', this)">خفیہ شکایات</button>
     </div>
+
     <!-- ٹیب 1: پروڈکشن لاگ -->
     <div id="tab-production" class="panel active">
       <div class="card">
@@ -228,18 +230,20 @@
           <button type="submit" class="btn">ڈیٹا محفوظ کریں (لائیو سنک)</button>
         </form>
       </div>
+
       <div class="card">
         <h2>حالیہ پروڈکشن ریکارڈز</h2>
         <div id="prodList">لوڈ ہو رہا ہے...</div>
       </div>
     </div>
+
     <!-- ٹیب 2: خلاصہ و اجرت -->
     <div id="tab-summary" class="panel">
       <div class="card">
         <h2>مجموعی کارکردگی اور اجرت کا خلاصہ</h2>
         <div class="row-actions">
-          <button type="button" class="btn-secondary" onclick="copyWhatsappReport()">رپورٹ کاپی کریں (واٹس ایپ کے لیے)</button>
-          <button type="button" class="btn-secondary" onclick="shareWhatsappReport()">واٹس ایپ پر شیئر کریں</button>
+          <button type="button" class="btn-secondary" onclick="copyWhatsappReport()">رپورٹ کاپی کریں</button>
+          <button type="button" class="btn-secondary" onclick="shareWhatsappReport()">واٹس ایپ شیئر</button>
         </div>
         <div class="stats">
           <div class="stat-box">
@@ -255,12 +259,12 @@
             <div class="lbl">کل انٹریز</div>
           </div>
         </div>
-        <h2 style="margin-top: 16px;">مشینوں کے حساب سے کام</h2>
         <div id="machineBreakdown"></div>
-        <h2 style="margin-top: 16px;">مزدور وار الگ حساب (Worker Ledger)</h2>
+        <h2 style="margin-top: 16px;">مزدور وار حساب</h2>
         <div id="workerBreakdown"></div>
       </div>
     </div>
+
     <!-- ٹیب 3: خفیہ شکایات -->
     <div id="tab-secret" class="panel">
       <div class="card">
@@ -289,39 +293,26 @@
           <button type="submit" class="btn">خفیہ پیغام ارسال کریں</button>
         </form>
       </div>
+
       <div class="card">
         <h2>موصولہ خفیہ پیغامات (صرف سپروائزر کے لیے)</h2>
         <div id="supervisorLockBox" class="lock-box">
-          <label>سپروائزر پن کوڈ درج کریں (ڈیفالٹ پن: 1234)</label>
+          <label>سپروائزر پن کوڈ درج کریں (ڈیفالٹ: 1234)</label>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <input type="password" id="supervisorPinInput" placeholder="پن کوڈ لکھیں" style="max-width: 200px;" />
+            <input type="password" id="supervisorPinInput" placeholder="پن کوڈ" style="max-width: 180px;" />
             <button type="button" class="btn-secondary" onclick="unlockSecrets()">ان لاک کریں</button>
           </div>
         </div>
         <div id="supervisorUnlockedControls" style="display: none; margin-bottom: 10px;">
-          <button type="button" class="btn-secondary" onclick="lockSecrets()">پن لاک دوبارہ لگائیں</button>
+          <button type="button" class="btn-secondary" onclick="lockSecrets()">لاک کریں</button>
         </div>
-        <div id="secretList">خفیہ پیغامات دیکھنے کے لیے سپروائزر پن درج کریں۔</div>
+        <div id="secretList">پن درج کریں۔</div>
       </div>
     </div>
   </div>
+
   <div id="toast" class="msg-toast"></div>
-  <script>
-    function showToast(msg) {
-      const toastEl = document.getElementById("toast");
-      toastEl.textContent = msg;
-      toastEl.style.display = "block";
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => { toastEl.style.display = "none"; }, 2600);
-    }
-    function switchTab(tabName, btnEl) {
-      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      const targetPanel = document.getElementById("tab-" + tabName);
-      if (targetPanel) targetPanel.classList.add("active");
-      if (btnEl) btnEl.classList.add("active");
-    }
-  </script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import {
@@ -331,6 +322,7 @@
       onValue,
       remove
     } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
     const firebaseConfig = {
       apiKey: "AIzaSyBzL7ToAxAIAdRUY9mhJg_ChTfGjKXmTdY",
       authDomain: "yousaf-khan-marble.firebaseapp.com",
@@ -341,227 +333,213 @@
       appId: "1:348715247959:web:f562d0f778657d6bee3612",
       measurementId: "G-2M87407HCW"
     };
+
     const SUPERVISOR_PIN = "1234";
-    let isSupervisorUnlocked = false;
-    let latestSecretData = {};
-    let latestReportText = "";
-    let connectedOnce = false;
+    let isUnlocked = false;
+    let latestSecrets = {};
+    let reportText = "";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const prodRef = ref(db, "marbleFactory/production");
+    const secretRef = ref(db, "marbleFactory/secretComplaints");
+
     const statusEl = document.getElementById("dbStatus");
-    const fallbackTimer = setTimeout(() => {
-      if (!connectedOnce) {
-        statusEl.textContent = "سنک میں تاخیر — نیٹ ورک چیک کریں";
-      }
-    }, 4500);
-    try {
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-      const prodRef = ref(db, "marbleFactory/production");
-      const secretRef = ref(db, "marbleFactory/secretComplaints");
-      document.getElementById("prodForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const worker = document.getElementById("workerName").value.trim();
-        const machine = document.getElementById("machineName").value;
-        const feet = parseFloat(document.getElementById("footage").value) || 0;
-        const rate = parseFloat(document.getElementById("ratePerFoot").value) || 0;
-        const wage = feet * rate;
-        await push(prodRef, {
-          worker,
-          machine,
-          feet,
-          rate,
-          wage,
-          createdAt: new Date().toLocaleString("ur-PK")
-        });
-        e.target.reset();
-        showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
+    const toastEl = document.getElementById("toast");
+
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.style.display = "block";
+      setTimeout(() => { toastEl.style.display = "none"; }, 2600);
+    }
+
+    window.switchTab = function (tabName, btnEl) {
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("tab-" + tabName).classList.add("active");
+      btnEl.classList.add("active");
+    };
+
+    document.getElementById("prodForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const worker = document.getElementById("workerName").value.trim();
+      const machine = document.getElementById("machineName").value;
+      const feet = parseFloat(document.getElementById("footage").value) || 0;
+      const rate = parseFloat(document.getElementById("ratePerFoot").value) || 0;
+      const wage = feet * rate;
+
+      await push(prodRef, {
+        worker,
+        machine,
+        feet,
+        rate,
+        wage,
+        createdAt: new Date().toLocaleString("ur-PK")
       });
-      onValue(prodRef, (snapshot) => {
-        connectedOnce = true;
-        clearTimeout(fallbackTimer);
-        statusEl.textContent = "لائیو سنک فعال ہے";
-        const data = snapshot.val() || {};
-        const entries = Object.entries(data).reverse();
-        const prodList = document.getElementById("prodList");
-        let totalFeet = 0;
-        let totalWage = 0;
-        const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
-        const byWorker = {};
-        if (entries.length === 0) {
-          prodList.innerHTML = "<p style='color:#94a3b8'>ابھی کوئی ریکارڈ درج نہیں ہوا۔</p>";
-        } else {
-          prodList.innerHTML = entries.map(([id, item]) => {
-            const feet = Number(item.feet || 0);
-            const wage = Number(item.wage || 0);
-            const workerName = item.worker || "نامعلوم";
-            totalFeet += feet;
-            totalWage += wage;
-            if (byMachine[item.machine] !== undefined) {
-              byMachine[item.machine] += feet;
-            }
-            if (!byWorker[workerName]) {
-              byWorker[workerName] = { feet: 0, wage: 0, count: 0 };
-            }
-            byWorker[workerName].feet += feet;
-            byWorker[workerName].wage += wage;
-            byWorker[workerName].count += 1;
-            return `
-              <div class="record-item">
-                <div>
-                  <strong>${workerName}</strong> — <span style="color:#38bdf8">${item.machine}</span><br/>
-                  <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
-                  <div class="record-meta">${item.createdAt || ""}</div>
-                </div>
-                <button type="button" class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
-              </div>
-            `;
-          }).join("");
-        }
-        document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
-        document.getElementById("totalWage").textContent = totalWage.toLocaleString();
-        document.getElementById("totalEntries").textContent = entries.length;
-        document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
-          .map(([m, f]) => `
-            <div class="record-item">
-              <span><strong>${m}</strong></span>
-              <span>${f.toLocaleString()} فٹ</span>
-            </div>
-          `).join("");
-        const workerEntries = Object.entries(byWorker);
-        const workerBreakdownEl = document.getElementById("workerBreakdown");
-        if (workerEntries.length === 0) {
-          workerBreakdownEl.innerHTML = "<p style='color:#94a3b8'>مزدوروں کا حساب ابھی خالی ہے۔</p>";
-        } else {
-          workerBreakdownEl.innerHTML = workerEntries.map(([wName, info]) => `
+
+      e.target.reset();
+      showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
+    });
+
+    onValue(prodRef, (snapshot) => {
+      statusEl.textContent = "لائیو سنک فعال ہے";
+      const data = snapshot.val() || {};
+      const entries = Object.entries(data).reverse();
+
+      const prodList = document.getElementById("prodList");
+      let totalFeet = 0;
+      let totalWage = 0;
+      const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
+      const byWorker = {};
+
+      if (entries.length === 0) {
+        prodList.innerHTML = "<p style='color:#94a3b8'>ابھی کوئی ریکارڈ درج نہیں ہوا۔</p>";
+      } else {
+        prodList.innerHTML = entries.map(([id, item]) => {
+          const feet = Number(item.feet || 0);
+          const wage = Number(item.wage || 0);
+          const wName = item.worker || "نامعلوم";
+
+          totalFeet += feet;
+          totalWage += wage;
+          if (byMachine[item.machine] !== undefined) byMachine[item.machine] += feet;
+
+          if (!byWorker[wName]) byWorker[wName] = { feet: 0, wage: 0 };
+          byWorker[wName].feet += feet;
+          byWorker[wName].wage += wage;
+
+          return `
             <div class="record-item">
               <div>
-                <strong>${wName}</strong> <span class="record-meta">(${info.count} انٹریز)</span><br/>
-                <span>کل کام: <strong>${info.feet.toLocaleString()} فٹ</strong></span>
+                <strong>${wName}</strong> — <span style="color:#38bdf8">${item.machine}</span><br/>
+                <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
+                <div class="record-meta">${item.createdAt || ""}</div>
               </div>
-              <div style="text-align:left;">
-                <strong style="color:#4ade80">${info.wage.toLocaleString()} روپے</strong>
-              </div>
+              <button type="button" class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
             </div>
-          `).join("");
-        }
-        const machineLines = Object.entries(byMachine)
-          .map(([m, f]) => `• ${m}: ${f.toLocaleString()} فٹ`)
-          .join("\n");
-        const workerLines = workerEntries.length
-          ? workerEntries.map(([wName, info]) => `• ${wName}: ${info.feet.toLocaleString()} فٹ | اجرت: ${info.wage.toLocaleString()} روپے`).join("\n")
-          : "• کوئی ریکارڈ نہیں";
-        latestReportText =
-`یوسف خان ماربل فیکٹری (شیربرج ملاگوری)
-پروڈکشن و اجرت رپورٹ (${new Date().toLocaleDateString("ur-PK")})
-کل فٹ: ${totalFeet.toLocaleString()}
-کل اجرت: ${totalWage.toLocaleString()} روپے
-کل انٹریز: ${entries.length}
-مشینوں کا کام:
-${machineLines}
-مزدور وار اجرت:
-${workerLines}`;
-      }, () => {
-        clearTimeout(fallbackTimer);
-        statusEl.textContent = "کنکشن میں مسئلہ";
-      });
-      window.deleteProd = async function (id) {
-        await remove(ref(db, `marbleFactory/production/${id}`));
-        showToast("ریکارڈ حذف کر دیا گیا۔");
-      };
-      window.copyWhatsappReport = async function () {
-        try {
-          await navigator.clipboard.writeText(latestReportText);
-          showToast("رپورٹ کاپی ہو گئی! اب واٹس ایپ میں پیسٹ کریں۔");
-        } catch {
-          showToast("کاپی کرنے میں مسئلہ پیش آیا۔");
-        }
-      };
-      window.shareWhatsappReport = function () {
-        const url = "https://wa.me/?text=" + encodeURIComponent(latestReportText);
-        window.open(url, "_blank");
-      };
-      document.getElementById("secretForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const dept = document.getElementById("secretDept").value;
-        const sender = document.getElementById("secretSender").value.trim() || "گمنام";
-        const message = document.getElementById("secretText").value.trim();
-        await push(secretRef, {
-          dept,
-          sender,
-          message,
-          createdAt: new Date().toLocaleString("ur-PK")
-        });
-        e.target.reset();
-        showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
-      });
-      function renderSecretList() {
-        const secretList = document.getElementById("secretList");
-        if (!isSupervisorUnlocked) {
-          secretList.innerHTML = "<p style='color:#94a3b8'>خفیہ پیغامات دیکھنے کے لیے سپروائزر پن درج کریں۔</p>";
-          return;
-        }
-        const items = Object.entries(latestSecretData).reverse();
-        if (items.length === 0) {
-          secretList.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
-          return;
-        }
-        secretList.innerHTML = items.map(([id, item]) => `
-          <div class="record-item">
-            <div>
-              <strong>${item.sender}</strong> (${item.dept})<br/>
-              <p style="margin:6px 0">${item.message}</p>
-              <div class="record-meta">${item.createdAt || ""}</div>
+          `;
+        }).join("");
+      }
+
+      document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
+      document.getElementById("totalWage").textContent = totalWage.toLocaleString();
+      document.getElementById("totalEntries").textContent = entries.length;
+
+      document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
+        .map(([m, f]) => `<div class="record-item"><span><strong>${m}</strong></span><span>${f.toLocaleString()} فٹ</span></div>`)
+        .join("");
+
+      const workerEntries = Object.entries(byWorker);
+      document.getElementById("workerBreakdown").innerHTML = workerEntries.length
+        ? workerEntries.map(([w, info]) => `
+            <div class="record-item">
+              <span><strong>${w}</strong> (${info.feet.toLocaleString()} فٹ)</span>
+              <strong style="color:#4ade80">${info.wage.toLocaleString()} روپے</strong>
             </div>
-            <button type="button" class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
-          </div>
-        `).join("");
-      }
-      window.unlockSecrets = function () {
-        const entered = document.getElementById("supervisorPinInput").value.trim();
-        if (entered === SUPERVISOR_PIN) {
-          isSupervisorUnlocked = true;
-          document.getElementById("supervisorLockBox").style.display = "none";
-          document.getElementById("supervisorUnlockedControls").style.display = "block";
-          document.getElementById("supervisorPinInput").value = "";
-          renderSecretList();
-          showToast("سپروائزر سیکشن کھل گیا۔");
-        } else {
-          showToast("غلط پن کوڈ! دوبارہ کوشش کریں۔");
-        }
-      };
-      window.lockSecrets = function () {
-        isSupervisorUnlocked = false;
-       document.getElementById("supervisorLockBox").style.display = "none";
-        document.getElementById("supervisorUnlockedControls").style.display = "block";
-        document.getElementById("supervisorPinInput").value = "";
-        renderSecretList();
-        showToast("سپروائزر سیکشن کھل گیا۔");
-      } else {
-        showToast("غلط پن کوڈ! دوبارہ کوشش کریں۔");
-      }
-    };
-    window.lockSecrets = function () {
-      isSupervisorUnlocked = false;
-      document.getElementById("supervisorLockBox").style.display = "block";
-      document.getElementById("supervisorUnlockedControls").style.display = "none";
-      renderSecretList();
-      showToast("خفیہ پیغامات دوبارہ لاک ہو گئے۔");
-    };
-    onValue(secretRef, (snapshot) => {
-      latestSecretData = snapshot.val() || {};
-      renderSecretList();
+          `).join("")
+        : "<p style='color:#94a3b8'>کوئی ریکارڈ نہیں۔</p>";
+
+      reportText =
+`یوسف خان ماربل فیکٹری
+کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${totalWage.toLocaleString()} روپے
+مزدور وار حساب:
+${workerEntries.map(([w, info]) => `• ${w}: ${info.feet.toLocaleString()} فٹ — ${info.wage.toLocaleString()} روپے`).join("\n") || "• کوئی ریکارڈ نہیں"}`;
+    }, () => {
+      statusEl.textContent = "کنکشن میں مسئلہ";
     });
-    window.deleteSecret = async function (id) {
-      if (!isSupervisorUnlocked) {
-        showToast("پہلے سپروائزر پن سے ان لاک کریں۔");
+
+    window.deleteProd = async function (id) {
+      await remove(ref(db, `marbleFactory/production/${id}`));
+      showToast("ریکارڈ حذف کر دیا گیا۔");
+    };
+
+    window.copyWhatsappReport = async function () {
+      try {
+        await navigator.clipboard.writeText(reportText);
+        showToast("رپورٹ کاپی ہو گئی!");
+      } catch {
+        showToast("کاپی نہیں ہو سکی۔");
+      }
+    };
+
+    window.shareWhatsappReport = function () {
+      window.open("https://wa.me/?text=" + encodeURIComponent(reportText), "_blank");
+    };
+
+    document.getElementById("secretForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const dept = document.getElementById("secretDept").value;
+      const sender = document.getElementById("secretSender").value.trim() || "گمنام";
+      const message = document.getElementById("secretText").value.trim();
+
+      await push(secretRef, {
+        dept,
+        sender,
+        message,
+        createdAt: new Date().toLocaleString("ur-PK")
+      });
+
+      e.target.reset();
+      showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
+    });
+
+    function renderSecrets() {
+      const el = document.getElementById("secretList");
+      if (!isUnlocked) {
+        el.innerHTML = "<p style='color:#94a3b8'>پن درج کریں۔</p>";
         return;
       }
+      const items = Object.entries(latestSecrets).reverse();
+      if (items.length === 0) {
+        el.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
+        return;
+      }
+      el.innerHTML = items.map(([id, item]) => `
+        <div class="record-item">
+          <div>
+            <strong>${item.sender}</strong> (${item.dept})<br/>
+            <p style="margin:6px 0">${item.message}</p>
+            <div class="record-meta">${item.createdAt || ""}</div>
+          </div>
+          <button type="button" class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
+        </div>
+      `).join("");
+    }
+
+    window.unlockSecrets = function () {
+      const val = document.getElementById("supervisorPinInput").value.trim();
+      if (val === SUPERVISOR_PIN) {
+        isUnlocked = true;
+        document.getElementById("supervisorLockBox").style.display = "none";
+        document.getElementById("supervisorUnlockedControls").style.display = "block";
+        document.getElementById("supervisorPinInput").value = "";
+        renderSecrets();
+        showToast("ان لاک ہو گیا۔");
+      } else {
+        showToast("غلط پن کوڈ!");
+      }
+    };
+
+    window.lockSecrets = function () {
+      isUnlocked = false;
+      document.getElementById("supervisorLockBox").style.display = "block";
+      document.getElementById("supervisorUnlockedControls").style.display = "none";
+      renderSecrets();
+    };
+
+    onValue(secretRef, (snapshot) => {
+      latestSecrets = snapshot.val() || {};
+      renderSecrets();
+    });
+
+    window.deleteSecret = async function (id) {
+      if (!isUnlocked) return;
       await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
       showToast("پیغام حذف کر دیا گیا۔");
     };
-  } catch (err) {
-    clearTimeout(fallbackTimer);
-    statusEl.textContent = "اسکرپٹ میں مسئلہ آیا";
-  }
-</script>
+  </script>
 </body>
 </html>
+
+    
