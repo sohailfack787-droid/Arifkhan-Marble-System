@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>یوسف خان ماربل فیکٹری | مزدور و فی فٹ کھاتہ سسٹم</title>
+  <title>یوسف خان ماربل فیکٹری | فیکٹری و مزدور سسٹم</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -17,28 +17,42 @@
       font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
       line-height: 1.75;
     }
-    .app {
-      max-width: 760px;
-      margin: 0 auto 36px;
-    }
+    .app { max-width: 820px; margin: 0 auto 40px; }
     .header {
-      background: rgba(22, 34, 56, 0.95);
+      background: rgba(22, 34, 56, 0.96);
       border: 1px solid rgba(56, 189, 248, 0.25);
       border-radius: 18px;
       padding: 20px;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
     }
-    .header h1 {
-      font-size: 24px;
-      color: #38bdf8;
-      margin-bottom: 6px;
+    .header h1 { font-size: 24px; color: #38bdf8; margin-bottom: 4px; }
+    .header p { font-size: 13px; color: #cbd5e1; }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
     }
-    .header p {
-      font-size: 13px;
+    .mode-btn {
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      background: #0f172a;
       color: #cbd5e1;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
     }
+    .mode-btn.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+    }
+
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -49,54 +63,33 @@
       .summary-grid { grid-template-columns: repeat(4, 1fr); }
     }
     .stat-card {
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.92);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 14px;
       padding: 14px 12px;
       text-align: center;
     }
-    .stat-label {
-      font-size: 12px;
-      color: #94a3b8;
-      margin-bottom: 4px;
-    }
-    .stat-value {
-      font-size: 18px;
-      font-weight: 800;
-      color: #38bdf8;
-    }
+    .stat-label { font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
+    .stat-value { font-size: 18px; font-weight: 800; color: #38bdf8; }
     .stat-value.green { color: #4ade80; }
     .stat-value.amber { color: #fbbf24; }
+    .stat-value.rose { color: #fb7185; }
 
     .card {
-      background: rgba(22, 34, 56, 0.92);
+      background: rgba(22, 34, 56, 0.94);
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
       padding: 20px;
       margin-bottom: 16px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
     }
-    .card h2 {
-      font-size: 18px;
-      color: #7dd3fc;
-      margin-bottom: 14px;
-    }
-    .row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
+    .card h2 { font-size: 18px; color: #7dd3fc; margin-bottom: 14px; }
+    .row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
     @media (min-width: 560px) {
       .row.two { grid-template-columns: 1fr 1fr; }
       .row.three { grid-template-columns: 1fr 1fr 1fr; }
     }
-    label {
-      display: block;
-      font-size: 13px;
-      color: #e2e8f0;
-      margin-bottom: 5px;
-    }
+    label { display: block; font-size: 13px; color: #e2e8f0; margin-bottom: 5px; }
     input, select, textarea {
       width: 100%;
       padding: 10px 12px;
@@ -107,39 +100,9 @@
       font-size: 14px;
       font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
     }
-    .calc-box {
-      background: #0b1320;
-      border: 1px dashed #38bdf8;
-      border-radius: 14px;
-      padding: 14px;
-      margin: 14px 0;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      text-align: center;
-    }
-    .calc-box div span {
-      display: block;
-      font-size: 12px;
-      color: #94a3b8;
-    }
-    .calc-box div strong {
-      font-size: 16px;
-      color: #f8fafc;
-    }
-    .calc-box div strong.balance {
-      color: #fbbf24;
-    }
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    button {
-      flex: 1;
-      min-width: 140px;
-      padding: 12px 16px;
+    textarea { min-height: 85px; resize: vertical; }
+    .btn {
+      padding: 11px 16px;
       border: none;
       border-radius: 12px;
       font-size: 14px;
@@ -147,35 +110,32 @@
       cursor: pointer;
       font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
     }
-    .btn-save { background: #0284c7; color: #fff; }
-    .btn-clear { background: #334155; color: #fff; }
-    .btn-danger {
-      background: #991b1b;
-      color: #fecaca;
-      padding: 6px 10px;
-      min-width: auto;
-      font-size: 12px;
-      border-radius: 8px;
-    }
+    .btn-primary { background: #0284c7; color: #fff; }
+    .btn-warn { background: #b45309; color: #fff; }
+    .btn-soft { background: #334155; color: #fff; }
+    .btn-ok { background: #15803d; color: #fff; padding: 6px 10px; font-size: 12px; border-radius: 8px; }
+    .btn-del { background: #991b1b; color: #fecaca; padding: 6px 10px; font-size: 12px; border-radius: 8px; }
 
-    .entry-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .msg {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #4ade80;
+      min-height: 20px;
     }
-    .entry-item {
+    .item-box {
       background: #0b1320;
       border: 1px solid #1e293b;
       border-radius: 14px;
       padding: 14px;
+      margin-bottom: 12px;
     }
-    .entry-top {
+    .item-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
       flex-wrap: wrap;
+      margin-bottom: 8px;
     }
     .badge {
       background: rgba(2, 132, 199, 0.25);
@@ -186,29 +146,41 @@
       font-size: 12px;
       font-weight: 700;
     }
-    .entry-meta {
-      font-size: 13px;
-      color: #cbd5e1;
-      margin-bottom: 8px;
+    .badge.complaint {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fda4af;
+      border-color: rgba(251, 113, 133, 0.45);
     }
-    .entry-nums {
+    .badge.resolved {
+      background: rgba(34, 197, 94, 0.18);
+      color: #86efac;
+      border-color: rgba(74, 222, 128, 0.4);
+    }
+    .meta { font-size: 13px; color: #cbd5e1; margin-bottom: 8px; }
+    .nums {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
+      align-items: center;
       font-size: 13px;
       padding-top: 8px;
       border-top: 1px solid #1e293b;
     }
-    .empty {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 14px;
-      padding: 20px;
+    .inline-edit {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
     }
-    .hint {
+    .inline-edit label { font-size: 11px; color: #94a3b8; margin-bottom: 2px; }
+    .inline-edit input { padding: 7px 9px; font-size: 13px; }
+    .empty { text-align: center; color: #94a3b8; padding: 18px; font-size: 14px; }
+    .hidden { display: none; }
+    .sync-bar {
       font-size: 12px;
       color: #94a3b8;
-      margin-top: 4px;
+      text-align: center;
+      margin-bottom: 12px;
     }
   </style>
 </head>
@@ -219,261 +191,390 @@
       <p>ورٹیکل + اٹھارہ (7 روپے/فٹ) • سیکشن (1 روپیہ/فٹ) • ری سائز (1 روپیہ/فٹ)</p>
     </div>
 
-    <div class="summary-grid">
-      <div class="stat-card">
-        <div class="stat-label">کل فٹ کام</div>
-        <div id="sumFeet" class="stat-value">0</div>
+    <div id="syncStatus" class="sync-bar">لوکل موڈ فعال (Firebase سیٹ کرنے پر فونز کے درمیان لائیو سنک ہوگا)</div>
+
+    <div class="mode-switch">
+      <button id="btnWorkerMode" class="mode-btn active" onclick="switchMode('worker')">مزدور پورٹل (کام و شکایت)</button>
+      <button id="btnAdminMode" class="mode-btn" onclick="switchMode('admin')">مالک / نگران ڈیش بورڈ</button>
+    </div>
+
+    <!-- مزدور پورٹل -->
+    <div id="workerSection">
+      <div class="card">
+        <h2>آج کا کام درج کریں</h2>
+        <form id="workForm">
+          <div class="row two">
+            <div>
+              <label for="wDate">تاریخ</label>
+              <input type="date" id="wDate" required />
+            </div>
+            <div>
+              <label for="wUnit">مشین / یونٹ</label>
+              <select id="wUnit">
+                <option value="vertical_athara" data-rate="7">ورٹیکل + اٹھارہ (مشترکہ)</option>
+                <option value="section" data-rate="1">سیکشن</option>
+                <option value="resize" data-rate="1">ری سائز</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row two">
+            <div>
+              <label for="wName">مزدور / استاد و ہیلپر کا نام</label>
+              <input type="text" id="wName" placeholder="مثال: ورٹیکل/اٹھارہ ٹیم یا مزدور کا نام" required />
+            </div>
+            <div>
+              <label for="wFeet">آج کا کام (فٹ میں)</label>
+              <input type="number" id="wFeet" min="0.1" step="0.01" placeholder="مثال: 1000" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="wNote">مختصر نوٹ (اختیاری)</label>
+              <input type="text" id="wNote" placeholder="مثال: ماربل کٹنگ / ری سائز" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">آج کا کام بھیجیں</button>
+          <div id="workMsg" class="msg"></div>
+        </form>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">کل اجرت (روپے)</div>
-        <div id="sumGross" class="stat-value green">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">ایڈوانس / ادائیگی</div>
-        <div id="sumPaid" class="stat-value">0</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">کل بقایا (روپے)</div>
-        <div id="sumBalance" class="stat-value amber">0</div>
+
+      <div class="card">
+        <h2>خفیہ شکایت درج کریں (صرف فیکٹری مالک/نگران دیکھیں گے)</h2>
+        <form id="complaintForm">
+          <div class="row two">
+            <div>
+              <label for="cFrom">شکایت کرنے والا (نام یا یونٹ)</label>
+              <input type="text" id="cFrom" placeholder="مثال: سیکشن یا مزدور کا نام" required />
+            </div>
+            <div>
+              <label for="cAgainst">کس کے خلاف / کس بارے میں شکایت ہے؟</label>
+              <input type="text" id="cAgainst" placeholder="مثال: دوسرے مزدور یا کام کا مسئلہ" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="cText">شکایت کی تفصیل</label>
+              <textarea id="cText" placeholder="اپنی بات یہاں لکھیں — یہ صرف آپ کے مالک/نگران کو نظر آئے گی..." required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-warn" style="width:100%;">خفیہ شکایت بھیجیں</button>
+          <div id="complaintMsg" class="msg"></div>
+        </form>
       </div>
     </div>
 
-    <div class="card">
-      <h2>نئی کام و کھاتہ انٹری درج کریں</h2>
-      <form id="entryForm">
+    <!-- مالک / نگران ڈیش بورڈ -->
+    <div id="adminSection" class="hidden">
+      <div id="adminLockBox" class="card">
+        <h2>مالک / نگران رسائی</h2>
         <div class="row two">
           <div>
-            <label for="entryDate">تاریخ</label>
-            <input type="date" id="entryDate" required />
+            <label for="adminPin">پن کوڈ (ڈیفالٹ: 1234)</label>
+            <input type="password" id="adminPin" placeholder="پن کوڈ درج کریں" />
           </div>
-          <div>
-            <label for="unitSelect">مشین / یونٹ</label>
-            <select id="unitSelect">
-              <option value="vertical_athara" data-rate="7">ورٹیکل + اٹھارہ (مشترکہ — 7 روپے/فٹ)</option>
-              <option value="section" data-rate="1">سیکشن (الگ — 1 روپیہ/فٹ)</option>
-              <option value="resize" data-rate="1">ری سائز (الگ — 1 روپیہ/فٹ)</option>
-            </select>
+          <div style="display:flex;align-items:flex-end;">
+            <button type="button" class="btn btn-primary" style="width:100%;" onclick="unlockAdmin()">ڈیش بورڈ کھولیں</button>
+          </div>
+        </div>
+        <div id="pinMsg" class="msg"></div>
+      </div>
+
+      <div id="adminPanel" class="hidden">
+        <div class="summary-grid">
+          <div class="stat-card">
+            <div class="stat-label">کل فٹ کام</div>
+            <div id="sumFeet" class="stat-value">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">کل اجرت (روپے)</div>
+            <div id="sumGross" class="stat-value green">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">بقایا رقم (روپے)</div>
+            <div id="sumBalance" class="stat-value amber">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">خفیہ شکایات</div>
+            <div id="sumComplaints" class="stat-value rose">0</div>
           </div>
         </div>
 
-        <div class="row two">
-          <div>
-            <label for="workers">مزدور / استاد و ہیلپر کے نام</label>
-            <input type="text" id="workers" placeholder="مثال: استاد علی + ہیلپر بلال (یا 1-2 مزدور)" required />
-            <div class="hint">ورٹیکل/اٹھارہ میں استاد و ہیلپر، سیکشن میں 1 یا 2 مزدور، ری سائز میں 2 مزدور لکھ سکتے ہیں۔</div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <h2 style="margin:0;">مزدوروں کا کام اور فی فٹ کھاتہ</h2>
+            <button type="button" class="btn btn-soft" onclick="lockAdmin()">لاک کریں</button>
           </div>
-          <div>
-            <label for="feetWorked">مکمل کام (فٹ میں)</label>
-            <input type="number" id="feetWorked" min="0" step="0.01" placeholder="مثال: 250" required />
-          </div>
+          <div id="workRecordsList"></div>
         </div>
 
-        <div class="row three">
-          <div>
-            <label for="ratePerFoot">فی فٹ ریٹ (روپے)</label>
-            <input type="number" id="ratePerFoot" min="0" step="0.01" value="7" required />
-          </div>
-          <div>
-            <label for="advanceAmt">ایڈوانس لیا (روپے)</label>
-            <input type="number" id="advanceAmt" min="0" step="0.01" value="0" />
-          </div>
-          <div>
-            <label for="paidAmt">نقد ادائیگی کی (روپے)</label>
-            <input type="number" id="paidAmt" min="0" step="0.01" value="0" />
-          </div>
+        <div class="card">
+          <h2>خفیہ شکایات (صرف آپ کے لیے)</h2>
+          <div id="complaintsList"></div>
         </div>
-
-        <div class="row">
-          <div>
-            <label for="notes">تفصیل / نوٹ (اختیاری)</label>
-            <input type="text" id="notes" placeholder="مثال: دوپہر شفٹ کا حساب یا بقایا نوٹ" />
-          </div>
-        </div>
-
-        <div class="calc-box">
-          <div>
-            <span>کل اجرت</span>
-            <strong id="calcGross">0 روپے</strong>
-          </div>
-          <div>
-            <span>کل کٹوتی / ادائیگی</span>
-            <strong id="calcPaid">0 روپے</strong>
-          </div>
-          <div>
-            <span>بقایا واجب الادا</span>
-            <strong id="calcBalance" class="balance">0 روپے</strong>
-          </div>
-        </div>
-
-        <div class="btn-row">
-          <button type="submit" class="btn-save">ریکارڈ محفوظ کریں</button>
-          <button type="button" class="btn-clear" onclick="resetForm()">فارم صاف کریں</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="card">
-      <h2>محفوظ شدہ ریکارڈ</h2>
-      <div id="entryList" class="entry-list"></div>
+      </div>
     </div>
   </div>
 
+  <!-- اختیاری Firebase لائیو سنک (اگر آپ اپنا Firebase config نیچے پیسٹ کریں گے تو خود بخود فعال ہو جائے گا) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
   <script>
-    const STORAGE_KEY = "yousaf_khan_marble_factory_records_v1";
-    const entryForm = document.getElementById("entryForm");
-    const entryDate = document.getElementById("entryDate");
-    const unitSelect = document.getElementById("unitSelect");
-    const workersInput = document.getElementById("workers");
-    const feetInput = document.getElementById("feetWorked");
-    const rateInput = document.getElementById("ratePerFoot");
-    const advanceInput = document.getElementById("advanceAmt");
-    const paidInput = document.getElementById("paidAmt");
-    const notesInput = document.getElementById("notes");
+    const FIREBASE_CONFIG = {
+      // مثال:
+      // apiKey: "YOUR_API_KEY",
+      // authDomain: "YOUR_PROJECT.firebaseapp.com",
+      // databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+      // projectId: "YOUR_PROJECT_ID"
+    };
 
-    const calcGross = document.getElementById("calcGross");
-    const calcPaid = document.getElementById("calcPaid");
-    const calcBalance = document.getElementById("calcBalance");
+    const ADMIN_PIN = "1234";
+    const WORK_KEY = "yk_marble_work_v1";
+    const COMP_KEY = "yk_marble_complaints_v1";
 
-    const sumFeet = document.getElementById("sumFeet");
-    const sumGross = document.getElementById("sumGross");
-    const sumPaid = document.getElementById("sumPaid");
-    const sumBalance = document.getElementById("sumBalance");
-    const entryList = document.getElementById("entryList");
+    let dbRef = null;
+    let isCloudActive = false;
+    let workData = [];
+    let complaintData = [];
 
-    entryDate.valueAsDate = new Date();
+    const wDate = document.getElementById("wDate");
+    const wUnit = document.getElementById("wUnit");
+    const wName = document.getElementById("wName");
+    const wFeet = document.getElementById("wFeet");
+    const wNote = document.getElementById("wNote");
+    const workMsg = document.getElementById("workMsg");
 
-    unitSelect.addEventListener("change", () => {
-      const selectedOption = unitSelect.options[unitSelect.selectedIndex];
-      rateInput.value = selectedOption.getAttribute("data-rate") || "1";
-      updateCalc();
-    });
+    const cFrom = document.getElementById("cFrom");
+    const cAgainst = document.getElementById("cAgainst");
+    const cText = document.getElementById("cText");
+    const complaintMsg = document.getElementById("complaintMsg");
 
-    function getCalculations() {
-      const feet = parseFloat(feetInput.value) || 0;
-      const rate = parseFloat(rateInput.value) || 0;
-      const advance = parseFloat(advanceInput.value) || 0;
-      const paid = parseFloat(paidInput.value) || 0;
-      const gross = feet * rate;
-      const totalPaid = advance + paid;
-      const balance = gross - totalPaid;
-      return { feet, rate, advance, paid, gross, totalPaid, balance };
+    wDate.valueAsDate = new Date();
+
+    function initStorage() {
+      if (FIREBASE_CONFIG && FIREBASE_CONFIG.databaseURL) {
+        try {
+          firebase.initializeApp(FIREBASE_CONFIG);
+          const db = firebase.database();
+          dbRef = {
+            work: db.ref("yousaf_khan_marble/work"),
+            complaints: db.ref("yousaf_khan_marble/complaints")
+          };
+          isCloudActive = true;
+          document.getElementById("syncStatus").textContent = "Firebase لائیو سنک فعال ہے — مزدوروں کی انٹری فوراً نظر آئے گی";
+
+          dbRef.work.on("value", snap => {
+            const val = snap.val() || {};
+            workData = Object.values(val).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            renderAdmin();
+          });
+
+          dbRef.complaints.on("value", snap => {
+            const val = snap.val() || {};
+            complaintData = Object.values(val).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            renderAdmin();
+          });
+          return;
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      workData = JSON.parse(localStorage.getItem(WORK_KEY) || "[]");
+      complaintData = JSON.parse(localStorage.getItem(COMP_KEY) || "[]");
+      renderAdmin();
     }
 
-    function updateCalc() {
-      const { gross, totalPaid, balance } = getCalculations();
-      calcGross.textContent = gross.toLocaleString() + " روپے";
-      calcPaid.textContent = totalPaid.toLocaleString() + " روپے";
-      calcBalance.textContent = balance.toLocaleString() + " روپے";
+    function persistLocal() {
+      localStorage.setItem(WORK_KEY, JSON.stringify(workData));
+      localStorage.setItem(COMP_KEY, JSON.stringify(complaintData));
     }
 
-    [feetInput, rateInput, advanceInput, paidInput].forEach(el => {
-      el.addEventListener("input", updateCalc);
-    });
+    function switchMode(mode) {
+      const workerSec = document.getElementById("workerSection");
+      const adminSec = document.getElementById("adminSection");
+      const btnW = document.getElementById("btnWorkerMode");
+      const btnA = document.getElementById("btnAdminMode");
 
-    function loadRecords() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      } catch {
-        return [];
+      if (mode === "worker") {
+        workerSec.classList.remove("hidden");
+        adminSec.classList.add("hidden");
+        btnW.classList.add("active");
+        btnA.classList.remove("active");
+      } else {
+        workerSec.classList.add("hidden");
+        adminSec.classList.remove("hidden");
+        btnA.classList.add("active");
+        btnW.classList.remove("active");
       }
     }
 
-    function saveRecords(records) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
-    }
-
-    function render() {
-      const records = loadRecords();
-      let totalFeet = 0;
-      let totalGross = 0;
-      let totalSettled = 0;
-      let totalBal = 0;
-
-      records.forEach(r => {
-        totalFeet += Number(r.feet) || 0;
-        totalGross += Number(r.gross) || 0;
-        totalSettled += (Number(r.advance) || 0) + (Number(r.paid) || 0);
-        totalBal += Number(r.balance) || 0;
-      });
-
-      sumFeet.textContent = totalFeet.toLocaleString();
-      sumGross.textContent = totalGross.toLocaleString();
-      sumPaid.textContent = totalSettled.toLocaleString();
-      sumBalance.textContent = totalBal.toLocaleString();
-
-      if (records.length === 0) {
-        entryList.innerHTML = '<div class="empty">ابھی تک کوئی انٹری محفوظ نہیں کی گئی۔ اوپر فارم بھر کر ریکارڈ شامل کریں۔</div>';
-        return;
+    function unlockAdmin() {
+      const pin = document.getElementById("adminPin").value.trim();
+      const pinMsg = document.getElementById("pinMsg");
+      if (pin === ADMIN_PIN) {
+        document.getElementById("adminLockBox").classList.add("hidden");
+        document.getElementById("adminPanel").classList.remove("hidden");
+        pinMsg.textContent = "";
+        renderAdmin();
+      } else {
+        pinMsg.style.color = "#fb7185";
+        pinMsg.textContent = "پن کوڈ درست نہیں ہے۔";
       }
-
-      entryList.innerHTML = records.map(r => `
-        <div class="entry-item">
-          <div class="entry-top">
-            <span class="badge">${r.unitLabel}</span>
-            <span style="font-size:12px;color:#94a3b8;">${r.date}</span>
-          </div>
-          <div class="entry-meta">
-            <strong>عملہ / مزدور:</strong> ${r.workers}
-            ${r.notes ? `<br/><strong>نوٹ:</strong> ${r.notes}` : ""}
-          </div>
-          <div class="entry-nums">
-            <span><strong>فٹ:</strong> ${Number(r.feet).toLocaleString()}</span>
-            <span><strong>ریٹ:</strong> ${Number(r.rate).toLocaleString()}</span>
-            <span><strong>کل اجرت:</strong> ${Number(r.gross).toLocaleString()}</span>
-            <span><strong>ایڈوانس/ادائیگی:</strong> ${((Number(r.advance) || 0) + (Number(r.paid) || 0)).toLocaleString()}</span>
-            <span style="color:#fbbf24;"><strong>بقایا:</strong> ${Number(r.balance).toLocaleString()}</span>
-            <button type="button" class="btn-danger" onclick="deleteRecord('${r.id}')">حذف</button>
-          </div>
-        </div>
-      `).join("");
     }
 
-    function deleteRecord(id) {
-      const updated = loadRecords().filter(r => r.id !== id);
-      saveRecords(updated);
-      render();
+    function lockAdmin() {
+      document.getElementById("adminPin").value = "";
+      document.getElementById("adminPanel").classList.add("hidden");
+      document.getElementById("adminLockBox").classList.remove("hidden");
     }
 
-    function resetForm() {
-      entryForm.reset();
-      entryDate.valueAsDate = new Date();
-      unitSelect.value = "vertical_athara";
-      rateInput.value = "7";
-      advanceInput.value = "0";
-      paidInput.value = "0";
-      updateCalc();
-    }
-
-    entryForm.addEventListener("submit", (e) => {
+    document.getElementById("workForm").addEventListener("submit", e => {
       e.preventDefault();
-      const { feet, rate, advance, paid, gross, balance } = getCalculations();
-      const unitLabel = unitSelect.options[unitSelect.selectedIndex].text;
+      const opt = wUnit.options[wUnit.selectedIndex];
+      const defaultRate = Number(opt.getAttribute("data-rate")) || 1;
+      const feet = Number(wFeet.value) || 0;
 
-      const newRecord = {
-        id: Date.now().toString(),
-        date: entryDate.value,
-        unit: unitSelect.value,
-        unitLabel,
-        workers: workersInput.value.trim(),
+      const entry = {
+        id: "w_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+        createdAt: Date.now(),
+        date: wDate.value,
+        unit: wUnit.value,
+        unitLabel: opt.text,
+        workerName: wName.value.trim(),
         feet,
-        rate,
-        advance,
-        paid,
-        gross,
-        balance,
-        notes: notesInput.value.trim()
+        rate: defaultRate,
+        advance: 0,
+        paid: 0,
+        note: wNote.value.trim()
       };
 
-      const records = loadRecords();
-      records.unshift(newRecord);
-      saveRecords(records);
-      render();
-      resetForm();
+      if (isCloudActive && dbRef) {
+        dbRef.work.child(entry.id).set(entry);
+      } else {
+        workData.unshift(entry);
+        persistLocal();
+        renderAdmin();
+      }
+
+      wName.value = "";
+      wFeet.value = "";
+      wNote.value = "";
+      workMsg.style.color = "#4ade80";
+      workMsg.textContent = "آج کا کام محفوظ ہو گیا اور مالک/نگران کے ڈیش بورڈ میں بھیج دیا گیا ہے۔";
     });
 
-    updateCalc();
-    render();
-  </script>
-</body>
-  </html>
-  
+    document.getElementById("complaintForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const item = {
+        id: "c_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
+        createdAt: Date.now(),
+        date: new Date().toISOString().slice(0, 10),
+        from: cFrom.value.trim(),
+        against: cAgainst.value.trim(),
+        text: cText.value.trim(),
+        resolved: false
+      };
+
+      if (isCloudActive && dbRef) {
+        dbRef.complaints.child(item.id).set(item);
+      } else {
+        complaintData.unshift(item);
+        persistLocal();
+        renderAdmin();
+      }
+
+      cFrom.value = "";
+      cAgainst.value = "";
+      cText.value = "";
+      complaintMsg.style.color = "#fbbf24";
+      complaintMsg.textContent = "آپ کی خفیہ شکایت محفوظ کر لی گئی ہے (صرف فیکٹری مالک/نگران دیکھیں گے)۔";
+    });
+
+    function updateAccount(id) {
+      const rateVal = Number(document.getElementById("rate_" + id).value) || 0;
+      const advVal = Number(document.getElementById("adv_" + id).value) || 0;
+      const paidVal = Number(document.getElementById("paid_" + id).value) || 0;
+
+      const target = workData.find(x => x.id === id);
+      if (!target) return;
+      target.rate = rateVal;
+      target.advance = advVal;
+      target.paid = paidVal;
+
+      if (isCloudActive && dbRef) {
+        dbRef.work.child(id).update({ rate: rateVal, advance: advVal, paid: paidVal });
+      } else {
+        persistLocal();
+        renderAdmin();
+      }
+    }
+
+    function deleteWork(id) {
+      if (isCloudActive && dbRef) {
+        dbRef.work.child(id).remove();
+      } else {
+        workData = workData.filter(x => x.id !== id);
+        persistLocal();
+        renderAdmin();
+      }
+    }
+
+    function toggleResolveComplaint(id) {
+      const target = complaintData.find(x => x.id === id);
+      if (!target) return;
+      const nextState = !target.resolved;
+      target.resolved = nextState;
+
+      if (isCloudActive && dbRef) {
+        dbRef.complaints.child(id).update({ resolved: nextState });
+      } else {
+        persistLocal();
+        renderAdmin();
+      }
+    }
+
+    function deleteComplaint(id) {
+      if (isCloudActive && dbRef) {
+        dbRef.complaints.child(id).remove();
+      } else {
+        complaintData = complaintData.filter(x => x.id !== id);
+        persistLocal();
+        renderAdmin();
+      }
+    }
+
+    function renderAdmin() {
+      let totalFeet = 0;
+      let totalGross = 0;
+      let totalBal = 0;
+
+      workData.forEach(item => {
+        const feet = Number(item.feet) || 0;
+        const rate = Number(item.rate) || 0;
+        const adv = Number(item.advance) || 0;
+        const paid = Number(item.paid) || 0;
+        const gross = feet * rate;
+        const bal = gross - (adv + paid);
+
+        totalFeet += feet;
+        totalGross += gross;
+        totalBal += bal;
+      });
+
+      document.getElementById("sumFeet").textContent = totalFeet.toLocaleString();
+      document.getElementById("sumGross").textContent = totalGross.toLocaleString();
+      document.getElementById("sumBalance").textContent = totalBal.toLocaleString();
+      document.getElementById("sumComplaints").textContent = complaintData.length.toLocaleString();
+
+      const workListEl = document.getElementById("workRecordsList");
+      if (workData.length === 0) {
+        workListEl.innerHTML = '<div class="empty">ابھی تک مزدوروں کی طرف سے کوئی کام درج نہیں ہوا۔</div>';
+      } else {
+        workListEl.innerHTML = workData.map(item => {
+          const feet = Number(item.feet) || 0;
+          const rate = Number(item.rate) || 0;
+          const adv = Number(item.advance) || 0;
+          const paid = Number
