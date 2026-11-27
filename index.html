@@ -3,578 +3,437 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>یوسف خان ماربل فیکٹری | فیکٹری و مزدور سسٹم</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <title>یوسف خان ماربل فیکٹری — لائیو سسٹم</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-2: #0b1220;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --danger: #f43f5e;
+      --border: rgba(148, 163, 184, 0.2);
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
     body {
-      background: linear-gradient(135deg, #0b1320, #162238);
-      color: #f8fafc;
-      min-height: 100vh;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
       padding: 16px;
-      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
-      line-height: 1.75;
+      line-height: 1.6;
     }
-    .app { max-width: 820px; margin: 0 auto 40px; }
+    .container { max-width: 920px; margin: 0 auto; }
     .header {
-      background: rgba(22, 34, 56, 0.96);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 18px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 14px;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
-    }
-    .header h1 { font-size: 24px; color: #38bdf8; margin-bottom: 4px; }
-    .header p { font-size: 13px; color: #cbd5e1; }
-
-    .mode-switch {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
       margin-bottom: 16px;
-    }
-    .mode-btn {
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #334155;
-      background: #0f172a;
-      color: #cbd5e1;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
-    }
-    .mode-btn.active {
-      background: #0284c7;
-      color: #fff;
-      border-color: #38bdf8;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    @media (min-width: 600px) {
-      .summary-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    .stat-card {
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 14px 12px;
-      text-align: center;
-    }
-    .stat-label { font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
-    .stat-value { font-size: 18px; font-weight: 800; color: #38bdf8; }
-    .stat-value.green { color: #4ade80; }
-    .stat-value.amber { color: #fbbf24; }
-    .stat-value.rose { color: #fb7185; }
-
-    .card {
-      background: rgba(22, 34, 56, 0.94);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-    }
-    .card h2 { font-size: 18px; color: #7dd3fc; margin-bottom: 14px; }
-    .row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
-    @media (min-width: 560px) {
-      .row.two { grid-template-columns: 1fr 1fr; }
-      .row.three { grid-template-columns: 1fr 1fr 1fr; }
-    }
-    label { display: block; font-size: 13px; color: #e2e8f0; margin-bottom: 5px; }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #334155;
-      background: #0b1320;
-      color: #fff;
-      font-size: 14px;
-      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
-    }
-    textarea { min-height: 85px; resize: vertical; }
-    .btn {
-      padding: 11px 16px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', system-ui, sans-serif;
-    }
-    .btn-primary { background: #0284c7; color: #fff; }
-    .btn-warn { background: #b45309; color: #fff; }
-    .btn-soft { background: #334155; color: #fff; }
-    .btn-ok { background: #15803d; color: #fff; padding: 6px 10px; font-size: 12px; border-radius: 8px; }
-    .btn-del { background: #991b1b; color: #fecaca; padding: 6px 10px; font-size: 12px; border-radius: 8px; }
-
-    .msg {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #4ade80;
-      min-height: 20px;
-    }
-    .item-box {
-      background: #0b1320;
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .item-top {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-    .badge {
-      background: rgba(2, 132, 199, 0.25);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      padding: 2px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .badge.complaint {
-      background: rgba(244, 63, 94, 0.18);
-      color: #fda4af;
-      border-color: rgba(251, 113, 133, 0.45);
-    }
-    .badge.resolved {
-      background: rgba(34, 197, 94, 0.18);
-      color: #86efac;
-      border-color: rgba(74, 222, 128, 0.4);
-    }
-    .meta { font-size: 13px; color: #cbd5e1; margin-bottom: 8px; }
-    .nums {
-      display: flex;
-      flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
-      font-size: 13px;
-      padding-top: 8px;
-      border-top: 1px solid #1e293b;
     }
-    .inline-edit {
+    .header h1 { margin: 0; font-size: 1.35rem; color: var(--accent); }
+    .header p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
+    .status-pill {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .tabs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-top: 10px;
+      margin-bottom: 16px;
     }
-    .inline-edit label { font-size: 11px; color: #94a3b8; margin-bottom: 2px; }
-    .inline-edit input { padding: 7px 9px; font-size: 13px; }
-    .empty { text-align: center; color: #94a3b8; padding: 18px; font-size: 14px; }
-    .hidden { display: none; }
-    .sync-bar {
-      font-size: 12px;
-      color: #94a3b8;
+    .tab-btn {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #062033;
+      border-color: var(--accent);
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .card h2 { margin: 0 0 12px; font-size: 1.1rem; color: var(--accent); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%;
+      background: var(--card-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .btn {
+      background: var(--accent-2);
+      color: #052e16;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.16);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 0;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .stat-box {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .stat-box .num { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+    .stat-box .lbl { font-size: 0.8rem; color: var(--muted); }
+    .record-item {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .record-meta { font-size: 0.82rem; color: var(--muted); }
+    .msg-toast {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      max-width: 460px;
+      margin: 0 auto;
+      background: #16a34a;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 600;
       text-align: center;
-      margin-bottom: 12px;
+      display: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
-  <div class="app">
+  <div class="container">
     <div class="header">
-      <h1>یوسف خان ماربل فیکٹری</h1>
-      <p>ورٹیکل + اٹھارہ (7 روپے/فٹ) • سیکشن (1 روپیہ/فٹ) • ری سائز (1 روپیہ/فٹ)</p>
+      <div>
+        <h1>یوسف خان ماربل فیکٹری</h1>
+        <p>شیربرج ملاگوری پشاور — لائیو پروڈکشن و شکایات پورٹل</p>
+      </div>
+      <div id="dbStatus" class="status-pill">Firebase کنیکٹ ہو رہا ہے...</div>
     </div>
 
-    <div id="syncStatus" class="sync-bar">لوکل موڈ فعال (Firebase سیٹ کرنے پر فونز کے درمیان لائیو سنک ہوگا)</div>
-
-    <div class="mode-switch">
-      <button id="btnWorkerMode" class="mode-btn active" onclick="switchMode('worker')">مزدور پورٹل (کام و شکایت)</button>
-      <button id="btnAdminMode" class="mode-btn" onclick="switchMode('admin')">مالک / نگران ڈیش بورڈ</button>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('production', this)">پروڈکشن لاگ</button>
+      <button class="tab-btn" onclick="switchTab('summary', this)">خلاصہ و اجرت</button>
+      <button class="tab-btn" onclick="switchTab('secret', this)">خفیہ شکایات</button>
     </div>
 
-    <!-- مزدور پورٹل -->
-    <div id="workerSection">
+    <!-- ٹیب 1: پروڈکشن لاگ -->
+    <div id="tab-production" class="panel active">
       <div class="card">
-        <h2>آج کا کام درج کریں</h2>
-        <form id="workForm">
-          <div class="row two">
+        <h2>نئی پروڈکشن انٹری درج کریں</h2>
+        <form id="prodForm">
+          <div class="grid">
             <div>
-              <label for="wDate">تاریخ</label>
-              <input type="date" id="wDate" required />
+              <label>کاریگر / ورکر کا نام</label>
+              <input type="text" id="workerName" placeholder="مثلاً: طاہر خان" required />
             </div>
             <div>
-              <label for="wUnit">مشین / یونٹ</label>
-              <select id="wUnit">
-                <option value="vertical_athara" data-rate="7">ورٹیکل + اٹھارہ (مشترکہ)</option>
-                <option value="section" data-rate="1">سیکشن</option>
-                <option value="resize" data-rate="1">ری سائز</option>
+              <label>مشین منتخب کریں</label>
+              <select id="machineName" required>
+                <option value="ورٹیکل">ورٹیکل</option>
+                <option value="اٹھارہ">اٹھارہ</option>
+                <option value="سیکشن">سیکشن</option>
+                <option value="ریسائز">ریسائز</option>
               </select>
             </div>
-          </div>
-
-          <div class="row two">
             <div>
-              <label for="wName">مزدور / استاد و ہیلپر کا نام</label>
-              <input type="text" id="wName" placeholder="مثال: ورٹیکل/اٹھارہ ٹیم یا مزدور کا نام" required />
+              <label>مکمل کام (فٹ میں)</label>
+              <input type="number" id="footage" step="0.01" min="0" placeholder="مثلاً: 250" required />
             </div>
             <div>
-              <label for="wFeet">آج کا کام (فٹ میں)</label>
-              <input type="number" id="wFeet" min="0.1" step="0.01" placeholder="مثال: 1000" required />
+              <label>ریٹ فی فٹ (روپے)</label>
+              <input type="number" id="ratePerFoot" step="0.01" min="0" placeholder="مثلاً: 15" required />
             </div>
           </div>
-
-          <div class="row">
-            <div>
-              <label for="wNote">مختصر نوٹ (اختیاری)</label>
-              <input type="text" id="wNote" placeholder="مثال: ماربل کٹنگ / ری سائز" />
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary" style="width:100%;">آج کا کام بھیجیں</button>
-          <div id="workMsg" class="msg"></div>
+          <button type="submit" class="btn">ڈیٹا محفوظ کریں (لائیو سنک)</button>
         </form>
       </div>
 
       <div class="card">
-        <h2>خفیہ شکایت درج کریں (صرف فیکٹری مالک/نگران دیکھیں گے)</h2>
-        <form id="complaintForm">
-          <div class="row two">
-            <div>
-              <label for="cFrom">شکایت کرنے والا (نام یا یونٹ)</label>
-              <input type="text" id="cFrom" placeholder="مثال: سیکشن یا مزدور کا نام" required />
-            </div>
-            <div>
-              <label for="cAgainst">کس کے خلاف / کس بارے میں شکایت ہے؟</label>
-              <input type="text" id="cAgainst" placeholder="مثال: دوسرے مزدور یا کام کا مسئلہ" required />
-            </div>
-          </div>
-          <div class="row">
-            <div>
-              <label for="cText">شکایت کی تفصیل</label>
-              <textarea id="cText" placeholder="اپنی بات یہاں لکھیں — یہ صرف آپ کے مالک/نگران کو نظر آئے گی..." required></textarea>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-warn" style="width:100%;">خفیہ شکایت بھیجیں</button>
-          <div id="complaintMsg" class="msg"></div>
-        </form>
+        <h2>حالیہ پروڈکشن ریکارڈز</h2>
+        <div id="prodList">لوڈ ہو رہا ہے...</div>
       </div>
     </div>
 
-    <!-- مالک / نگران ڈیش بورڈ -->
-    <div id="adminSection" class="hidden">
-      <div id="adminLockBox" class="card">
-        <h2>مالک / نگران رسائی</h2>
-        <div class="row two">
-          <div>
-            <label for="adminPin">پن کوڈ (ڈیفالٹ: 1234)</label>
-            <input type="password" id="adminPin" placeholder="پن کوڈ درج کریں" />
+    <!-- ٹیب 2: خلاصہ و اجرت -->
+    <div id="tab-summary" class="panel">
+      <div class="card">
+        <h2>مجموعی کارکردگی اور اجرت کا خلاصہ</h2>
+        <div class="stats">
+          <div class="stat-box">
+            <div class="num" id="totalFeet">0</div>
+            <div class="lbl">کل فٹ</div>
           </div>
-          <div style="display:flex;align-items:flex-end;">
-            <button type="button" class="btn btn-primary" style="width:100%;" onclick="unlockAdmin()">ڈیش بورڈ کھولیں</button>
+          <div class="stat-box">
+            <div class="num" id="totalWage">0</div>
+            <div class="lbl">کل اجرت (روپے)</div>
+          </div>
+          <div class="stat-box">
+            <div class="num" id="totalEntries">0</div>
+            <div class="lbl">کل انٹریز</div>
           </div>
         </div>
-        <div id="pinMsg" class="msg"></div>
+        <div id="machineBreakdown"></div>
+      </div>
+    </div>
+
+    <!-- ٹیب 3: خفیہ شکایات -->
+    <div id="tab-secret" class="panel">
+      <div class="card">
+        <h2>خفیہ شکایت / سپروائزر فیڈبیک بھیجیں</h2>
+        <form id="secretForm">
+          <div class="grid">
+            <div>
+              <label>شعبہ / مشین (اختیاری)</label>
+              <select id="secretDept">
+                <option value="عمومی">عمومی</option>
+                <option value="ورٹیکل">ورٹیکل</option>
+                <option value="اٹھارہ">اٹھارہ</option>
+                <option value="سیکشن">سیکشن</option>
+                <option value="ریسائز">ریسائز</option>
+              </select>
+            </div>
+            <div>
+              <label>نام (خفیہ رکھنا ہو تو خالی چھوڑ دیں)</label>
+              <input type="text" id="secretSender" placeholder="گمنام" />
+            </div>
+          </div>
+          <div style="margin-top: 10px;">
+            <label>تفصیل / شکایت</label>
+            <textarea id="secretText" placeholder="اپنی بات یا شکایت یہاں لکھیں..." required></textarea>
+          </div>
+          <button type="submit" class="btn">خفیہ پیغام ارسال کریں</button>
+        </form>
       </div>
 
-      <div id="adminPanel" class="hidden">
-        <div class="summary-grid">
-          <div class="stat-card">
-            <div class="stat-label">کل فٹ کام</div>
-            <div id="sumFeet" class="stat-value">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">کل اجرت (روپے)</div>
-            <div id="sumGross" class="stat-value green">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">بقایا رقم (روپے)</div>
-            <div id="sumBalance" class="stat-value amber">0</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">خفیہ شکایات</div>
-            <div id="sumComplaints" class="stat-value rose">0</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
-            <h2 style="margin:0;">مزدوروں کا کام اور فی فٹ کھاتہ</h2>
-            <button type="button" class="btn btn-soft" onclick="lockAdmin()">لاک کریں</button>
-          </div>
-          <div id="workRecordsList"></div>
-        </div>
-
-        <div class="card">
-          <h2>خفیہ شکایات (صرف آپ کے لیے)</h2>
-          <div id="complaintsList"></div>
-        </div>
+      <div class="card">
+        <h2>موصولہ خفیہ پیغامات (صرف سپروائزر کے لیے)</h2>
+        <div id="secretList">لوڈ ہو رہا ہے...</div>
       </div>
     </div>
   </div>
 
-  <!-- اختیاری Firebase لائیو سنک (اگر آپ اپنا Firebase config نیچے پیسٹ کریں گے تو خود بخود فعال ہو جائے گا) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-  <script>
-    const FIREBASE_CONFIG = {
-      // مثال:
-      // apiKey: "YOUR_API_KEY",
-      // authDomain: "YOUR_PROJECT.firebaseapp.com",
-      // databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-      // projectId: "YOUR_PROJECT_ID"
+  <div id="toast" class="msg-toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      push,
+      onValue,
+      remove
+    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBzL7ToAxAIAdRUY9mhJg_ChTfGjKXmTdY",
+      authDomain: "yousaf-khan-marble.firebaseapp.com",
+      databaseURL: "https://yousaf-khan-marble-default-rtdb.firebaseio.com",
+      projectId: "yousaf-khan-marble",
+      storageBucket: "yousaf-khan-marble.firebasestorage.app",
+      messagingSenderId: "348715247959",
+      appId: "1:348715247959:web:f562d0f778657d6bee3612",
+      measurementId: "G-2M87407HCW"
     };
 
-    const ADMIN_PIN = "1234";
-    const WORK_KEY = "yk_marble_work_v1";
-    const COMP_KEY = "yk_marble_complaints_v1";
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    let dbRef = null;
-    let isCloudActive = false;
-    let workData = [];
-    let complaintData = [];
+    const prodRef = ref(db, "marbleFactory/production");
+    const secretRef = ref(db, "marbleFactory/secretComplaints");
 
-    const wDate = document.getElementById("wDate");
-    const wUnit = document.getElementById("wUnit");
-    const wName = document.getElementById("wName");
-    const wFeet = document.getElementById("wFeet");
-    const wNote = document.getElementById("wNote");
-    const workMsg = document.getElementById("workMsg");
+    const statusEl = document.getElementById("dbStatus");
+    const toastEl = document.getElementById("toast");
 
-    const cFrom = document.getElementById("cFrom");
-    const cAgainst = document.getElementById("cAgainst");
-    const cText = document.getElementById("cText");
-    const complaintMsg = document.getElementById("complaintMsg");
-
-    wDate.valueAsDate = new Date();
-
-    function initStorage() {
-      if (FIREBASE_CONFIG && FIREBASE_CONFIG.databaseURL) {
-        try {
-          firebase.initializeApp(FIREBASE_CONFIG);
-          const db = firebase.database();
-          dbRef = {
-            work: db.ref("yousaf_khan_marble/work"),
-            complaints: db.ref("yousaf_khan_marble/complaints")
-          };
-          isCloudActive = true;
-          document.getElementById("syncStatus").textContent = "Firebase لائیو سنک فعال ہے — مزدوروں کی انٹری فوراً نظر آئے گی";
-
-          dbRef.work.on("value", snap => {
-            const val = snap.val() || {};
-            workData = Object.values(val).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-            renderAdmin();
-          });
-
-          dbRef.complaints.on("value", snap => {
-            const val = snap.val() || {};
-            complaintData = Object.values(val).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-            renderAdmin();
-          });
-          return;
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
-      workData = JSON.parse(localStorage.getItem(WORK_KEY) || "[]");
-      complaintData = JSON.parse(localStorage.getItem(COMP_KEY) || "[]");
-      renderAdmin();
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.style.display = "block";
+      setTimeout(() => { toastEl.style.display = "none"; }, 2600);
     }
 
-    function persistLocal() {
-      localStorage.setItem(WORK_KEY, JSON.stringify(workData));
-      localStorage.setItem(COMP_KEY, JSON.stringify(complaintData));
-    }
+    window.switchTab = function (tabName, btnEl) {
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("tab-" + tabName).classList.add("active");
+      btnEl.classList.add("active");
+    };
 
-    function switchMode(mode) {
-      const workerSec = document.getElementById("workerSection");
-      const adminSec = document.getElementById("adminSection");
-      const btnW = document.getElementById("btnWorkerMode");
-      const btnA = document.getElementById("btnAdminMode");
-
-      if (mode === "worker") {
-        workerSec.classList.remove("hidden");
-        adminSec.classList.add("hidden");
-        btnW.classList.add("active");
-        btnA.classList.remove("active");
-      } else {
-        workerSec.classList.add("hidden");
-        adminSec.classList.remove("hidden");
-        btnA.classList.add("active");
-        btnW.classList.remove("active");
-      }
-    }
-
-    function unlockAdmin() {
-      const pin = document.getElementById("adminPin").value.trim();
-      const pinMsg = document.getElementById("pinMsg");
-      if (pin === ADMIN_PIN) {
-        document.getElementById("adminLockBox").classList.add("hidden");
-        document.getElementById("adminPanel").classList.remove("hidden");
-        pinMsg.textContent = "";
-        renderAdmin();
-      } else {
-        pinMsg.style.color = "#fb7185";
-        pinMsg.textContent = "پن کوڈ درست نہیں ہے۔";
-      }
-    }
-
-    function lockAdmin() {
-      document.getElementById("adminPin").value = "";
-      document.getElementById("adminPanel").classList.add("hidden");
-      document.getElementById("adminLockBox").classList.remove("hidden");
-    }
-
-    document.getElementById("workForm").addEventListener("submit", e => {
+    // پروڈکشن انٹری محفوظ کرنا
+    document.getElementById("prodForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const opt = wUnit.options[wUnit.selectedIndex];
-      const defaultRate = Number(opt.getAttribute("data-rate")) || 1;
-      const feet = Number(wFeet.value) || 0;
+      const worker = document.getElementById("workerName").value.trim();
+      const machine = document.getElementById("machineName").value;
+      const feet = parseFloat(document.getElementById("footage").value) || 0;
+      const rate = parseFloat(document.getElementById("ratePerFoot").value) || 0;
+      const wage = feet * rate;
 
-      const entry = {
-        id: "w_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
-        createdAt: Date.now(),
-        date: wDate.value,
-        unit: wUnit.value,
-        unitLabel: opt.text,
-        workerName: wName.value.trim(),
+      await push(prodRef, {
+        worker,
+        machine,
         feet,
-        rate: defaultRate,
-        advance: 0,
-        paid: 0,
-        note: wNote.value.trim()
-      };
-
-      if (isCloudActive && dbRef) {
-        dbRef.work.child(entry.id).set(entry);
-      } else {
-        workData.unshift(entry);
-        persistLocal();
-        renderAdmin();
-      }
-
-      wName.value = "";
-      wFeet.value = "";
-      wNote.value = "";
-      workMsg.style.color = "#4ade80";
-      workMsg.textContent = "آج کا کام محفوظ ہو گیا اور مالک/نگران کے ڈیش بورڈ میں بھیج دیا گیا ہے۔";
-    });
-
-    document.getElementById("complaintForm").addEventListener("submit", e => {
-      e.preventDefault();
-      const item = {
-        id: "c_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6),
-        createdAt: Date.now(),
-        date: new Date().toISOString().slice(0, 10),
-        from: cFrom.value.trim(),
-        against: cAgainst.value.trim(),
-        text: cText.value.trim(),
-        resolved: false
-      };
-
-      if (isCloudActive && dbRef) {
-        dbRef.complaints.child(item.id).set(item);
-      } else {
-        complaintData.unshift(item);
-        persistLocal();
-        renderAdmin();
-      }
-
-      cFrom.value = "";
-      cAgainst.value = "";
-      cText.value = "";
-      complaintMsg.style.color = "#fbbf24";
-      complaintMsg.textContent = "آپ کی خفیہ شکایت محفوظ کر لی گئی ہے (صرف فیکٹری مالک/نگران دیکھیں گے)۔";
-    });
-
-    function updateAccount(id) {
-      const rateVal = Number(document.getElementById("rate_" + id).value) || 0;
-      const advVal = Number(document.getElementById("adv_" + id).value) || 0;
-      const paidVal = Number(document.getElementById("paid_" + id).value) || 0;
-
-      const target = workData.find(x => x.id === id);
-      if (!target) return;
-      target.rate = rateVal;
-      target.advance = advVal;
-      target.paid = paidVal;
-
-      if (isCloudActive && dbRef) {
-        dbRef.work.child(id).update({ rate: rateVal, advance: advVal, paid: paidVal });
-      } else {
-        persistLocal();
-        renderAdmin();
-      }
-    }
-
-    function deleteWork(id) {
-      if (isCloudActive && dbRef) {
-        dbRef.work.child(id).remove();
-      } else {
-        workData = workData.filter(x => x.id !== id);
-        persistLocal();
-        renderAdmin();
-      }
-    }
-
-    function toggleResolveComplaint(id) {
-      const target = complaintData.find(x => x.id === id);
-      if (!target) return;
-      const nextState = !target.resolved;
-      target.resolved = nextState;
-
-      if (isCloudActive && dbRef) {
-        dbRef.complaints.child(id).update({ resolved: nextState });
-      } else {
-        persistLocal();
-        renderAdmin();
-      }
-    }
-
-    function deleteComplaint(id) {
-      if (isCloudActive && dbRef) {
-        dbRef.complaints.child(id).remove();
-      } else {
-        complaintData = complaintData.filter(x => x.id !== id);
-        persistLocal();
-        renderAdmin();
-      }
-    }
-
-    function renderAdmin() {
-      let totalFeet = 0;
-      let totalGross = 0;
-      let totalBal = 0;
-
-      workData.forEach(item => {
-        const feet = Number(item.feet) || 0;
-        const rate = Number(item.rate) || 0;
-        const adv = Number(item.advance) || 0;
-        const paid = Number(item.paid) || 0;
-        const gross = feet * rate;
-        const bal = gross - (adv + paid);
-
-        totalFeet += feet;
-        totalGross += gross;
-        totalBal += bal;
+        rate,
+        wage,
+        createdAt: new Date().toLocaleString("ur-PK")
       });
 
-      document.getElementById("sumFeet").textContent = totalFeet.toLocaleString();
-      document.getElementById("sumGross").textContent = totalGross.toLocaleString();
-      document.getElementById("sumBalance").textContent = totalBal.toLocaleString();
-      document.getElementById("sumComplaints").textContent = complaintData.length.toLocaleString();
+      e.target.reset();
+      showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
+    });
 
-      const workListEl = document.getElementById("workRecordsList");
-      if (workData.length === 0) {
-        workListEl.innerHTML = '<div class="empty">ابھی تک مزدوروں کی طرف سے کوئی کام درج نہیں ہوا۔</div>';
+    // لائیو پروڈکشن ڈیٹا سننا
+    onValue(prodRef, (snapshot) => {
+      statusEl.textContent = "لائیو سنک فعال ہے";
+      const data = snapshot.val() || {};
+      const entries = Object.entries(data).reverse();
+
+      const prodList = document.getElementById("prodList");
+      let totalFeet = 0;
+      let totalWage = 0;
+      const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
+
+      if (entries.length === 0) {
+        prodList.innerHTML = "<p style='color:#94a3b8'>ابھی کوئی ریکارڈ درج نہیں ہوا۔</p>";
       } else {
-        workListEl.innerHTML = workData.map(item => {
-          const feet = Number(item.feet) || 0;
-          const rate = Number(item.rate) || 0;
-          const adv = Number(item.advance) || 0;
-          const paid = Number
+        prodList.innerHTML = entries.map(([id, item]) => {
+          totalFeet += Number(item.feet || 0);
+          totalWage += Number(item.wage || 0);
+          if (byMachine[item.machine] !== undefined) {
+            byMachine[item.machine] += Number(item.feet || 0);
+          }
+          return `
+            <div class="record-item">
+              <div>
+                <strong>${item.worker}</strong> — <span style="color:#38bdf8">${item.machine}</span><br/>
+                <span>${item.feet} فٹ × ${item.rate} روپے = <strong>${Number(item.wage || 0).toLocaleString()} روپے</strong></span>
+                <div class="record-meta">${item.createdAt || ""}</div>
+              </div>
+              <button class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
+            </div>
+          `;
+        }).join("");
+      }
+
+      document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
+      document.getElementById("totalWage").textContent = totalWage.toLocaleString();
+      document.getElementById("totalEntries").textContent = entries.length;
+
+      document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
+        .map(([m, f]) => `<div class="record-item"><span><strong>${m}</strong></span><span>${f.toLocaleString()} فٹ</span></div>`)
+        .join("");
+    }, () => {
+      statusEl.textContent = "کنکشن میں مسئلہ";
+    });
+
+    window.deleteProd = async function (id) {
+      await remove(ref(db, `marbleFactory/production/${id}`));
+      showToast("ریکارڈ حذف کر دیا گیا۔");
+    };
+
+    // خفیہ شکایت بھیجنا
+    document.getElementById("secretForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const dept = document.getElementById("secretDept").value;
+      const sender = document.getElementById("secretSender").value.trim() || "گمنام";
+      const message = document.getElementById("secretText").value.trim();
+
+      await push(secretRef, {
+        dept,
+        sender,
+        message,
+        createdAt: new Date().toLocaleString("ur-PK")
+      });
+
+      e.target.reset();
+      showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
+    });
+
+    // لائیو خفیہ پیغامات سننا
+    onValue(secretRef, (snapshot) => {
+      const data = snapshot.val() || {};
+      const items = Object.entries(data).reverse();
+      const secretList = document.getElementById("secretList");
+
+      if (items.length === 0) {
+        secretList.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
+        return;
+      }
+
+      secretList.innerHTML = items.map(([id, item]) => `
+        <div class="record-item">
+          <div>
+            <strong>${item.sender}</strong> (${item.dept})<br/>
+            <p style="margin:6px 0">${item.message}</p>
+            <div class="record-meta">${item.createdAt || ""}</div>
+          </div>
+          <button class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
+        </div>
+      `).join("");
+    });
+
+    window.deleteSecret = async function (id) {
+      await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
+      showToast("پیغام حذف کر دیا گیا۔");
+    };
+  </script>
+</body>
+  </html>
+  
