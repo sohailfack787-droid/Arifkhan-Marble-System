@@ -388,5 +388,202 @@
     });
 
     // لائیو پروڈکشن ڈیٹا سننا اور خلاصہ + مزدور وار حساب بنانا
-    onValue(prodRef, (
+    onValue(prodRef, (snapshot) => {
+      statusEl.textContent = "لائیو سنک فعال ہے";
+      const data = snapshot.val() || {};
+      const entries = Object.entries(data).reverse();
+
+      const prodList = document.getElementById("prodList");
+      let totalFeet = 0;
+      let totalWage = 0;
+      const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
+      const byWorker = {};
+
+      if (entries.length === 0) {
+        prodList.innerHTML = "<p style='color:#94a3b8'>ابھی کوئی ریکارڈ درج نہیں ہوا۔</p>";
+      } else {
+        prodList.innerHTML = entries.map(([id, item]) => {
+          const feet = Number(item.feet || 0);
+          const wage = Number(item.wage || 0);
+          const workerName = item.worker || "نامعلوم";
+
+          totalFeet += feet;
+          totalWage += wage;
+
+          if (byMachine[item.machine] !== undefined) {
+            byMachine[item.machine] += feet;
+          }
+
+          if (!byWorker[workerName]) {
+            byWorker[workerName] = { feet: 0, wage: 0, count: 0 };
+          }
+          byWorker[workerName].feet += feet;
+          byWorker[workerName].wage += wage;
+          byWorker[workerName].count += 1;
+
+          return `
+            <div class="record-item">
+              <div>
+                <strong>${workerName}</strong> — <span style="color:#38bdf8">${item.machine}</span><br/>
+                <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
+                <div class="record-meta">${item.createdAt || ""}</div>
+              </div>
+              <button class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
+            </div>
+          `;
+        }).join("");
+      }
+
+      document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
+      document.getElementById("totalWage").textContent = totalWage.toLocaleString();
+      document.getElementById("totalEntries").textContent = entries.length;
+
+      document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
+        .map(([m, f]) => `
+          <div class="record-item">
+            <span><strong>${m}</strong></span>
+            <span>${f.toLocaleString()} فٹ</span>
+          </div>
+        `).join("");
+
+      const workerEntries = Object.entries(byWorker);
+      const workerBreakdownEl = document.getElementById("workerBreakdown");
+      if (workerEntries.length === 0) {
+        workerBreakdownEl.innerHTML = "<p style='color:#94a3b8'>مزدوروں کا حساب ابھی خالی ہے۔</p>";
+      } else {
+        workerBreakdownEl.innerHTML = workerEntries.map(([wName, info]) => `
+          <div class="record-item">
+            <div>
+              <strong>${wName}</strong> <span class="record-meta">(${info.count} انٹریز)</span><br/>
+              <span>کل کام: <strong>${info.feet.toLocaleString()} فٹ</strong></span>
+            </div>
+            <div style="text-align:left;">
+              <strong style="color:#4ade80">${info.wage.toLocaleString()} روپے</strong>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      // واٹس ایپ رپورٹ کا متن تیار کرنا
+      const machineLines = Object.entries(byMachine)
+        .map(([m, f]) => `• ${m}: ${f.toLocaleString()} فٹ`)
+        .join("\n");
+
+      const workerLines = workerEntries.length
+        ? workerEntries.map(([wName, info]) => `• ${wName}: ${info.feet.toLocaleString()} فٹ | اجرت: ${info.wage.toLocaleString()} روپے`).join("\n")
+        : "• کوئی ریکارڈ نہیں";
+
+      latestReportText =
+`یوسف خان ماربل فیکٹری (شیربرج ملاگوری)
+پروڈکشن و اجرت رپورٹ (${new Date().toLocaleDateString("ur-PK")})
+
+کل فٹ: ${totalFeet.toLocaleString()}
+کل اجرت: ${totalWage.toLocaleString()} روپے
+کل انٹریز: ${entries.length}
+
+مشینوں کا کام:
+${machineLines}
+
+مزدور وار اجرت:
+${workerLines}`;
+    }, () => {
+      statusEl.textContent = "کنکشن میں مسئلہ";
+    });
+
+    window.deleteProd = async function (id) {
+      await remove(ref(db, `marbleFactory/production/${id}`));
+      showToast("ریکارڈ حذف کر دیا گیا۔");
+    };
+
+    window.copyWhatsappReport = async function () {
+      try {
+        await navigator.clipboard.writeText(latestReportText);
+        showToast("رپورٹ کاپی ہو گئی! اب واٹس ایپ میں پیسٹ کریں۔");
+      } catch {
+        showToast("کاپی کرنے میں مسئلہ پیش آیا۔");
+      }
+    };
+
+    window.shareWhatsappReport = function () {
+      const url = "https://wa.me/?text=" + encodeURIComponent(latestReportText);
+      window.open(url, "_blank");
+    };
+
+    // خفیہ شکایت بھیجنا
+    document.getElementById("secretForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const dept = document.getElementById("secretDept").value;
+      const sender = document.getElementById("secretSender").value.trim() || "گمنام";
+      const message = document.getElementById("secretText").value.trim();
+
+      await push(secretRef, {
+        dept,
+        sender,
+        message,
+        createdAt: new Date().toLocaleString("ur-PK")
+      });
+
+      e.target.reset();
+      showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
+    });
+
+    function renderSecretList() {
+      const secretList = document.getElementById("secretList");
+      if (!isSupervisorUnlocked) {
+        secretList.innerHTML = "<p style='color:#94a3b8'>خفیہ پیغامات دیکھنے کے لیے سپروائزر پن درج کریں۔</p>";
+        return;
+      }
+
+      const items = Object.entries(latestSecretData).reverse();
+      if (items.length === 0) {
+        secretList.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
+        return;
+      }
+
+      secretList.innerHTML = items.map(([id, item]) => `
+        <div class="record-item">
+          <div>
+            <strong>${item.sender}</strong> (${item.dept})<br/>
+            <p style="margin:6px 0">${item.message}</p>
+            <div class="record-meta">${item.createdAt || ""}</div>
+          </div>
+          <button class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
+        </div>
+      `).join("");
+    }
+
+    window.unlockSecrets = function () {
+      const entered = document.getElementById("supervisorPinInput").value.trim();
+      if (entered === SUPERVISOR_PIN) {
+        isSupervisorUnlocked = true;
+        document.getElementById("supervisorLockBox").style.display = "none";
+        document.getElementById("supervisorUnlockedControls").style.display = "block";
+        document.getElementById("supervisorPinInput").value = "";
+        renderSecretList();
+        showToast("سپروائزر سیکشن کھل گیا۔");
+      } else {
+        showToast("غلط پن کوڈ! دوبارہ کوشش کریں۔");
+      }
+    };
+
+    window.lockSecrets = function () {
+      isSupervisorUnlocked = false;
+      document.getElementById("supervisorLockBox").style.display = "block";
+      document.getElementById("supervisorUnlockedControls").style.display = "none";
+      renderSecretList();
+      showToast("خفیہ پیغامات دوبارہ لاک ہو گئے۔");
+    };
+
+    // لائیو خفیہ پیغامات سننا
+    onValue(secretRef, (snapshot) => {
+      latestSecretData = snapshot.val() || {};
+      renderSecretList();
+    });
+
+    window.deleteSecret = async function (id) {
+      if (!isSupervisorUnlocked) {
+        showToast("پہلے سپروائزر پن سے ان لاک کریں۔");
+        return;
+      }
+      await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
     
