@@ -13,6 +13,7 @@
       --muted: #94a3b8;
       --accent: #38bdf8;
       --accent-2: #22c55e;
+      --warn: #f59e0b;
       --danger: #f43f5e;
       --border: rgba(148, 163, 184, 0.2);
     }
@@ -24,7 +25,7 @@
       padding: 16px;
       line-height: 1.6;
     }
-    .container { max-width: 920px; margin: 0 auto; }
+    .container { max-width: 960px; margin: 0 auto; }
     .header {
       background: linear-gradient(135deg, #1e293b, #0f172a);
       border: 1px solid var(--border);
@@ -81,7 +82,7 @@
     .card h2 { margin: 0 0 12px; font-size: 1.1rem; color: var(--accent); }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
       gap: 12px;
     }
     label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
@@ -112,7 +113,7 @@
       border: 1px solid rgba(56, 189, 248, 0.4);
       border-radius: 10px;
       padding: 9px 14px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
     }
@@ -149,6 +150,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      flex-wrap: wrap;
       gap: 10px;
     }
     .record-meta { font-size: 0.82rem; color: var(--muted); }
@@ -164,6 +166,22 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 14px;
+    }
+    .badge-pending {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+    }
+    .badge-reviewed {
+      background: rgba(34, 197, 94, 0.16);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
     }
     .msg-toast {
       position: fixed;
@@ -192,13 +210,11 @@
       </div>
       <div id="dbStatus" class="status-pill">Firebase کنیکٹ ہو رہا ہے...</div>
     </div>
-
     <div class="tabs">
       <button type="button" class="tab-btn active" onclick="switchTab('production', this)">پروڈکشن لاگ</button>
       <button type="button" class="tab-btn" onclick="switchTab('summary', this)">خلاصہ و اجرت</button>
       <button type="button" class="tab-btn" onclick="switchTab('secret', this)">خفیہ شکایات</button>
     </div>
-
     <!-- ٹیب 1: پروڈکشن لاگ -->
     <div id="tab-production" class="panel active">
       <div class="card">
@@ -219,6 +235,10 @@
               </select>
             </div>
             <div>
+              <label>تاریخ</label>
+              <input type="date" id="entryDate" required />
+            </div>
+            <div>
               <label>مکمل کام (فٹ میں)</label>
               <input type="number" id="footage" step="0.01" min="0" placeholder="مثلاً: 250" required />
             </div>
@@ -230,13 +250,17 @@
           <button type="submit" class="btn">ڈیٹا محفوظ کریں (لائیو سنک)</button>
         </form>
       </div>
-
       <div class="card">
         <h2>حالیہ پروڈکشن ریکارڈز</h2>
+        <div class="grid" style="margin-bottom: 12px;">
+          <div>
+            <label>مزدور کے نام سے تلاش / فلٹر کریں</label>
+            <input type="text" id="workerFilter" placeholder="نام لکھیں..." oninput="renderProduction()" />
+          </div>
+        </div>
         <div id="prodList">لوڈ ہو رہا ہے...</div>
       </div>
     </div>
-
     <!-- ٹیب 2: خلاصہ و اجرت -->
     <div id="tab-summary" class="panel">
       <div class="card">
@@ -244,6 +268,7 @@
         <div class="row-actions">
           <button type="button" class="btn-secondary" onclick="copyWhatsappReport()">رپورٹ کاپی کریں</button>
           <button type="button" class="btn-secondary" onclick="shareWhatsappReport()">واٹس ایپ شیئر</button>
+          <button type="button" class="btn-secondary" onclick="downloadBackup()">بیک اپ ڈاؤن لوڈ (JSON)</button>
         </div>
         <div class="stats">
           <div class="stat-box">
@@ -255,16 +280,20 @@
             <div class="lbl">کل اجرت (روپے)</div>
           </div>
           <div class="stat-box">
+            <div class="num" id="totalBalance">0</div>
+            <div class="lbl">کل بقایا (روپے)</div>
+          </div>
+          <div class="stat-box">
             <div class="num" id="totalEntries">0</div>
             <div class="lbl">کل انٹریز</div>
           </div>
         </div>
+        <h2>مشینوں کے حساب سے کام</h2>
         <div id="machineBreakdown"></div>
-        <h2 style="margin-top: 16px;">مزدور وار حساب</h2>
+        <h2 style="margin-top: 16px;">مزدور وار حساب، ایڈوانس اور بقایا</h2>
         <div id="workerBreakdown"></div>
       </div>
     </div>
-
     <!-- ٹیب 3: خفیہ شکایات -->
     <div id="tab-secret" class="panel">
       <div class="card">
@@ -293,7 +322,6 @@
           <button type="submit" class="btn">خفیہ پیغام ارسال کریں</button>
         </form>
       </div>
-
       <div class="card">
         <h2>موصولہ خفیہ پیغامات (صرف سپروائزر کے لیے)</h2>
         <div id="supervisorLockBox" class="lock-box">
@@ -310,9 +338,7 @@
       </div>
     </div>
   </div>
-
   <div id="toast" class="msg-toast"></div>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
     import {
@@ -320,9 +346,9 @@
       ref,
       push,
       onValue,
-      remove
+      remove,
+      update
     } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
-
     const firebaseConfig = {
       apiKey: "AIzaSyBzL7ToAxAIAdRUY9mhJg_ChTfGjKXmTdY",
       authDomain: "yousaf-khan-marble.firebaseapp.com",
@@ -333,127 +359,162 @@
       appId: "1:348715247959:web:f562d0f778657d6bee3612",
       measurementId: "G-2M87407HCW"
     };
-
     const SUPERVISOR_PIN = "1234";
+    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v1";
     let isUnlocked = false;
+    let latestProduction = {};
     let latestSecrets = {};
+    let workerAdvances = JSON.parse(localStorage.getItem(ADVANCE_STORAGE_KEY) || "{}");
     let reportText = "";
-
+    const dateInput = document.getElementById("entryDate");
+    if (dateInput && !dateInput.value) {
+      dateInput.value = new Date().toISOString().split("T")[0];
+    }
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-
     const prodRef = ref(db, "marbleFactory/production");
     const secretRef = ref(db, "marbleFactory/secretComplaints");
-
     const statusEl = document.getElementById("dbStatus");
     const toastEl = document.getElementById("toast");
-
     function showToast(msg) {
       toastEl.textContent = msg;
       toastEl.style.display = "block";
       setTimeout(() => { toastEl.style.display = "none"; }, 2600);
     }
-
     window.switchTab = function (tabName, btnEl) {
       document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
       document.getElementById("tab-" + tabName).classList.add("active");
       btnEl.classList.add("active");
     };
-
     document.getElementById("prodForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const worker = document.getElementById("workerName").value.trim();
       const machine = document.getElementById("machineName").value;
+      const entryDate = document.getElementById("entryDate").value || new Date().toISOString().split("T")[0];
       const feet = parseFloat(document.getElementById("footage").value) || 0;
       const rate = parseFloat(document.getElementById("ratePerFoot").value) || 0;
       const wage = feet * rate;
-
       await push(prodRef, {
         worker,
         machine,
+        entryDate,
         feet,
         rate,
         wage,
         createdAt: new Date().toLocaleString("ur-PK")
       });
-
       e.target.reset();
+      document.getElementById("entryDate").value = entryDate;
       showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
     });
-
-    onValue(prodRef, (snapshot) => {
-      statusEl.textContent = "لائیو سنک فعال ہے";
-      const data = snapshot.val() || {};
-      const entries = Object.entries(data).reverse();
-
-      const prodList = document.getElementById("prodList");
+    function computeSummary() {
+      const entries = Object.entries(latestProduction).reverse();
       let totalFeet = 0;
       let totalWage = 0;
+      let totalBalance = 0;
       const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
       const byWorker = {};
-
-      if (entries.length === 0) {
-        prodList.innerHTML = "<p style='color:#94a3b8'>ابھی کوئی ریکارڈ درج نہیں ہوا۔</p>";
-      } else {
-        prodList.innerHTML = entries.map(([id, item]) => {
-          const feet = Number(item.feet || 0);
-          const wage = Number(item.wage || 0);
-          const wName = item.worker || "نامعلوم";
-
-          totalFeet += feet;
-          totalWage += wage;
-          if (byMachine[item.machine] !== undefined) byMachine[item.machine] += feet;
-
-          if (!byWorker[wName]) byWorker[wName] = { feet: 0, wage: 0 };
-          byWorker[wName].feet += feet;
-          byWorker[wName].wage += wage;
-
-          return `
-            <div class="record-item">
-              <div>
-                <strong>${wName}</strong> — <span style="color:#38bdf8">${item.machine}</span><br/>
-                <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
-                <div class="record-meta">${item.createdAt || ""}</div>
-              </div>
-              <button type="button" class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
-            </div>
-          `;
-        }).join("");
-      }
-
+      entries.forEach(([, item]) => {
+        const feet = Number(item.feet || 0);
+        const wage = Number(item.wage || 0);
+        const wName = item.worker || "نامعلوم";
+        totalFeet += feet;
+        totalWage += wage;
+        if (byMachine[item.machine] !== undefined) byMachine[item.machine] += feet;
+        if (!byWorker[wName]) byWorker[wName] = { feet: 0, wage: 0 };
+        byWorker[wName].feet += feet;
+        byWorker[wName].wage += wage;
+      });
+      const workerEntries = Object.entries(byWorker);
+      workerEntries.forEach(([w, info]) => {
+        const paid = Number(workerAdvances[w] || 0);
+        totalBalance += (info.wage - paid);
+      });
       document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
       document.getElementById("totalWage").textContent = totalWage.toLocaleString();
+      document.getElementById("totalBalance").textContent = totalBalance.toLocaleString();
       document.getElementById("totalEntries").textContent = entries.length;
-
       document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
         .map(([m, f]) => `<div class="record-item"><span><strong>${m}</strong></span><span>${f.toLocaleString()} فٹ</span></div>`)
         .join("");
-
-      const workerEntries = Object.entries(byWorker);
       document.getElementById("workerBreakdown").innerHTML = workerEntries.length
-        ? workerEntries.map(([w, info]) => `
-            <div class="record-item">
-              <span><strong>${w}</strong> (${info.feet.toLocaleString()} فٹ)</span>
-              <strong style="color:#4ade80">${info.wage.toLocaleString()} روپے</strong>
-            </div>
-          `).join("")
+        ? workerEntries.map(([w, info]) => {
+            const paid = Number(workerAdvances[w] || 0);
+            const balance = info.wage - paid;
+            const safeAttr = encodeURIComponent(w);
+            return `
+              <div class="record-item">
+                <div>
+                  <strong>${w}</strong> (${info.feet.toLocaleString()} فٹ)<br/>
+                  <span>کل اجرت: <strong>${info.wage.toLocaleString()}</strong> | ادا شدہ: <strong>${paid.toLocaleString()}</strong> | بقایا: <strong style="color:#4ade80">${balance.toLocaleString()} روپے</strong></span>
+                </div>
+                <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+                  <input type="number" min="0" step="1" id="adv-${safeAttr}" value="${paid}" style="width:110px; padding:6px 8px;" placeholder="ادائیگی" />
+                  <button type="button" class="btn-secondary" onclick="saveWorkerAdvance('${safeAttr}')">محفوظ</button>
+                </div>
+              </div>
+            `;
+          }).join("")
         : "<p style='color:#94a3b8'>کوئی ریکارڈ نہیں۔</p>";
-
       reportText =
 `یوسف خان ماربل فیکٹری
-کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${totalWage.toLocaleString()} روپے
+کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${totalWage.toLocaleString()} روپے | بقایا: ${totalBalance.toLocaleString()} روپے
 مزدور وار حساب:
-${workerEntries.map(([w, info]) => `• ${w}: ${info.feet.toLocaleString()} فٹ — ${info.wage.toLocaleString()} روپے`).join("\n") || "• کوئی ریکارڈ نہیں"}`;
+${workerEntries.map(([w, info]) => {
+  const paid = Number(workerAdvances[w] || 0);
+  return `• ${w}: ${info.feet.toLocaleString()} فٹ | اجرت ${info.wage.toLocaleString()} | بقایا ${(info.wage - paid).toLocaleString()} روپے`;
+}).join("\n") || "• کوئی ریکارڈ نہیں"}`;
+    }
+    window.saveWorkerAdvance = function (encodedName) {
+      const workerName = decodeURIComponent(encodedName);
+      const inputEl = document.getElementById("adv-" + encodedName);
+      const amount = parseFloat(inputEl ? inputEl.value : 0) || 0;
+      workerAdvances[workerName] = amount;
+      localStorage.setItem(ADVANCE_STORAGE_KEY, JSON.stringify(workerAdvances));
+      computeSummary();
+      showToast(`${workerName} کی ادائیگی اپڈیٹ ہو گئی۔`);
+    };
+    window.renderProduction = function () {
+      const filterEl = document.getElementById("workerFilter");
+      const query = (filterEl ? filterEl.value : "").trim().toLowerCase();
+      const entries = Object.entries(latestProduction).reverse().filter(([, item]) => {
+        if (!query) return true;
+        return (item.worker || "").toLowerCase().includes(query) || (item.machine || "").toLowerCase().includes(query);
+      });
+      const prodList = document.getElementById("prodList");
+      if (entries.length === 0) {
+        prodList.innerHTML = "<p style='color:#94a3b8'>کوئی ریکارڈ نہیں ملا۔</p>";
+        return;
+      }
+      prodList.innerHTML = entries.map(([id, item]) => {
+        const feet = Number(item.feet || 0);
+        const wage = Number(item.wage || 0);
+        const wName = item.worker || "نامعلوم";
+        return `
+          <div class="record-item">
+            <div>
+              <strong>${wName}</strong> — <span style="color:#38bdf8">${item.machine}</span> <span class="record-meta">(${item.entryDate || ""})</span><br/>
+              <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
+              <div class="record-meta">${item.createdAt || ""}</div>
+            </div>
+            <button type="button" class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
+          </div>
+        `;
+      }).join("");
+    };
+    onValue(prodRef, (snapshot) => {
+      statusEl.textContent = "لائیو سنک فعال ہے";
+      latestProduction = snapshot.val() || {};
+      window.renderProduction();
+      computeSummary();
     }, () => {
       statusEl.textContent = "کنکشن میں مسئلہ";
     });
-
     window.deleteProd = async function (id) {
       await remove(ref(db, `marbleFactory/production/${id}`));
       showToast("ریکارڈ حذف کر دیا گیا۔");
     };
-
     window.copyWhatsappReport = async function () {
       try {
         await navigator.clipboard.writeText(reportText);
@@ -462,28 +523,40 @@ ${workerEntries.map(([w, info]) => `• ${w}: ${info.feet.toLocaleString()} فٹ
         showToast("کاپی نہیں ہو سکی۔");
       }
     };
-
-    window.shareWhatsappReport = function () {
+    window.shareWhatsappReport = function  () {
       window.open("https://wa.me/?text=" + encodeURIComponent(reportText), "_blank");
     };
-
+    window.downloadBackup = function () {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        production: latestProduction,
+        workerAdvances,
+        secretComplaints: isUnlocked ? latestSecrets : "Locked"
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `yousaf-khan-marble-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("بیک اپ فائل ڈاؤن لوڈ ہو گئی۔");
+    };
     document.getElementById("secretForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const dept = document.getElementById("secretDept").value;
       const sender = document.getElementById("secretSender").value.trim() || "گمنام";
       const message = document.getElementById("secretText").value.trim();
-
       await push(secretRef, {
         dept,
         sender,
         message,
+        status: "زیرِ غور",
         createdAt: new Date().toLocaleString("ur-PK")
       });
-
       e.target.reset();
       showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
     });
-
     function renderSecrets() {
       const el = document.getElementById("secretList");
       if (!isUnlocked) {
@@ -495,18 +568,31 @@ ${workerEntries.map(([w, info]) => `• ${w}: ${info.feet.toLocaleString()} فٹ
         el.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
         return;
       }
-      el.innerHTML = items.map(([id, item]) => `
-        <div class="record-item">
-          <div>
-            <strong>${item.sender}</strong> (${item.dept})<br/>
-            <p style="margin:6px 0">${item.message}</p>
-            <div class="record-meta">${item.createdAt || ""}</div>
+      el.innerHTML = items.map(([id, item]) => {
+        const isReviewed = item.status === "دیکھی جا چکی";
+        const badgeClass = isReviewed ? "badge-reviewed" : "badge-pending";
+        const statusLabel = isReviewed ? "دیکھی جا چکی" : "زیرِ غور";
+        return `
+          <div class="record-item">
+            <div>
+              <strong>${item.sender}</strong> (${item.dept}) <span class="${badgeClass}">${statusLabel}</span><br/>
+              <p style="margin:6px 0">${item.message}</p>
+              <div class="record-meta">${item.createdAt || ""}</div>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button type="button" class="btn-secondary" onclick="toggleSecretStatus('${id}', '${statusLabel}')">${isReviewed ? "زیرِ غور کریں" : "دیکھی جا چکی"}</button>
+              <button type="button" class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
+            </div>
           </div>
-          <button type="button" class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
-        </div>
-      `).join("");
+        `;
+      }).join("");
     }
-
+    window.toggleSecretStatus = async function (id, currentStatus) {
+      if (!isUnlocked) return;
+      const nextStatus = currentStatus === "دیکھی جا چکی" ? "زیرِ غور" : "دیکھی جا چکی";
+      await update(ref(db, `marbleFactory/secretComplaints/${id}`), { status: nextStatus });
+      showToast(`اسٹیٹس "${nextStatus}" کر دیا گیا۔`);
+    };
     window.unlockSecrets = function () {
       const val = document.getElementById("supervisorPinInput").value.trim();
       if (val === SUPERVISOR_PIN) {
@@ -520,19 +606,16 @@ ${workerEntries.map(([w, info]) => `• ${w}: ${info.feet.toLocaleString()} فٹ
         showToast("غلط پن کوڈ!");
       }
     };
-
     window.lockSecrets = function () {
       isUnlocked = false;
       document.getElementById("supervisorLockBox").style.display = "block";
       document.getElementById("supervisorUnlockedControls").style.display = "none";
       renderSecrets();
     };
-
     onValue(secretRef, (snapshot) => {
       latestSecrets = snapshot.val() || {};
       renderSecrets();
     });
-
     window.deleteSecret = async function (id) {
       if (!isUnlocked) return;
       await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
@@ -541,5 +624,3 @@ ${workerEntries.map(([w, info]) => `• ${w}: ${info.feet.toLocaleString()} فٹ
   </script>
 </body>
 </html>
-
-    
