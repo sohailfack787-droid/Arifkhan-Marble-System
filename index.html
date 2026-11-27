@@ -25,7 +25,7 @@
       padding: 16px;
       line-height: 1.6;
     }
-    .container { max-width: 960px; margin: 0 auto; }
+    .container { max-width: 980px; margin: 0 auto; }
     .header {
       background: linear-gradient(135deg, #1e293b, #0f172a);
       border: 1px solid var(--border);
@@ -112,8 +112,18 @@
       color: #7dd3fc;
       border: 1px solid rgba(56, 189, 248, 0.4);
       border-radius: 10px;
-      padding: 9px 14px;
-      font-size: 0.88rem;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
     }
@@ -153,19 +163,36 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .record-meta { font-size: 0.82rem; color: var(--muted); }
-    .lock-box {
+    .worker-card {
       background: var(--card-2);
-      border: 1px dashed rgba(56, 189, 248, 0.45);
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       padding: 14px;
       margin-bottom: 12px;
     }
-    .row-actions {
+    .worker-head {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
+    }
+    .badge-active {
+      background: rgba(34, 197, 94, 0.16);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+    }
+    .badge-stopped {
+      background: rgba(244, 63, 94, 0.16);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
     }
     .badge-pending {
       background: rgba(245, 158, 11, 0.16);
@@ -182,6 +209,20 @@
       padding: 2px 8px;
       border-radius: 999px;
       font-size: 0.78rem;
+    }
+    .record-meta { font-size: 0.82rem; color: var(--muted); }
+    .lock-box {
+      background: var(--card-2);
+      border: 1px dashed rgba(56, 189, 248, 0.45);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
     }
     .msg-toast {
       position: fixed;
@@ -211,25 +252,60 @@
       <div id="dbStatus" class="status-pill">Firebase کنیکٹ ہو رہا ہے...</div>
     </div>
     <div class="tabs">
-      <button type="button" class="tab-btn active" onclick="switchTab('production', this)">پروڈکشن لاگ</button>
+      <button type="button" class="tab-btn active" onclick="switchTab('production', this)">پروڈکشن و مزدور</button>
       <button type="button" class="tab-btn" onclick="switchTab('summary', this)">خلاصہ و اجرت</button>
       <button type="button" class="tab-btn" onclick="switchTab('secret', this)">خفیہ شکایات</button>
     </div>
-    <!-- ٹیب 1: پروڈکشن لاگ -->
+    <!-- ٹیب 1: پروڈکشن و مزدور -->
     <div id="tab-production" class="panel active">
+      <div class="card">
+        <h2>مزدوروں کے نام درج کریں / تبدیل کریں (ورٹیکل و اٹھارہ 4 حصوں میں تقسیم)</h2>
+        <p class="record-meta" style="margin-top:0; margin-bottom:12px;">
+          ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں برابر تقسیم ہوتا ہے۔ اگر کوئی کام چھوڑ جائے تو اس کی آخری تاریخ لگا کر "اسٹاپ" کریں اور نیا نام لکھ کر "اسٹارٹ" کریں۔
+        </p>
+        <div class="grid">
+          <div>
+            <label>ورٹیکل استاد کا نام</label>
+            <input type="text" id="slot_vert_ustad" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>ورٹیکل ہیلپر کا نام</label>
+            <input type="text" id="slot_vert_helper" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>اٹھارہ استاد کا نام</label>
+            <input type="text" id="slot_athara_ustad" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>اٹھارہ ہیلپر کا نام</label>
+            <input type="text" id="slot_athara_helper" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>سیکشن مزدور کا نام</label>
+            <input type="text" id="slot_section_worker" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>ریسائز مزدور کا نام</label>
+            <input type="text" id="slot_resize_worker" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>شروع کرنے کی تاریخ</label>
+            <input type="date" id="rosterStartDate" />
+          </div>
+        </div>
+        <div class="row-actions" style="margin-top:12px; margin-bottom:0;">
+          <button type="button" class="btn" style="margin-top:0;" onclick="saveAllSlots()">نام محفوظ کریں / اپڈیٹ کریں</button>
+        </div>
+      </div>
       <div class="card">
         <h2>نئی پروڈکشن انٹری درج کریں</h2>
         <form id="prodForm">
           <div class="grid">
             <div>
-              <label>کاریگر / ورکر کا نام</label>
-              <input type="text" id="workerName" placeholder="مثلاً: طاہر خان" required />
-            </div>
-            <div>
               <label>مشین منتخب کریں</label>
               <select id="machineName" required>
-                <option value="ورٹیکل">ورٹیکل</option>
-                <option value="اٹھارہ">اٹھارہ</option>
+                <option value="ورٹیکل">ورٹیکل (مشترکہ 4 بندے)</option>
+                <option value="اٹھارہ">اٹھارہ (مشترکہ 4 بندے)</option>
                 <option value="سیکشن">سیکشن</option>
                 <option value="ریسائز">ریسائز</option>
               </select>
@@ -254,8 +330,8 @@
         <h2>حالیہ پروڈکشن ریکارڈز</h2>
         <div class="grid" style="margin-bottom: 12px;">
           <div>
-            <label>مزدور کے نام سے تلاش / فلٹر کریں</label>
-            <input type="text" id="workerFilter" placeholder="نام لکھیں..." oninput="renderProduction()" />
+            <label>مشین یا تاریخ سے فلٹر کریں</label>
+            <input type="text" id="workerFilter" placeholder="مشین یا تاریخ لکھیں..." oninput="renderProduction()" />
           </div>
         </div>
         <div id="prodList">لوڈ ہو رہا ہے...</div>
@@ -288,9 +364,9 @@
             <div class="lbl">کل انٹریز</div>
           </div>
         </div>
-        <h2>مشینوں کے حساب سے کام</h2>
+        <h2>مشینوں کے حساب سے کام (ورٹیکل + اٹھارہ مشترکہ)</h2>
         <div id="machineBreakdown"></div>
-        <h2 style="margin-top: 16px;">مزدور وار حساب، ایڈوانس اور بقایا</h2>
+        <h2 style="margin-top: 16px;">ہر مزدور کا الگ خانہ (کام، ایڈوانس، بقایا، اسٹاپ / نیا بندہ)</h2>
         <div id="workerBreakdown"></div>
       </div>
     </div>
@@ -347,7 +423,8 @@
       push,
       onValue,
       remove,
-      update
+      update,
+      set
     } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
     const firebaseConfig = {
       apiKey: "AIzaSyBzL7ToAxAIAdRUY9mhJg_ChTfGjKXmTdY",
@@ -360,20 +437,41 @@
       measurementId: "G-2M87407HCW"
     };
     const SUPERVISOR_PIN = "1234";
-    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v1";
+    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v2";
+    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v2";
+    const SLOT_DEFS = [
+      { key: "vert_ustad", inputId: "slot_vert_ustad", label: "ورٹیکل استاد", group: "joint4" },
+      { key: "vert_helper", inputId: "slot_vert_helper", label: "ورٹیکل ہیلپر", group: "joint4" },
+      { key: "athara_ustad", inputId: "slot_athara_ustad", label: "اٹھارہ استاد", group: "joint4" },
+      { key: "athara_helper", inputId: "slot_athara_helper", label: "اٹھارہ ہیلپر", group: "joint4" },
+      { key: "section_worker", inputId: "slot_section_worker", label: "سیکشن مزدور", group: "سیکشن" },
+      { key: "resize_worker", inputId: "slot_resize_worker", label: "ریسائز مزدور", group: "ریسائز" }
+    ];
+    const todayStr = new Date().toISOString().split("T")[0];
     let isUnlocked = false;
     let latestProduction = {};
     let latestSecrets = {};
     let workerAdvances = JSON.parse(localStorage.getItem(ADVANCE_STORAGE_KEY) || "{}");
+    let rosterData = JSON.parse(localStorage.getItem(ROSTER_STORAGE_KEY) || "null") || {
+      slots: {
+        vert_ustad: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
+        vert_helper: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
+        athara_ustad: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
+        athara_helper: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
+        section_worker: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
+        resize_worker: { name: "", startDate: todayStr, endDate: "", active: true, history: [] }
+      }
+    };
     let reportText = "";
     const dateInput = document.getElementById("entryDate");
-    if (dateInput && !dateInput.value) {
-      dateInput.value = new Date().toISOString().split("T")[0];
-    }
+    if (dateInput && !dateInput.value) dateInput.value = todayStr;
+    const startInput = document.getElementById("rosterStartDate");
+    if (startInput && !startInput.value) startInput.value = todayStr;
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const prodRef = ref(db, "marbleFactory/production");
     const secretRef = ref(db, "marbleFactory/secretComplaints");
+    const rosterRef = ref(db, "marbleFactory/roster");
     const statusEl = document.getElementById("dbStatus");
     const toastEl = document.getElementById("toast");
     function showToast(msg) {
@@ -381,6 +479,85 @@
       toastEl.style.display = "block";
       setTimeout(() => { toastEl.style.display = "none"; }, 2600);
     }
+    function populateSlotInputs() {
+      SLOT_DEFS.forEach((def) => {
+        const inp = document.getElementById(def.inputId);
+        const slot = rosterData.slots[def.key] || {};
+        if (inp) inp.value = slot.name || "";
+      });
+    }
+    function persistRoster() {
+      localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(rosterData));
+      set(rosterRef, rosterData).catch(() => {});
+    }
+    window.saveAllSlots = function () {
+      const chosenStart = document.getElementById("rosterStartDate").value || todayStr;
+      SLOT_DEFS.forEach((def) => {
+        const inp = document.getElementById(def.inputId);
+        const newName = (inp ? inp.value : "").trim();
+        const current = rosterData.slots[def.key] || { name: "", startDate: chosenStart, endDate: "", active: true, history: [] };
+        if (newName && current.name && newName !== current.name && current.active) {
+          current.history = current.history || [];
+          current.history.push({
+            name: current.name,
+            startDate: current.startDate || chosenStart,
+            endDate: chosenStart
+          });
+          current.name = newName;
+          current.startDate = chosenStart;
+          current.endDate = "";
+          current.active = true;
+        } else {
+          current.name = newName;
+          if (!current.startDate) current.startDate = chosenStart;
+          if (newName) current.active = true;
+        }
+        rosterData.slots[def.key] = current;
+      });
+      persistRoster();
+      computeSummary();
+      showToast("مزدوروں کے نام محفوظ ہو گئے!");
+    };
+    window.stopSlotWorker = function (slotKey) {
+      const slot = rosterData.slots[slotKey];
+      if (!slot || !slot.name) return;
+      const stopDateInput = document.getElementById("stopDate-" + slotKey);
+      const stopDate = (stopDateInput && stopDateInput.value) ? stopDateInput.value : todayStr;
+      slot.endDate = stopDate;
+      slot.active = false;
+      rosterData.slots[slotKey] = slot;
+      persistRoster();
+      computeSummary();
+      showToast(`${slot.name} کا حساب ${stopDate} تک روک دیا گیا۔`);
+    };
+    window.startNewSlotWorker = function (slotKey) {
+      const nameInput = document.getElementById("newName-" + slotKey);
+      const startDateInput = document.getElementById("newStart-" + slotKey);
+      const newName = (nameInput ? nameInput.value : "").trim();
+      const newStart = (startDateInput && startDateInput.value) ? startDateInput.value : todayStr;
+      if (!newName) {
+        showToast("براہِ کرم نئے مزدور کا نام لکھیں۔");
+        return;
+      }
+      const slot = rosterData.slots[slotKey];
+      slot.history = slot.history || [];
+      if (slot.name) {
+        slot.history.push({
+          name: slot.name,
+          startDate: slot.startDate || "",
+          endDate: slot.endDate || newStart
+        });
+      }
+      slot.name = newName;
+      slot.startDate = newStart;
+      slot.endDate = "";
+      slot.active = true;
+      rosterData.slots[slotKey] = slot;
+      persistRoster();
+      populateSlotInputs();
+      computeSummary();
+      showToast(`${newName} کا حساب ${newStart} سے شروع ہو گیا!`);
+    };
     window.switchTab = function (tabName, btnEl) {
       document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -389,14 +566,12 @@
     };
     document.getElementById("prodForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const worker = document.getElementById("workerName").value.trim();
       const machine = document.getElementById("machineName").value;
-      const entryDate = document.getElementById("entryDate").value || new Date().toISOString().split("T")[0];
+      const entryDate = document.getElementById("entryDate").value || todayStr;
       const feet = parseFloat(document.getElementById("footage").value) || 0;
       const rate = parseFloat(document.getElementById("ratePerFoot").value) || 0;
       const wage = feet * rate;
       await push(prodRef, {
-        worker,
         machine,
         entryDate,
         feet,
@@ -408,79 +583,142 @@
       document.getElementById("entryDate").value = entryDate;
       showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
     });
+    function isWorkerEligibleOnDate(person, entryDate) {
+      if (!person || !person.name) return false;
+      const d = entryDate || todayStr;
+      if (person.startDate && d < person.startDate) return false;
+      if (person.endDate && d > person.endDate) return false;
+      return true;
+    }
     function computeSummary() {
       const entries = Object.entries(latestProduction).reverse();
       let totalFeet = 0;
       let totalWage = 0;
       let totalBalance = 0;
       const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
-      const byWorker = {};
+      const slotStats = {};
+      SLOT_DEFS.forEach((def) => {
+        slotStats[def.key] = { feet: 0, wage: 0 };
+      });
       entries.forEach(([, item]) => {
         const feet = Number(item.feet || 0);
         const wage = Number(item.wage || 0);
-        const wName = item.worker || "نامعلوم";
+        const machine = item.machine || "";
+        const entryDate = item.entryDate || todayStr;
         totalFeet += feet;
         totalWage += wage;
-        if (byMachine[item.machine] !== undefined) byMachine[item.machine] += feet;
-        if (!byWorker[wName]) byWorker[wName] = { feet: 0, wage: 0 };
-        byWorker[wName].feet += feet;
-        byWorker[wName].wage += wage;
+        if (byMachine[machine] !== undefined) byMachine[machine] += feet;
+        if (machine === "ورٹیکل" || machine === "اٹھارہ") {
+          const jointKeys = ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"];
+          const activeJoint = jointKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], entryDate));
+          const divisor = activeJoint.length > 0 ? activeJoint.length : 4;
+          activeJoint.forEach((k) => {
+            slotStats[k].feet += feet / divisor;
+            slotStats[k].wage += wage / divisor;
+          });
+        } else if (machine === "سیکشن") {
+          if (isWorkerEligibleOnDate(rosterData.slots.section_worker, entryDate)) {
+            slotStats.section_worker.feet += feet;
+            slotStats.section_worker.wage += wage;
+          }
+        } else if (machine === "ریسائز") {
+          if (isWorkerEligibleOnDate(rosterData.slots.resize_worker, entryDate)) {
+            slotStats.resize_worker.feet += feet;
+            slotStats.resize_worker.wage += wage;
+          }
+        }
       });
-      const workerEntries = Object.entries(byWorker);
-      workerEntries.forEach(([w, info]) => {
-        const paid = Number(workerAdvances[w] || 0);
-        totalBalance += (info.wage - paid);
-      });
+      const jointFeet = (byMachine["ورٹیکل"] || 0) + (byMachine["اٹھارہ"] || 0);
       document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
       document.getElementById("totalWage").textContent = totalWage.toLocaleString();
-      document.getElementById("totalBalance").textContent = totalBalance.toLocaleString();
       document.getElementById("totalEntries").textContent = entries.length;
-      document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
-        .map(([m, f]) => `<div class="record-item"><span><strong>${m}</strong></span><span>${f.toLocaleString()} فٹ</span></div>`)
-        .join("");
-      document.getElementById("workerBreakdown").innerHTML = workerEntries.length
-        ? workerEntries.map(([w, info]) => {
-            const paid = Number(workerAdvances[w] || 0);
-            const balance = info.wage - paid;
-            const safeAttr = encodeURIComponent(w);
-            return `
-              <div class="record-item">
-                <div>
-                  <strong>${w}</strong> (${info.feet.toLocaleString()} فٹ)<br/>
-                  <span>کل اجرت: <strong>${info.wage.toLocaleString()}</strong> | ادا شدہ: <strong>${paid.toLocaleString()}</strong> | بقایا: <strong style="color:#4ade80">${balance.toLocaleString()} روپے</strong></span>
-                </div>
-                <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
-                  <input type="number" min="0" step="1" id="adv-${safeAttr}" value="${paid}" style="width:110px; padding:6px 8px;" placeholder="ادائیگی" />
-                  <button type="button" class="btn-secondary" onclick="saveWorkerAdvance('${safeAttr}')">محفوظ</button>
-                </div>
+      document.getElementById("machineBreakdown").innerHTML = `
+        <div class="record-item">
+          <div>
+            <strong>ورٹیکل + اٹھارہ (مشترکہ ٹھیکہ — 4 حصے)</strong><br/>
+            <span class="record-meta">ورٹیکل: ${(byMachine["ورٹیکل"] || 0).toLocaleString()} فٹ | اٹھارہ: ${(byMachine["اٹھارہ"] || 0).toLocaleString()} فٹ</span>
+          </div>
+          <div><strong>${jointFeet.toLocaleString()} فٹ</strong> <span class="record-meta">(فی بندہ حصہ: ${(jointFeet / 4).toLocaleString()} فٹ)</span></div>
+        </div>
+        <div class="record-item"><span><strong>سیکشن</strong></span><span>${(byMachine["سیکشن"] || 0).toLocaleString()} فٹ</span></div>
+        <div class="record-item"><span><strong>ریسائز</strong></span><span>${(byMachine["ریسائز"] || 0).toLocaleString()} فٹ</span></div>
+      `;
+      const reportLines = [];
+      document.getElementById("workerBreakdown").innerHTML = SLOT_DEFS.map((def) => {
+        const slot = rosterData.slots[def.key] || { name: "", startDate: todayStr, endDate: "", active: true, history: [] };
+        const displayName = slot.name || "(نام درج نہیں)";
+        const st = slotStats[def.key] || { feet: 0, wage: 0 };
+        const advKey = `${def.key}_${displayName}`;
+        const paid = Number(workerAdvances[advKey] || 0);
+        const balance = st.wage - paid;
+        totalBalance += balance;
+        const isStopped = Boolean(slot.endDate) || slot.active === false;
+        const statusBadge = isStopped
+          ? `<span class="badge-stopped">کام چھوڑ چکا (آخری تاریخ: ${slot.endDate || "اسٹاپ"})</span>`
+          : `<span class="badge-active">فعال (شروع: ${slot.startDate || todayStr})</span>`;
+        const shareNote = def.group === "joint4" ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)" : "";
+        if (slot.name) {
+          reportLines.push(
+            `• ${displayName} [${def.label}${shareNote}]: ${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} | ادا ${paid.toLocaleString()} | بقایا ${Math.round(balance).toLocaleString()} روپے ${isStopped ? "[اسٹاپ]" : "[فعال]"}`
+          );
+        }
+        const pastHtml = (slot.history && slot.history.length)
+          ? `<div class="record-meta" style="margin-top:6px;">سابقہ مزدور: ${slot.history.map(h => `${h.name} (${h.startDate || "-"} تا ${h.endDate || "-"})`).join(" ، ")}</div>`
+          : "";
+        return `
+          <div class="worker-card">
+            <div class="worker-head">
+              <div>
+                <strong style="font-size:1.02rem;">${displayName}</strong>
+                <span class="record-meta"> — ${def.label}${shareNote}</span>
               </div>
-            `;
-          }).join("")
-        : "<p style='color:#94a3b8'>کوئی ریکارڈ نہیں۔</p>";
+              ${statusBadge}
+            </div>
+            <div style="margin-bottom:8px;">
+              <span>کام: <strong>${st.feet.toFixed(1)} فٹ</strong></span> |
+              <span>اجرت: <strong>${Math.round(st.wage).toLocaleString()} روپے</strong></span> |
+              <span>ایڈوانس/ادا: <strong>${paid.toLocaleString()} روپے</strong></span> |
+              <span>بقایا: <strong style="color:#4ade80">${Math.round(balance).toLocaleString()} روپے</strong></span>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:8px;">
+              <input type="number" min="0" step="1" id="adv-${advKey}" value="${paid}" style="width:125px; padding:6px 8px;" placeholder="ایڈوانس/ادا" />
+              <button type="button" class="btn-secondary" onclick="saveWorkerAdvance('${encodeURIComponent(advKey)}')">ایڈوانس محفوظ</button>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; padding-top:8px; border-top:1px solid var(--border);">
+              <span class="record-meta">کام چھوڑنے کی تاریخ:</span>
+              <input type="date" id="stopDate-${def.key}" value="${slot.endDate || todayStr}" style="width:150px; padding:6px 8px;" />
+              <button type="button" class="btn-warn" onclick="stopSlotWorker('${def.key}')">اسٹاپ کریں</button>
+              <input type="text" id="newName-${def.key}" placeholder="نئے مزدور کا نام..." style="width:150px; padding:6px 8px;" />
+              <input type="date" id="newStart-${def.key}" value="${todayStr}" style="width:150px; padding:6px 8px;" />
+              <button type="button" class="btn-secondary" onclick="startNewSlotWorker('${def.key}')">نیا اسٹارٹ کریں</button>
+            </div>
+            ${pastHtml}
+          </div>
+        `;
+      }).join("");
+      document.getElementById("totalBalance").textContent = Math.round(totalBalance).toLocaleString();
       reportText =
 `یوسف خان ماربل فیکٹری
-کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${totalWage.toLocaleString()} روپے | بقایا: ${totalBalance.toLocaleString()} روپے
+ورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ (فی حصہ: ${(jointFeet / 4).toLocaleString()} فٹ)
+کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے | کل بقایا: ${Math.round(totalBalance).toLocaleString()} روپے
 مزدور وار حساب:
-${workerEntries.map(([w, info]) => {
-  const paid = Number(workerAdvances[w] || 0);
-  return `• ${w}: ${info.feet.toLocaleString()} فٹ | اجرت ${info.wage.toLocaleString()} | بقایا ${(info.wage - paid).toLocaleString()} روپے`;
-}).join("\n") || "• کوئی ریکارڈ نہیں"}`;
+${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`;
     }
-    window.saveWorkerAdvance = function (encodedName) {
-      const workerName = decodeURIComponent(encodedName);
-      const inputEl = document.getElementById("adv-" + encodedName);
+    window.saveWorkerAdvance = function (encodedKey) {
+      const key = decodeURIComponent(encodedKey);
+      const inputEl = document.getElementById("adv-" + encodedKey);
       const amount = parseFloat(inputEl ? inputEl.value : 0) || 0;
-      workerAdvances[workerName] = amount;
+      workerAdvances[key] = amount;
       localStorage.setItem(ADVANCE_STORAGE_KEY, JSON.stringify(workerAdvances));
       computeSummary();
-      showToast(`${workerName} کی ادائیگی اپڈیٹ ہو گئی۔`);
+      showToast("ایڈوانس / ادائیگی اپڈیٹ ہو گئی۔");
     };
     window.renderProduction = function () {
       const filterEl = document.getElementById("workerFilter");
       const query = (filterEl ? filterEl.value : "").trim().toLowerCase();
       const entries = Object.entries(latestProduction).reverse().filter(([, item]) => {
         if (!query) return true;
-        return (item.worker || "").toLowerCase().includes(query) || (item.machine || "").toLowerCase().includes(query);
+        return (item.machine || "").toLowerCase().includes(query) || (item.entryDate || "").toLowerCase().includes(query);
       });
       const prodList = document.getElementById("prodList");
       if (entries.length === 0) {
@@ -490,11 +728,13 @@ ${workerEntries.map(([w, info]) => {
       prodList.innerHTML = entries.map(([id, item]) => {
         const feet = Number(item.feet || 0);
         const wage = Number(item.wage || 0);
-        const wName = item.worker || "نامعلوم";
+        const isJoint = item.machine === "ورٹیکل" || item.machine === "اٹھارہ";
         return `
           <div class="record-item">
             <div>
-              <strong>${wName}</strong> — <span style="color:#38bdf8">${item.machine}</span> <span class="record-meta">(${item.entryDate || ""})</span><br/>
+              <strong style="color:#38bdf8">${item.machine || ""}</strong>
+              ${isJoint ? `<span class="record-meta">(مشترکہ 4 حصے: ${(feet / 4).toFixed(1)} فٹ / ${Math.round(wage / 4).toLocaleString()} روپے فی بندہ)</span>` : ""}
+              <span class="record-meta"> — تاریخ: ${item.entryDate || ""}</span><br/>
               <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
               <div class="record-meta">${item.createdAt || ""}</div>
             </div>
@@ -503,6 +743,19 @@ ${workerEntries.map(([w, info]) => {
         `;
       }).join("");
     };
+    onValue(rosterRef, (snapshot) => {
+      const remoteRoster = snapshot.val();
+      if (remoteRoster && remoteRoster.slots) {
+        rosterData = {
+          ...rosterData,
+          ...remoteRoster,
+          slots: { ...rosterData.slots, ...remoteRoster.slots }
+        };
+        localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(rosterData));
+        populateSlotInputs();
+        computeSummary();
+      }
+    });
     onValue(prodRef, (snapshot) => {
       statusEl.textContent = "لائیو سنک فعال ہے";
       latestProduction = snapshot.val() || {};
@@ -523,12 +776,13 @@ ${workerEntries.map(([w, info]) => {
         showToast("کاپی نہیں ہو سکی۔");
       }
     };
-    window.shareWhatsappReport = function  () {
+    window.shareWhatsappReport = function () {
       window.open("https://wa.me/?text=" + encodeURIComponent(reportText), "_blank");
     };
     window.downloadBackup = function () {
       const payload = {
         exportedAt: new Date().toISOString(),
+        roster: rosterData,
         production: latestProduction,
         workerAdvances,
         secretComplaints: isUnlocked ? latestSecrets : "Locked"
@@ -621,6 +875,8 @@ ${workerEntries.map(([w, info]) => {
       await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
       showToast("پیغام حذف کر دیا گیا۔");
     };
+    populateSlotInputs();
+    computeSummary();
   </script>
 </body>
 </html>
