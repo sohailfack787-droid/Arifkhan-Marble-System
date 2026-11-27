@@ -106,6 +106,16 @@
       cursor: pointer;
       margin-top: 12px;
     }
+    .btn-secondary {
+      background: rgba(56, 189, 248, 0.16);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
     .btn-danger {
       background: rgba(244, 63, 94, 0.16);
       color: #fda4af;
@@ -142,6 +152,19 @@
       gap: 10px;
     }
     .record-meta { font-size: 0.82rem; color: var(--muted); }
+    .lock-box {
+      background: var(--card-2);
+      border: 1px dashed rgba(56, 189, 248, 0.45);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
     .msg-toast {
       position: fixed;
       bottom: 16px;
@@ -218,6 +241,10 @@
     <div id="tab-summary" class="panel">
       <div class="card">
         <h2>مجموعی کارکردگی اور اجرت کا خلاصہ</h2>
+        <div class="row-actions">
+          <button type="button" class="btn-secondary" onclick="copyWhatsappReport()">رپورٹ کاپی کریں (واٹس ایپ کے لیے)</button>
+          <button type="button" class="btn-secondary" onclick="shareWhatsappReport()">واٹس ایپ پر شیئر کریں</button>
+        </div>
         <div class="stats">
           <div class="stat-box">
             <div class="num" id="totalFeet">0</div>
@@ -232,7 +259,12 @@
             <div class="lbl">کل انٹریز</div>
           </div>
         </div>
+
+        <h2 style="margin-top: 16px;">مشینوں کے حساب سے کام</h2>
         <div id="machineBreakdown"></div>
+
+        <h2 style="margin-top: 16px;">مزدور وار الگ حساب (Worker Ledger)</h2>
+        <div id="workerBreakdown"></div>
       </div>
     </div>
 
@@ -267,7 +299,17 @@
 
       <div class="card">
         <h2>موصولہ خفیہ پیغامات (صرف سپروائزر کے لیے)</h2>
-        <div id="secretList">لوڈ ہو رہا ہے...</div>
+        <div id="supervisorLockBox" class="lock-box">
+          <label>سپروائزر پن کوڈ درج کریں (ڈیفالٹ پن: 1234)</label>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="password" id="supervisorPinInput" placeholder="پن کوڈ لکھیں" style="max-width: 200px;" />
+            <button type="button" class="btn-secondary" onclick="unlockSecrets()">ان لاک کریں</button>
+          </div>
+        </div>
+        <div id="supervisorUnlockedControls" style="display: none; margin-bottom: 10px;">
+          <button type="button" class="btn-secondary" onclick="lockSecrets()">پن لاک دوبارہ لگائیں</button>
+        </div>
+        <div id="secretList">خفیہ پیغامات دیکھنے کے لیے سپروائزر پن درج کریں۔</div>
       </div>
     </div>
   </div>
@@ -294,6 +336,12 @@
       appId: "1:348715247959:web:f562d0f778657d6bee3612",
       measurementId: "G-2M87407HCW"
     };
+
+    // آپ اپنا سپروائزر پن کوڈ یہاں تبدیل کر سکتے ہیں
+    const SUPERVISOR_PIN = "1234";
+    let isSupervisorUnlocked = false;
+    let latestSecretData = {};
+    let latestReportText = "";
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
@@ -339,101 +387,6 @@
       showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
     });
 
-    // لائیو پروڈکشن ڈیٹا سننا
-    onValue(prodRef, (snapshot) => {
-      statusEl.textContent = "لائیو سنک فعال ہے";
-      const data = snapshot.val() || {};
-      const entries = Object.entries(data).reverse();
-
-      const prodList = document.getElementById("prodList");
-      let totalFeet = 0;
-      let totalWage = 0;
-      const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
-
-      if (entries.length === 0) {
-        prodList.innerHTML = "<p style='color:#94a3b8'>ابھی کوئی ریکارڈ درج نہیں ہوا۔</p>";
-      } else {
-        prodList.innerHTML = entries.map(([id, item]) => {
-          totalFeet += Number(item.feet || 0);
-          totalWage += Number(item.wage || 0);
-          if (byMachine[item.machine] !== undefined) {
-            byMachine[item.machine] += Number(item.feet || 0);
-          }
-          return `
-            <div class="record-item">
-              <div>
-                <strong>${item.worker}</strong> — <span style="color:#38bdf8">${item.machine}</span><br/>
-                <span>${item.feet} فٹ × ${item.rate} روپے = <strong>${Number(item.wage || 0).toLocaleString()} روپے</strong></span>
-                <div class="record-meta">${item.createdAt || ""}</div>
-              </div>
-              <button class="btn-danger" onclick="deleteProd('${id}')">حذف کریں</button>
-            </div>
-          `;
-        }).join("");
-      }
-
-      document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
-      document.getElementById("totalWage").textContent = totalWage.toLocaleString();
-      document.getElementById("totalEntries").textContent = entries.length;
-
-      document.getElementById("machineBreakdown").innerHTML = Object.entries(byMachine)
-        .map(([m, f]) => `<div class="record-item"><span><strong>${m}</strong></span><span>${f.toLocaleString()} فٹ</span></div>`)
-        .join("");
-    }, () => {
-      statusEl.textContent = "کنکشن میں مسئلہ";
-    });
-
-    window.deleteProd = async function (id) {
-      await remove(ref(db, `marbleFactory/production/${id}`));
-      showToast("ریکارڈ حذف کر دیا گیا۔");
-    };
-
-    // خفیہ شکایت بھیجنا
-    document.getElementById("secretForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const dept = document.getElementById("secretDept").value;
-      const sender = document.getElementById("secretSender").value.trim() || "گمنام";
-      const message = document.getElementById("secretText").value.trim();
-
-      await push(secretRef, {
-        dept,
-        sender,
-        message,
-        createdAt: new Date().toLocaleString("ur-PK")
-      });
-
-      e.target.reset();
-      showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
-    });
-
-    // لائیو خفیہ پیغامات سننا
-    onValue(secretRef, (snapshot) => {
-      const data = snapshot.val() || {};
-      const items = Object.entries(data).reverse();
-      const secretList = document.getElementById("secretList");
-
-      if (items.length === 0) {
-        secretList.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
-        return;
-      }
-
-      secretList.innerHTML = items.map(([id, item]) => `
-        <div class="record-item">
-          <div>
-            <strong>${item.sender}</strong> (${item.dept})<br/>
-            <p style="margin:6px 0">${item.message}</p>
-            <div class="record-meta">${item.createdAt || ""}</div>
-          </div>
-          <button class="btn-danger" onclick="deleteSecret('${id}')">حذف کریں</button>
-        </div>
-      `).join("");
-    });
-
-    window.deleteSecret = async function (id) {
-      await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
-      showToast("پیغام حذف کر دیا گیا۔");
-    };
-  </script>
-</body>
-  </html>
-  
+    // لائیو پروڈکشن ڈیٹا سننا اور خلاصہ + مزدور وار حساب بنانا
+    onValue(prodRef, (
+    
