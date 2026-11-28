@@ -17,251 +17,47 @@
       --danger: #f43f5e;
       --border: rgba(148, 163, 184, 0.2);
     }
-     { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      padding: 16px;
-      line-height: 1.6;
-    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); padding: 16px; line-height: 1.6; }
     .container { max-width: 980px; margin: 0 auto; }
-    .header {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
+    .header { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
     .header h1 { margin: 0; font-size: 1.35rem; color: var(--accent); }
     .header p { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
-    .status-pill {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    .tabs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    .tab-btn {
-      background: var(--card);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .tab-btn.active {
-      background: var(--accent);
-      color: #062033;
-      border-color: var(--accent);
-    }
+    .status-pill { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 6px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
+    .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .tab-btn { background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+    .tab-btn.active { background: var(--accent); color: #062033; border-color: var(--accent); }
     .panel { display: none; }
     .panel.active { display: block; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     .card h2 { margin: 0 0 12px; font-size: 1.1rem; color: var(--accent); }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
-      gap: 12px;
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 12px; }
     label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
-    input, select, textarea {
-      width: 100%;
-      background: var(--card-2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.95rem;
-    }
+    input, select, textarea { width: 100%; background: var(--card-2); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 0.95rem; }
     textarea { min-height: 90px; resize: vertical; }
-    .btn {
-      background: var(--accent-2);
-      color: #052e16;
-      border: none;
-      border-radius: 10px;
-      padding: 11px 16px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-    .btn-secondary {
-      background: rgba(56, 189, 248, 0.16);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .btn-warn {
-      background: rgba(245, 158, 11, 0.16);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .btn-danger {
-      background: rgba(244, 63, 94, 0.16);
-      color: #fda4af;
-      border: 1px solid rgba(244, 63, 94, 0.4);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      margin-top: 0;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .stat-box {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-    }
+    .btn { background: var(--accent-2); color: #052e16; border: none; border-radius: 10px; padding: 11px 16px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 12px; }
+    .btn-secondary { background: rgba(56, 189, 248, 0.16); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 8px 12px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .btn-warn { background: rgba(245, 158, 11, 0.16); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 8px; padding: 6px 10px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+    .btn-danger { background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.4); padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; margin-top: 0; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .stat-box { background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
     .stat-box .num { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
     .stat-box .lbl { font-size: 0.8rem; color: var(--muted); }
-    .record-item {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .worker-card {
-      background: var(--card-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .worker-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .settlement-box {
-      border-radius: 10px;
-      padding: 8px 12px;
-      margin-bottom: 10px;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-    .settle-factory-owes {
-      background: rgba(34, 197, 94, 0.14);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.35);
-    }
-    .settle-worker-owes {
-      background: rgba(244, 63, 94, 0.14);
-      color: #fda4af;
-      border: 1px solid rgba(244, 63, 94, 0.35);
-    }
-    .settle-even {
-      background: rgba(56, 189, 248, 0.14);
-      color: #7dd3fc;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-    }
-    .badge-active {
-      background: rgba(34, 197, 94, 0.16);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      padding: 2px 9px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-    }
-    .badge-stopped {
-      background: rgba(244, 63, 94, 0.16);
-      color: #fda4af;
-      border: 1px solid rgba(244, 63, 94, 0.35);
-      padding: 2px 9px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-    }
-    .badge-pending {
-      background: rgba(245, 158, 11, 0.16);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-    }
-    .badge-reviewed {
-      background: rgba(34, 197, 94, 0.16);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.35);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-    }
+    .record-item { background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+    .worker-card { background: var(--card-2); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+    .worker-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .settlement-box { border-radius: 10px; padding: 8px 12px; margin-bottom: 10px; font-size: 0.92rem; font-weight: 600; }
+    .settle-factory-owes { background: rgba(34, 197, 94, 0.14); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); }
+    .settle-worker-owes { background: rgba(244, 63, 94, 0.14); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35); }
+    .settle-even { background: rgba(56, 189, 248, 0.14); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .badge-active { background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 2px 9px; border-radius: 999px; font-size: 0.78rem; }
+    .badge-stopped { background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35); padding: 2px 9px; border-radius: 999px; font-size: 0.78rem; }
+    .badge-pending { background: rgba(245, 158, 11, 0.16); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); padding: 2px 8px; border-radius: 999px; font-size: 0.78rem; }
+    .badge-reviewed { background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 2px 8px; border-radius: 999px; font-size: 0.78rem; }
     .record-meta { font-size: 0.82rem; color: var(--muted); }
-    .lock-box {
-      background: var(--card-2);
-      border: 1px dashed rgba(56, 189, 248, 0.45);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .row-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .msg-toast {
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      max-width: 460px;
-      margin: 0 auto;
-      background: #16a34a;
-      color: #fff;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-weight: 600;
-      text-align: center;
-      display: none;
-      z-index: 999;
-    }
+    .lock-box { background: var(--card-2); border: 1px dashed rgba(56, 189, 248, 0.45); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+    .row-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .msg-toast { position: fixed; bottom: 16px; left: 16px; right: 16px; max-width: 460px; margin: 0 auto; background: #16a34a; color: #fff; padding: 12px 16px; border-radius: 12px; font-weight: 600; text-align: center; display: none; z-index: 999; }
   </style>
 </head>
 <body>
@@ -269,66 +65,36 @@
     <div class="header">
       <div>
         <h1>یوسف خان ماربل فیکٹری</h1>
-        <p>شیربرج ملاگوری پشاور — لائیو پروڈکشن و شکایات پورٹل</p>
+        <p>شیربرج ملاگوری پشاور — روزانہ جمع و ماہانہ 5 تاریخ کا مکمل حساب</p>
       </div>
       <div id="dbStatus" class="status-pill">Firebase کنیکٹ ہو رہا ہے...</div>
     </div>
     <div class="tabs">
       <button type="button" class="tab-btn active" onclick="switchTab('production', this)">پروڈکشن و مزدور</button>
-      <button type="button" class="tab-btn" onclick="switchTab('summary', this)">خلاصہ و اجرت</button>
+      <button type="button" class="tab-btn" onclick="switchTab('summary', this)">5 تاریخ و اجرت</button>
       <button type="button" class="tab-btn" onclick="switchTab('secret', this)">خفیہ شکایات</button>
     </div>
-    <!-- ٹیب 1: پروڈکشن و مزدور -->
     <div id="tab-production" class="panel active">
       <div class="card">
         <h2>مزدوروں کے نام درج کریں (ورٹیکل+اٹھارہ 4 بندے | سیکشن و ریسائز 1 یا 2 بندے)</h2>
-        <p class="record-meta" style="margin-top:0; margin-bottom:12px;">
-          ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں تقسیم ہوتا ہے۔ سیکشن اور ریسائز پر اگر 1 مزدور ہو تو پورا کام اسی کو ملتا ہے، اور اگر 2 ہوں تو خود بخود نصف نصف ہو جاتا ہے۔
-        </p>
+        <p class="record-meta" style="margin-top:0; margin-bottom:12px;">ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں تقسیم ہوتا ہے۔ سیکشن اور ریسائز پر اگر 1 مزدور ہو تو پورا کام اسی کو ملتا ہے، اور اگر 2 ہوں تو خود بخود نصف نصف ہو جاتا ہے۔</p>
         <div class="grid">
-          <div>
-            <label>ورٹیکل استاد</label>
-            <input type="text" id="slot_vert_ustad" placeholder="نام لکھیں..." />
-          </div>
-          <div>
-            <label>ورٹیکل ہیلپر</label>
-            <input type="text" id="slot_vert_helper" placeholder="نام لکھیں..." />
-          </div>
-          <div>
-            <label>اٹھارہ استاد</label>
-            <input type="text" id="slot_athara_ustad" placeholder="نام لکھیں..." />
-          </div>
-          <div>
-            <label>اٹھارہ ہیلپر</label>
-            <input type="text" id="slot_athara_helper" placeholder="نام لکھیں..." />
-          </div>
-          <div>
-            <label>سیکشن مزدور 1</label>
-            <input type="text" id="slot_section_1" placeholder="نام لکھیں..." />
-          </div>
-          <div>
-            <label>سیکشن مزدور 2 (اختیاری)</label>
-            <input type="text" id="slot_section_2" placeholder="دوسرا مزدور ہو تو نام لکھیں..." />
-          </div>
-          <div>
-            <label>ریسائز مزدور 1</label>
-            <input type="text" id="slot_resize_1" placeholder="نام لکھیں..." />
-          </div>
-          <div>
-            <label>ریسائز مزدور 2 (اختیاری)</label>
-            <input type="text" id="slot_resize_2" placeholder="دوسرا مزدور ہو تو نام لکھیں..." />
-          </div>
-          <div>
-            <label>شروع کرنے کی تاریخ</label>
-            <input type="date" id="rosterStartDate" />
-          </div>
+          <div><label>ورٹیکل استاد</label><input type="text" id="slot_vert_ustad" placeholder="نام لکھیں..." /></div>
+          <div><label>ورٹیکل ہیلپر</label><input type="text" id="slot_vert_helper" placeholder="نام لکھیں..." /></div>
+          <div><label>اٹھارہ استاد</label><input type="text" id="slot_athara_ustad" placeholder="نام لکھیں..." /></div>
+          <div><label>اٹھارہ ہیلپر</label><input type="text" id="slot_athara_helper" placeholder="نام لکھیں..." /></div>
+          <div><label>سیکشن مزدور 1</label><input type="text" id="slot_section_1" placeholder="نام لکھیں..." /></div>
+          <div><label>سیکشن مزدور 2 (اختیاری)</label><input type="text" id="slot_section_2" placeholder="دوسرا مزدور ہو تو نام لکھیں..." /></div>
+          <div><label>ریسائز مزدور 1</label><input type="text" id="slot_resize_1" placeholder="نام لکھیں..." /></div>
+          <div><label>ریسائز مزدور 2 (اختیاری)</label><input type="text" id="slot_resize_2" placeholder="دوسرا مزدور ہو تو نام لکھیں..." /></div>
+          <div><label>شروع کرنے کی تاریخ</label><input type="date" id="rosterStartDate" /></div>
         </div>
         <div class="row-actions" style="margin-top:12px; margin-bottom:0;">
           <button type="button" class="btn" style="margin-top:0;" onclick="saveAllSlots()">نام محفوظ کریں / اپڈیٹ کریں</button>
         </div>
       </div>
       <div class="card">
-        <h2>نئی پروڈکشن انٹری درج کریں</h2>
+        <h2>نئی روزانہ پروڈکشن انٹری درج کریں</h2>
         <form id="prodForm">
           <div class="grid">
             <div>
@@ -340,67 +106,45 @@
                 <option value="ریسائز">ریسائز (1 یا 2 بندے)</option>
               </select>
             </div>
-            <div>
-              <label>تاریخ</label>
-              <input type="date" id="entryDate" required />
-            </div>
-            <div>
-              <label>مکمل کام (فٹ میں)</label>
-              <input type="number" id="footage" step="0.01" min="0" placeholder="مثلاً: 250" required />
-            </div>
-            <div>
-              <label>ریٹ فی فٹ (روپے)</label>
-              <input type="number" id="ratePerFoot" step="0.01" min="0" placeholder="مثلاً: 15" required />
-            </div>
+            <div><label>تاریخ</label><input type="date" id="entryDate" required /></div>
+            <div><label>مکمل کام (فٹ میں)</label><input type="number" id="footage" step="0.01" min="0" placeholder="مثلاً: 250" required /></div>
+            <div><label>ریٹ فی فٹ (روپے)</label><input type="number" id="ratePerFoot" step="0.01" min="0" placeholder="مثلاً: 15" required /></div>
           </div>
-          <button type="submit" class="btn">ڈیٹا محفوظ کریں (لائیو سنک)</button>
+          <button type="submit" class="btn">روزانہ کام جمع کریں (لائیو سنک)</button>
         </form>
       </div>
       <div class="card">
-        <h2>حالیہ پروڈکشن ریکارڈز</h2>
+        <h2>روزانہ جمع شدہ پروڈکشن ریکارڈز</h2>
         <div class="grid" style="margin-bottom: 12px;">
-          <div>
-            <label>مشین یا تاریخ سے فلٹر کریں</label>
-            <input type="text" id="workerFilter" placeholder="مشین یا تاریخ لکھیں..." oninput="renderProduction()" />
-          </div>
+          <div><label>مشین یا تاریخ سے فلٹر کریں</label><input type="text" id="workerFilter" placeholder="مشین یا تاریخ لکھیں..." oninput="renderProduction()" /></div>
         </div>
         <div id="prodList">لوڈ ہو رہا ہے...</div>
       </div>
     </div>
-    <!-- ٹیب 2: خلاصہ و اجرت -->
     <div id="tab-summary" class="panel">
       <div class="card">
-        <h2>مجموعی کارکردگی اور اجرت کا خلاصہ</h2>
+        <h2>موجودہ سائیکل کا جمع شدہ حساب اور 5 تاریخ کا تصفیہ</h2>
+        <div id="cycleInfoBanner" class="settlement-box settle-even" style="margin-bottom:12px;">حساب کا دورانیہ لوڈ ہو رہا ہے...</div>
         <div class="row-actions">
+          <button type="button" class="btn" style="margin-top:0;" onclick="completeFifthDateSettlement()">5 تاریخ کا مکمل حساب بند / محفوظ کریں</button>
           <button type="button" class="btn-secondary" onclick="copyWhatsappReport()">رپورٹ کاپی کریں</button>
           <button type="button" class="btn-secondary" onclick="shareWhatsappReport()">واٹس ایپ شیئر</button>
           <button type="button" class="btn-secondary" onclick="downloadBackup()">بیک اپ ڈاؤن لوڈ (JSON)</button>
         </div>
         <div class="stats">
-          <div class="stat-box">
-            <div class="num" id="totalFeet">0</div>
-            <div class="lbl">کل فٹ</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="totalWage">0</div>
-            <div class="lbl">کل اجرت (روپے)</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="totalFactoryPayable">0</div>
-            <div class="lbl">فیکٹری کے ذمے بقایا</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="totalWorkerOwes">0</div>
-            <div class="lbl">مزدوروں کے ذمے بقایا</div>
-          </div>
+          <div class="stat-box"><div class="num" id="totalFeet">0</div><div class="lbl">موجودہ سائیکل کل فٹ</div></div>
+          <div class="stat-box"><div class="num" id="totalWage">0</div><div class="lbl">موجودہ سائیکل کل اجرت</div></div>
+          <div class="stat-box"><div class="num" id="totalFactoryPayable">0</div><div class="lbl">فیکٹری کے ذمے بقایا</div></div>
+          <div class="stat-box"><div class="num" id="totalWorkerOwes">0</div><div class="lbl">مزدوروں کے ذمے بقایا</div></div>
         </div>
-        <h2>مشینوں کے حساب سے کام</h2>
+        <h2>مشینوں کے حساب سے کام (موجودہ سائیکل)</h2>
         <div id="machineBreakdown"></div>
-        <h2 style="margin-top: 16px;">ہر مزدور کا الگ خانہ (حتمی تصفیہ، ایڈوانس، اسٹاپ / نیا بندہ)</h2>
+        <h2 style="margin-top: 16px;">ہر مزدور کا الگ خانہ (روزانہ جمع شدہ کام، ایڈوانس، بقایا، اسٹاپ / نیا بندہ)</h2>
         <div id="workerBreakdown"></div>
+        <h2 style="margin-top: 20px;">ہر مہینے کی 5 تاریخ کا مکمل محفوظ حساب (Statements)</h2>
+        <div id="fifthHistoryList"><p class="record-meta">ابھی کوئی 5 تاریخ کا حساب بند نہیں کیا گیا۔</p></div>
       </div>
     </div>
-    <!-- ٹیب 3: خفیہ شکایات -->
     <div id="tab-secret" class="panel">
       <div class="card">
         <h2>خفیہ شکایت / سپروائزر فیڈبیک بھیجیں</h2>
@@ -416,15 +160,9 @@
                 <option value="ریسائز">ریسائز</option>
               </select>
             </div>
-            <div>
-              <label>نام (خفیہ رکھنا ہو تو خالی چھوڑ دیں)</label>
-              <input type="text" id="secretSender" placeholder="گمنام" />
-            </div>
+            <div><label>نام (خفیہ رکھنا ہو تو خالی چھوڑ دیں)</label><input type="text" id="secretSender" placeholder="گمنام" /></div>
           </div>
-          <div style="margin-top: 10px;">
-            <label>تفصیل / شکایت</label>
-            <textarea id="secretText" placeholder="اپنی بات یا شکایت یہاں لکھیں..." required></textarea>
-          </div>
+          <div style="margin-top: 10px;"><label>تفصیل / شکایت</label><textarea id="secretText" placeholder="اپنی بات یا شکایت یہاں لکھیں..." required></textarea></div>
           <button type="submit" class="btn">خفیہ پیغام ارسال کریں</button>
         </form>
       </div>
@@ -447,15 +185,7 @@
   <div id="toast" class="msg-toast"></div>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import {
-      getDatabase,
-      ref,
-      push,
-      onValue,
-      remove,
-      update,
-      set
-    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+    import { getDatabase, ref, push, onValue, remove, update, set } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
     const firebaseConfig = {
       apiKey: "AIzaSyBzL7ToAxAIAdRUY9mhJg_ChTfGjKXmTdY",
       authDomain: "yousaf-khan-marble.firebaseapp.com",
@@ -467,8 +197,9 @@
       measurementId: "G-2M87407HCW"
     };
     const SUPERVISOR_PIN = "1234";
-    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v3";
-    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v3";
+    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v4";
+    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v4";
+    const CYCLE_STORAGE_KEY = "yousaf_marble_cycle_v4";
     const SLOT_DEFS = [
       { key: "vert_ustad", inputId: "slot_vert_ustad", label: "ورٹیکل استاد", group: "joint4" },
       { key: "vert_helper", inputId: "slot_vert_helper", label: "ورٹیکل ہیلپر", group: "joint4" },
@@ -480,11 +211,17 @@
       { key: "resize_2", inputId: "slot_resize_2", label: "ریسائز مزدور 2", group: "ریسائز" }
     ];
     const todayStr = new Date().toISOString().split("T")[0];
+    function getDefaultCycleStart() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = now.getMonth();
+      const d = now.getDate();
+      const start = d >= 5 ? new Date(y, m, 5) : new Date(y, m - 1, 5);
+      return start.toISOString().split("T")[0];
+    }
     function createEmptySlots() {
       const s = {};
-      SLOT_DEFS.forEach((d) => {
-        s[d.key] = { name: "", startDate: todayStr, endDate: "", active: true, history: [] };
-      });
+      SLOT_DEFS.forEach((d) => { s[d.key] = { name: "", startDate: "", endDate: "", active: true, history: [] }; });
       return s;
     }
     let isUnlocked = false;
@@ -493,6 +230,10 @@
     let workerAdvances = JSON.parse(localStorage.getItem(ADVANCE_STORAGE_KEY) || "{}");
     let rosterData = JSON.parse(localStorage.getItem(ROSTER_STORAGE_KEY) || "null") || { slots: createEmptySlots() };
     rosterData.slots = { ...createEmptySlots(), ...(rosterData.slots || {}) };
+    let cycleData = JSON.parse(localStorage.getItem(CYCLE_STORAGE_KEY) || "null") || { cycleStartDate: getDefaultCycleStart(), fifthStatements: [] };
+    if (!cycleData.cycleStartDate) cycleData.cycleStartDate = getDefaultCycleStart();
+    if (!Array.isArray(cycleData.fifthStatements)) cycleData.fifthStatements = [];
+    let latestComputedSnapshot = { cycleStartDate: cycleData.cycleStartDate, totalFeet: 0, totalWage: 0, totalFactoryPayable: 0, totalWorkerOwes: 0, workers: [] };
     let reportText = "";
     const dateInput = document.getElementById("entryDate");
     if (dateInput && !dateInput.value) dateInput.value = todayStr;
@@ -503,38 +244,22 @@
     const prodRef = ref(db, "marbleFactory/production");
     const secretRef = ref(db, "marbleFactory/secretComplaints");
     const rosterRef = ref(db, "marbleFactory/roster");
+    const cycleRef = ref(db, "marbleFactory/billingCycle");
     const statusEl = document.getElementById("dbStatus");
     const toastEl = document.getElementById("toast");
     function showToast(msg) {
       toastEl.textContent = msg;
       toastEl.style.display = "block";
-      setTimeout(() => { toastEl.style.display = "none"; }, 2600);
+      setTimeout(() => { toastEl.style.display = "none"; }, 2800);
     }
     function getSettlementInfo(wage, paid) {
       const diff = Math.round(wage - paid);
-      if (diff > 0) {
-        return {
-          type: "factory_owes",
-          amount: diff,
-          css: "settle-factory-owes",
-          text: `فیکٹری پر مزدور کے ${diff.toLocaleString()} روپے بقایا (واجب الادا) ہیں`
-        };
-      }
+      if (diff > 0) return { type: "factory_owes", amount: diff, css: "settle-factory-owes", text: `فیکٹری پر مزدور کے ${diff.toLocaleString()} روپے بقایا (واجب الادا) ہیں` };
       if (diff < 0) {
         const absVal = Math.abs(diff);
-        return {
-          type: "worker_owes",
-          amount: absVal,
-          css: "settle-worker-owes",
-          text: `مزدور کے ذمے فیکٹری کے ${absVal.toLocaleString()} روپے بقایا (واپس لینے ہیں)`
-        };
+        return { type: "worker_owes", amount: absVal, css: "settle-worker-owes", text: `مزدور کے ذمے فیکٹری کے ${absVal.toLocaleString()} روپے بقایا (واپس لینے ہیں)` };
       }
-      return {
-        type: "even",
-        amount: 0,
-        css: "settle-even",
-        text: "حساب بالکل برابر ہے (0 روپے بقایا)"
-      };
+      return { type: "even", amount: 0, css: "settle-even", text: "حساب بالکل برابر ہے (0 روپے بقایا)" };
     }
     function populateSlotInputs() {
       SLOT_DEFS.forEach((def) => {
@@ -547,11 +272,20 @@
       localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(rosterData));
       set(rosterRef, rosterData).catch(() => {});
     }
+    function persistCycle() {
+      localStorage.setItem(CYCLE_STORAGE_KEY, JSON.stringify(cycleData));
+      set(cycleRef, cycleData).catch(() => {});
+    }
     function isWorkerEligibleOnDate(person, entryDate) {
       if (!person || !person.name) return false;
       const d = entryDate || todayStr;
       if (person.startDate && d < person.startDate) return false;
       if (person.endDate && d > person.endDate) return false;
+      return true;
+    }
+    function isEntryInCurrentCycle(entryDate) {
+      const d = entryDate || todayStr;
+      if (cycleData.cycleStartDate && d < cycleData.cycleStartDate) return false;
       return true;
     }
     function calculateSlotEarnings(slotKey) {
@@ -562,7 +296,8 @@
         const w = Number(item.wage || 0);
         const m = item.machine || "";
         const d = item.entryDate || todayStr;
-        if ((m === "ورٹیکل" || m == === "اٹھارہ") && ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"].includes(slotKey)) {
+        if (!isEntryInCurrentCycle(d)) return;
+        if ((m === "ورٹیکل" || m === "اٹھارہ") && ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"].includes(slotKey)) {
           const jointKeys = ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"];
           const activeJoint = jointKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d));
           if (activeJoint.includes(slotKey)) {
@@ -591,32 +326,25 @@
       return { feet, wage };
     }
     window.saveAllSlots = function () {
-      const chosenStart = document.getElementById("rosterStartDate").value || todayStr;
+      const chosenStart = document.getElementById("rosterStartDate").value || "";
       SLOT_DEFS.forEach((def) => {
         const inp = document.getElementById(def.inputId);
         const newName = (inp ? inp.value : "").trim();
-        const current = rosterData.slots[def.key] || { name: "", startDate: chosenStart, endDate: "", active: true, history: [] };ذ
+        const current = rosterData.slots[def.key] || { name: "", startDate: "", endDate: "", active: true, history: [] };
         if (newName && current.name && newName !== current.name && current.active) {
           const earned = calculateSlotEarnings(def.key);
           const advKey = `${def.key}_${current.name}`;
           const paid = Number(workerAdvances[advKey] || 0);
           const settle = getSettlementInfo(earned.wage, paid);
           current.history = current.history || [];
-          current.history.push({
-            name: current.name,
-            startDate: current.startDate || chosenStart,
-            endDate: chosenStart,
-            wage: Math.round(earned.wage),
-            paid,
-            settlementText: settle.text
-          });
+          current.history.push({ name: current.name, startDate: current.startDate || "", endDate: chosenStart || todayStr, wage: Math.round(earned.wage), paid, settlementText: settle.text });
           current.name = newName;
-          current.startDate = chosenStart;
+          current.startDate = chosenStart || "";
           current.endDate = "";
           current.active = true;
         } else {
           current.name = newName;
-          if (!current.startDate) current.startDate = chosenStart;
+          if (chosenStart) current.startDate = chosenStart;
           if (newName) current.active = true;
         }
         rosterData.slots[def.key] = current;
@@ -645,24 +373,14 @@
       const startDateInput = document.getElementById("newStart-" + slotKey);
       const newName = (nameInput ? nameInput.value : "").trim();
       const newStart = (startDateInput && startDateInput.value) ? startDateInput.value : todayStr;
-      if (!newName) {
-        showToast("براہِ کرم نئے مزدور کا نام لکھیں۔");
-        return;
-      }
+      if (!newName) { showToast("براہِ کرم نئے مزدور کا نام لکھیں۔"); return; }
       const slot = rosterData.slots[slotKey];
       slot.history = slot.history || [];
       if (slot.name) {
         const earned = calculateSlotEarnings(slotKey);
         const paid = Number(workerAdvances[`${slotKey}_${slot.name}`] || 0);
         const settle = getSettlementInfo(earned.wage, paid);
-        slot.history.push({
-          name: slot.name,
-          startDate: slot.startDate || "",
-          endDate: slot.endDate || newStart,
-          wage: Math.round(earned.wage),
-          paid,
-          settlementText: settle.text
-        });
+        slot.history.push({ name: slot.name, startDate: slot.startDate || "", endDate: slot.endDate || newStart, wage: Math.round(earned.wage), paid, settlementText: settle.text });
       }
       slot.name = newName;
       slot.startDate = newStart;
@@ -673,6 +391,33 @@
       populateSlotInputs();
       computeSummary();
       showToast(`${newName} کا حساب ${newStart} سے شروع ہو گیا!`);
+    };
+    window.completeFifthDateSettlement = function () {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = now.getMonth();
+      const d = now.getDate();
+      const nextFifth = d <= 5 ? new Date(y, m, 5) : new Date(y, m + 1, 5);
+      const fifthDateStr = nextFifth.toISOString().split("T")[0];
+      const statement = {
+        id: "fifth_" + Date.now(),
+        fifthDate: fifthDateStr,
+        closedAt: new Date().toLocaleString("ur-PK"),
+        cycleStartDate: cycleData.cycleStartDate,
+        totalFeet: latestComputedSnapshot.totalFeet,
+        totalWage: latestComputedSnapshot.totalWage,
+        totalFactoryPayable: latestComputedSnapshot.totalFactoryPayable,
+        totalWorkerOwes: latestComputedSnapshot.totalWorkerOwes,
+        workers: latestComputedSnapshot.workers
+      };
+      cycleData.fifthStatements = [statement, ...(cycleData.fifthStatements || [])];
+      const nextCycleStart = new Date(nextFifth.getFullYear(), nextFifth.getMonth(), nextFifth.getDate() + 1).toISOString().split("T")[0];
+      cycleData.cycleStartDate = nextCycleStart;
+      workerAdvances = {};
+      localStorage.setItem(ADVANCE_STORAGE_KEY, JSON.stringify(workerAdvances));
+      persistCycle();
+      computeSummary();
+      showToast(`5 تاریخ (${fifthDateStr}) کا مکمل حساب محفوظ ہو گیا! نیا سائیکل ${nextCycleStart} سے شروع۔`);
     };
     window.switchTab = function (tabName, btnEl) {
       document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
@@ -687,18 +432,38 @@
       const feet = parseFloat(document.getElementById("footage").value) || 0;
       const rate = parseFloat(document.getElementById("ratePerFoot").value) || 0;
       const wage = feet * rate;
-      await push(prodRef, {
-        machine,
-        entryDate,
-        feet,
-        rate,
-        wage,
-        createdAt: new Date().toLocaleString("ur-PK")
-      });
+      await push(prodRef, { machine, entryDate, feet, rate, wage, createdAt: new Date().toLocaleString("ur-PK") });
       e.target.reset();
       document.getElementById("entryDate").value = entryDate;
-      showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
-    });
+      showToast("روزانہ پروڈکشن ریکارڈ جمع ہو گیا!");
+    }
+    function renderFifthHistory() {
+      const box = document.getElementById("fifthHistoryList");
+      const list = cycleData.fifthStatements || [];
+      if (!list.length) {
+        box.innerHTML = "<p class='record-meta'>ابھی کوئی 5 تاریخ کا حساب بند نہیں کیا گیا۔ جب 5 تاریخ کا حساب مکمل کرنا ہو تو اوپر بٹن دبائیں۔</p>";
+        return;
+      }
+      box.innerHTML = list.map((st) => {
+        const wLines = (st.workers || []).map((w) => `• <strong>${w.name}</strong> (${w.role}): ${w.feet.toFixed(1)} فٹ \vert{} اجرت ${Math.round(w.wage).toLocaleString()} | ایڈوانس ${w.paid.toLocaleString()} — <span>${w.settlementText}</span>`).join("<br/>");
+        return `
+          <div class="worker-card">
+            <div class="worker-head">
+              <div><strong style="color:#38bdf8;">5 تاریخ کا مکمل حساب (${st.fifthDate})</strong><span class="record-meta"> — دورانیہ: ${st.cycleStartDate} تا ${st.fifthDate}</span></div>
+              <span class="badge-active">مکمل شدہ</span>
+            </div>
+            <div style="margin-bottom:8px;">
+              <span>کل فٹ: <strong>${Number(st.totalFeet || 0).toLocaleString()}</strong></span> |
+              <span>کل اجرت: <strong>${Math.round(st.totalWage || 0).toLocaleString()} روپے</strong></span> |
+              <span>فیکٹری بقایا: <strong>${Math.round(st.totalFactoryPayable || 0).toLocaleString()} روپے</strong></span> |
+              <span>مزدور بقایا: <strong>${Math.round(st.totalWorkerOwes || 0).toLocaleString()} روپے</strong></span>
+            </div>
+            <div class="record-meta">${wLines || "مزدور کا ریکارڈ موجود نہیں"}</div>
+            <div class="record-meta" style="margin-top:6px;">محفوظ ہونے کا وقت: ${st.closedAt || ""}</div>
+          </div>
+        `;
+      }).join("");
+    }
     function computeSummary() {
       const entries = Object.entries(latestProduction).reverse();
       let totalFeet = 0;
@@ -707,14 +472,13 @@
       let totalWorkerOwes = 0;
       const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
       const slotStats = {};
-      SLOT_DEFS.forEach((def) => {
-        slotStats[def.key] = { feet: 0, wage: 0 };
-      });
+      SLOT_DEFS.forEach((def) => { slotStats[def.key] = { feet: 0, wage: 0 }; });
       entries.forEach(([, item]) => {
         const feet = Number(item.feet || 0);
         const wage = Number(item.wage || 0);
         const machine = item.machine || "";
         const entryDate = item.entryDate || todayStr;
+        if (!isEntryInCurrentCycle(entryDate)) return;
         totalFeet += feet;
         totalWage += wage;
         if (byMachine[machine] !== undefined) byMachine[machine] += feet;
@@ -722,57 +486,39 @@
           const jointKeys = ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"];
           const activeJoint = jointKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], entryDate));
           const divisor = activeJoint.length > 0 ? activeJoint.length : 4;
-          activeJoint.forEach((k) => {
-            slotStats[k].feet += feet / divisor;
-            slotStats[k].wage += wage / divisor;
-          });
+          activeJoint.forEach((k) => { slotStats[k].feet += feet / divisor; slotStats[k].wage += wage / divisor; });
         } else if (machine === "سیکشن") {
           const secKeys = ["section_1", "section_2"];
           const activeSec = secKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], entryDate));
           const divisor = activeSec.length > 0 ? activeSec.length : 1;
-          activeSec.forEach((k) => {
-            slotStats[k].feet += feet / divisor;
-            slotStats[k].wage += wage / divisor;
-          });
+          activeSec.forEach((k) => { slotStats[k].feet += feet / divisor; slotStats[k].wage += wage / divisor; });
         } else if (machine === "ریسائز") {
           const resKeys = ["resize_1", "resize_2"];
           const activeRes = resKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], entryDate));
           const divisor = activeRes.length > 0 ? activeRes.length : 1;
-          activeRes.forEach((k) => {
-            slotStats[k].feet += feet / divisor;
-            slotStats[k].wage += wage / divisor;
-          });
+          activeRes.forEach((k) => { slotStats[k].feet += feet / divisor; slotStats[k].wage += wage / divisor; });
         }
       });
       const jointFeet = (byMachine["ورٹیکل"] || 0) + (byMachine["اٹھارہ"] || 0);
       const secActiveCount = ["section_1", "section_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], todayStr)).length || 1;
       const resActiveCount = ["resize_1", "resize_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], todayStr)).length || 1;
+      document.getElementById("cycleInfoBanner").textContent = `موجودہ جمع شدہ سائیکل شروع: ${cycleData.cycleStartDate} — اگلا مکمل تصفیہ ہر مہینے کی 5 تاریخ کو`;
       document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
       document.getElementById("totalWage").textContent = Math.round(totalWage).toLocaleString();
       document.getElementById("machineBreakdown").innerHTML = `
         <div class="record-item">
-          <div>
-            <strong>ورٹیکل + اٹھارہ (مشترکہ ٹھیکہ — 4 حصے)</strong><br/>
-            <span class="record-meta">ورٹیکل: ${(byMachine["ورٹیکل"] || 0).toLocaleString()} فٹ | اٹھارہ: ${(byMachine["اٹھارہ"] || 0).toLocaleString()} فٹ</span>
-          </div>
-          <div><strong>${jointFeet.toLocaleString()} فٹ</strong> <span class="record-meta">(فی بندہ: ${(jointFeet / 4).toFixed(1)} فٹ)</span></div>
+          <div><strong>ورٹیکل + اٹھارہ (مشترکہ ٹھیکہ — 4 حصے)</strong><br/><span class="record-meta">ورٹیکل: ${(byMachine["ورٹیکل"] \vert{}\vert{} 0).toLocaleString()} فٹ \vert{} اٹھارہ: ${(byMachine["اٹھارہ"] || 0).toLocaleString()} فٹ</span></div>
+          <div><strong>${jointFeet.toLocaleString()} فٹ</strong> <span class="record-meta">(فی بندہ کل حصہ: ${(jointFeet / 4).toFixed(1)} فٹ)</span></div>
         </div>
-        <div class="record-item">
-          <span><strong>سیکشن</strong> <span class="record-meta">(فعال مزدور: ${secActiveCount})</span></span>
-          <span>${(byMachine["سیکشن"] || 0).toLocaleString()} فٹ</span>
-        </div>
-        <div class="record-item">
-          <span><strong>ریسائز</strong> <span class="record-meta">(فعال مزدور: ${resActiveCount})</span></span>
-          <span>${(byMachine["ریسائز"] || 0).toLocaleString()} فٹ</span>
-        </div>
+        <div class="record-item"><span><strong>سیکشن</strong> <span class="record-meta">(فعال مزدور: ${secActiveCount})</span></span><span>${(byMachine["سیکشن"] || 0).toLocaleString()} فٹ</span></div>
+        <div class="record-item"><span><strong>ریسائز</strong> <span class="record-meta">(فعال مزدور: ${resActiveCount})</span></span><span>${(byMachine["ریسائز"] || 0).toLocaleString()} فٹ</span></div>
       `;
       const reportLines = [];
+      const snapshotWorkers = [];
       document.getElementById("workerBreakdown").innerHTML = SLOT_DEFS.map((def) => {
-        const slot = rosterData.slots[def.key] || { name: "", startDate: todayStr, endDate: "", active: true, history: [] };
+        const slot = rosterData.slots[def.key] || { name: "", startDate: "", endDate: "", active: true, history: [] };
         const hasHistory = slot.history && slot.history.length > 0;
-        if (!slot.name && !hasHistory && (def.key === "section_2" || def.key === "resize_2")) {
-          return "";
-        }
+        if (!slot.name && !hasHistory && (def.key === "section_2" || def.key === "resize_2")) return "";
         const displayName = slot.name || "(نام درج نہیں)";
         const st = slotStats[def.key] || { feet: 0, wage: 0 };
         const advKey = `${def.key}_${displayName}`;
@@ -781,42 +527,23 @@
         if (slot.name) {
           if (settle.type === "factory_owes") totalFactoryPayable += settle.amount;
           if (settle.type === "worker_owes") totalWorkerOwes += settle.amount;
+          snapshotWorkers.push({ name: displayName, role: def.label, feet: st.feet, wage: st.wage, paid, settlementText: settle.text });
         }
         const isStopped = Boolean(slot.endDate) || slot.active === false;
-        const statusBadge = isStopped
-          ? `<span class="badge-stopped">کام چھوڑ چکا (آخری تاریخ: ${slot.endDate || "اسٹاپ"})</span>`
-          : `<span class="badge-active">فعال (شروع: ${slot.startDate || todayStr})</span>`;
-        const shareNote = def.group === "joint4"
-          ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)"
-          : ` (${def.group} — فعال مزدوروں پر تقسیم)`;
-        if (slot.name) {
-          reportLines.push(
-            `• ${displayName} [${def.label}]: ${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} | ایڈوانس ${paid.toLocaleString()} | ${settle.text} ${isStopped ? "[اسٹاپ]" : "[فعال]"}`
-          );
-        }
-        const pastHtml = hasHistory
-          ? `<div class="record-meta" style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--border);">
-              <strong>سابقہ مزدوروں کا تصفیہ:</strong><br/>
-              ${slot.history.map(h => `• ${h.name} (${h.startDate || "-"} تا ${h.endDate || "-"}): اجرت ${(h.wage || 0).toLocaleString()} | ایڈوانس ${(h.paid || 0).toLocaleString()} — <strong>${h.settlementText || ""}</strong>`).join("<br/>")}
-            </div>`
-          : "";
+        const statusBadge = isStopped ? `<span class="badge-stopped">کام چھوڑ چکا (آخری تاریخ: ${slot.endDate || "اسٹاپ"})</span>` : `<span class="badge-active">فعال${slot.startDate ? ` (شروع: ${slot.startDate})` : ""}</span>`;
+        const shareNote = def.group === "joint4" ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)" : ` (${def.group} — فعال مزدوروں پر تقسیم)`; if (slot.name) reportLines.push(`• ${displayName} [${def.label}]:${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} \vert{} ایڈوانس ${paid.toLocaleString()} | ${settle.text}${isStopped ? "[اسٹاپ]" : "[فعال]"}`);
+        const pastHtml = hasHistory ? `<div class="record-meta" style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--border);"><strong>سابقہ مزدوروں کا تصفیہ:</strong><br/>${slot.history.map(h => `• ${h.name} (${h.startDate || "-"} تا ${h.endDate || "-"}): اجرت ${(h.wage || 0).toLocaleString()} | ایڈوانس ${(h.paid || 0).toLocaleString()} — <strong>${h.settlementText || ""}</strong>`).join("<br/>")}</div>` : "";
         return `
           <div class="worker-card">
             <div class="worker-head">
-              <div>
-                <strong style="font-size:1.02rem;">${displayName}</strong>
-                <span class="record-meta"> — ${def.label}${shareNote}</span>
-              </div>
-              ${statusBadge}
+              <div><strong style="font-size:1.02rem;">${displayName}</strong><span class="record-meta"> — ${def.label}${shareNote}</span></div>${statusBadge}
             </div>
             <div style="margin-bottom:8px;">
-              <span>کام: <strong>${st.feet.toFixed(1)} فٹ</strong></span> |
+              <span>جمع کام: <strong>${st.feet.toFixed(1)} فٹ</strong></span> |
               <span>کل اجرت: <strong>${Math.round(st.wage).toLocaleString()} روپے</strong></span> |
               <span>ایڈوانس/ادا: <strong>${paid.toLocaleString()} روپے</strong></span>
             </div>
-            <div class="settlement-box ${settle.css}">
-              ${settle.text}
-            </div>
+            <div class="settlement-box ${settle.css}">${settle.text}</div>
             <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:8px;">
               <input type="number" min="0" step="1" id="adv-${encodeURIComponent(advKey)}" value="${paid}" style="width:130px; padding:6px 8px;" placeholder="ایڈوانس/ادا" />
               <button type="button" class="btn-secondary" onclick="saveWorkerAdvance('${encodeURIComponent(advKey)}')">ایڈوانس محفوظ</button>
@@ -835,13 +562,10 @@
       }).join("");
       document.getElementById("totalFactoryPayable").textContent = totalFactoryPayable.toLocaleString();
       document.getElementById("totalWorkerOwes").textContent = totalWorkerOwes.toLocaleString();
-      reportText =
-`یوسف خان ماربل فیکٹری
-ورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ
-کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے
-فیکٹری کے ذمے بقایا: ${totalFactoryPayable.toLocaleString()} روپے | مزدوروں کے ذمے بقایا: ${totalWorkerOwes.toLocaleString()} روپے
-مزدور وار حساب:
-${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`;
+      latestComputedSnapshot = { cycleStartDate: cycleData.cycleStartDate, totalFeet, totalWage, totalFactoryPayable, totalWorkerOwes, workers: snapshotWorkers };
+      renderFifthHistory();
+      reportText = `یوسف خان ماربل فیکٹری (س
+    ائیکل شروع: ${cycleData.cycleStartDate})\nورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ\nکل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے\nفیکٹری کے ذمے بقایا: ${totalFactoryPayable.toLocaleString()} روپے | مزدوروں کے ذمے بقایا: ${totalWorkerOwes.toLocaleString()} روپے\nمزدور وار حساب:\n${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`;
     }
     window.saveWorkerAdvance = function (encodedKey) {
       const key = decodeURIComponent(encodedKey);
@@ -860,18 +584,14 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
         return (item.machine || "").toLowerCase().includes(query) || (item.entryDate || "").toLowerCase().includes(query);
       });
       const prodList = document.getElementById("prodList");
-      if (entries.length === 0) {
-        prodList.innerHTML = "<p style='color:#94a3b8'>کوئی ریکارڈ نہیں ملا۔</p>";
-        return;
-      }
+      if (entries.length === 0) { prodList.innerHTML = "<p style='color:#94a3b8'>کوئی ریکارڈ نہیں ملا۔</p>"; return; }
       prodList.innerHTML = entries.map(([id, item]) => {
         const feet = Number(item.feet || 0);
         const wage = Number(item.wage || 0);
         const d = item.entryDate || todayStr;
         let shareInfo = "";
-        if (item.machine === "ورٹیکل" || item.machine === "اٹھارہ") {
-          shareInfo = `(مشترکہ 4 حصے: ${(feet / 4).toFixed(1)} فٹ / ${Math.round(wage / 4).toLocaleString()} روپے فی بندہ)`;
-        } else if (item.machine === "سیکشن") {
+        if (item.machine === "ورٹیکل" || item.machine === "اٹھارہ") shareInfo = `(مشترکہ 4 حصے: ${(feet / 4).toFixed(1)} فٹ / ${Math.round(wage / 4).toLocaleString()} روپے فی بندہ)`;
+        else if (item.machine === "سیکشن") {
           const cnt = ["section_1", "section_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d)).length || 1;
           shareInfo = `(${cnt} مزدور پر تقسیم: ${(feet / cnt).toFixed(1)} فٹ فی بندہ)`;
         } else if (item.machine === "ریسائز") {
@@ -881,9 +601,7 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
         return `
           <div class="record-item">
             <div>
-              <strong style="color:#38bdf8">${item.machine || ""}</strong>
-              <span class="record-meta">${shareInfo}</span>
-              <span class="record-meta"> — تاریخ: ${d}</span><br/>
+              <strong style="color:#38bdf8">${item.machine || ""}</strong><span class="record-meta">${shareInfo}</span><span class="record-meta"> — تاریخ: ${d}</span><br/>
               <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
               <div class="record-meta">${item.createdAt || ""}</div>
             </div>
@@ -892,14 +610,18 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
         `;
       }).join("");
     };
+    onValue(cycleRef, (snapshot) => {
+      const remoteCycle = snapshot.val();
+      if (remoteCycle) {
+        cycleData = { cycleStartDate: remoteCycle.cycleStartDate || cycleData.cycleStartDate, fifthStatements: Array.isArray(remoteCycle.fifthStatements) ? remoteCycle.fifthStatements : cycleData.fifthStatements };
+        localStorage.setItem(CYCLE_STORAGE_KEY, JSON.stringify(cycleData));
+        computeSummary();
+      }
+    });
     onValue(rosterRef, (snapshot) => {
       const remoteRoster = snapshot.val();
       if (remoteRoster && remoteRoster.slots) {
-        rosterData = {
-          ...rosterData,
-          ...remoteRoster,
-          slots: { ...createEmptySlots(), ...rosterData.slots, ...remoteRoster.slots }
-        };
+        rosterData = { ...rosterData, ...remoteRoster, slots: { ...createEmptySlots(), ...rosterData.slots, ...remoteRoster.slots } };
         localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(rosterData));
         populateSlotInputs();
         computeSummary();
@@ -910,32 +632,19 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
       latestProduction = snapshot.val() || {};
       window.renderProduction();
       computeSummary();
-    }, () => {
-      statusEl.textContent = "کنکشن میں مسئلہ";
-    });
+    }, () => { statusEl.textContent = "کنکشن میں مسئلہ"; });
     window.deleteProd = async function (id) {
       await remove(ref(db, `marbleFactory/production/${id}`));
       showToast("ریکارڈ حذف کر دیا گیا۔");
     };
     window.copyWhatsappReport = async function () {
-      try {
-        await navigator.clipboard.writeText(reportText);
-        showToast("رپورٹ کاپی ہو گئی!");
-      } catch {
-        showToast("کاپی نہیں ہو سکی۔");
-      }
+      try { await navigator.clipboard.writeText(reportText); showToast("رپورٹ کاپی ہو گئی!"); } catch { showToast("کاپی نہیں ہو سکی۔"); }
     };
     window.shareWhatsappReport = function () {
       window.open("https://wa.me/?text=" + encodeURIComponent(reportText), "_blank");
     };
     window.downloadBackup = function () {
-      const payload = {
-        exportedAt: new Date().toISOString(),
-        roster: rosterData,
-        production: latestProduction,
-        workerAdvances,
-        secretComplaints: isUnlocked ? latestSecrets : "Locked"
-      };
+      const payload = { exportedAt: new Date().toISOString(), billingCycle: cycleData, roster: rosterData, production: latestProduction, workerAdvances, secretComplaints: isUnlocked ? latestSecrets : "Locked" };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -950,27 +659,15 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
       const dept = document.getElementById("secretDept").value;
       const sender = document.getElementById("secretSender").value.trim() || "گمنام";
       const message = document.getElementById("secretText").value.trim();
-      await push(secretRef, {
-        dept,
-        sender,
-        message,
-        status: "زیرِ غور",
-        createdAt: new Date().toLocaleString("ur-PK")
-      });
+      await push(secretRef, { dept, sender, message, status: "زیرِ غور", createdAt: new Date().toLocaleString("ur-PK") });
       e.target.reset();
       showToast("خفیہ پیغام سپروائزر تک پہنچا دیا گیا!");
     });
     function renderSecrets() {
       const el = document.getElementById("secretList");
-      if (!isUnlocked) {
-        el.innerHTML = "<p style='color:#94a3b8'>پن درج کریں۔</p>";
-        return;
-      }
+      if (!isUnlocked) { el.innerHTML = "<p style='color:#94a3b8'>پن درج کریں۔</p>"; return; }
       const items = Object.entries(latestSecrets).reverse();
-      if (items.length === 0) {
-        el.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>";
-        return;
-      }
+      if (items.length === 0) { el.innerHTML = "<p style='color:#94a3b8'>کوئی خفیہ شکایت موجود نہیں۔</p>"; return; }
       el.innerHTML = items.map(([id, item]) => {
         const isReviewed = item.status === "دیکھی جا چکی";
         const badgeClass = isReviewed ? "badge-reviewed" : "badge-pending";
@@ -1005,20 +702,15 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
         document.getElementById("supervisorPinInput").value = "";
         renderSecrets();
         showToast("ان لاک ہو گیا۔");
-      } else {
-        showToast("غلط پن کوڈ!");
-      }
+      } else { showToast("غلط پن کوڈ!"); }
     };
-    window.lockSecrets = function () {
+        window.lockSecrets = function () {
       isUnlocked = false;
       document.getElementById("supervisorLockBox").style.display = "block";
       document.getElementById("supervisorUnlockedControls").style.display = "none";
       renderSecrets();
     };
-    onValue(secretRef, (snapshot) => {
-      latestSecrets = snapshot.val() || {};
-      renderSecrets();
-    });
+    onValue(secretRef, (snapshot) => { latestSecrets = snapshot.val() || {}; renderSecrets(); });
     window.deleteSecret = async function (id) {
       if (!isUnlocked) return;
       await remove(ref(db, `marbleFactory/secretComplaints/${id}`));
