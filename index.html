@@ -17,7 +17,7 @@
       --danger: #f43f5e;
       --border: rgba(148, 163, 184, 0.2);
     }
-    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
+     { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
     body {
       margin: 0;
       background: var(--bg);
@@ -178,6 +178,28 @@
       gap: 8px;
       margin-bottom: 8px;
     }
+    .settlement-box {
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    .settle-factory-owes {
+      background: rgba(34, 197, 94, 0.14);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+    .settle-worker-owes {
+      background: rgba(244, 63, 94, 0.14);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+    .settle-even {
+      background: rgba(56, 189, 248, 0.14);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
     .badge-active {
       background: rgba(34, 197, 94, 0.16);
       color: #4ade80;
@@ -259,34 +281,42 @@
     <!-- ٹیب 1: پروڈکشن و مزدور -->
     <div id="tab-production" class="panel active">
       <div class="card">
-        <h2>مزدوروں کے نام درج کریں / تبدیل کریں (ورٹیکل و اٹھارہ 4 حصوں میں تقسیم)</h2>
+        <h2>مزدوروں کے نام درج کریں (ورٹیکل+اٹھارہ 4 بندے | سیکشن و ریسائز 1 یا 2 بندے)</h2>
         <p class="record-meta" style="margin-top:0; margin-bottom:12px;">
-          ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں برابر تقسیم ہوتا ہے۔ اگر کوئی کام چھوڑ جائے تو اس کی آخری تاریخ لگا کر "اسٹاپ" کریں اور نیا نام لکھ کر "اسٹارٹ" کریں۔
+          ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں تقسیم ہوتا ہے۔ سیکشن اور ریسائز پر اگر 1 مزدور ہو تو پورا کام اسی کو ملتا ہے، اور اگر 2 ہوں تو خود بخود نصف نصف ہو جاتا ہے۔
         </p>
         <div class="grid">
           <div>
-            <label>ورٹیکل استاد کا نام</label>
+            <label>ورٹیکل استاد</label>
             <input type="text" id="slot_vert_ustad" placeholder="نام لکھیں..." />
           </div>
           <div>
-            <label>ورٹیکل ہیلپر کا نام</label>
+            <label>ورٹیکل ہیلپر</label>
             <input type="text" id="slot_vert_helper" placeholder="نام لکھیں..." />
           </div>
           <div>
-            <label>اٹھارہ استاد کا نام</label>
+            <label>اٹھارہ استاد</label>
             <input type="text" id="slot_athara_ustad" placeholder="نام لکھیں..." />
           </div>
           <div>
-            <label>اٹھارہ ہیلپر کا نام</label>
+            <label>اٹھارہ ہیلپر</label>
             <input type="text" id="slot_athara_helper" placeholder="نام لکھیں..." />
           </div>
           <div>
-            <label>سیکشن مزدور کا نام</label>
-            <input type="text" id="slot_section_worker" placeholder="نام لکھیں..." />
+            <label>سیکشن مزدور 1</label>
+            <input type="text" id="slot_section_1" placeholder="نام لکھیں..." />
           </div>
           <div>
-            <label>ریسائز مزدور کا نام</label>
-            <input type="text" id="slot_resize_worker" placeholder="نام لکھیں..." />
+            <label>سیکشن مزدور 2 (اختیاری)</label>
+            <input type="text" id="slot_section_2" placeholder="دوسرا مزدور ہو تو نام لکھیں..." />
+          </div>
+          <div>
+            <label>ریسائز مزدور 1</label>
+            <input type="text" id="slot_resize_1" placeholder="نام لکھیں..." />
+          </div>
+          <div>
+            <label>ریسائز مزدور 2 (اختیاری)</label>
+            <input type="text" id="slot_resize_2" placeholder="دوسرا مزدور ہو تو نام لکھیں..." />
           </div>
           <div>
             <label>شروع کرنے کی تاریخ</label>
@@ -306,8 +336,8 @@
               <select id="machineName" required>
                 <option value="ورٹیکل">ورٹیکل (مشترکہ 4 بندے)</option>
                 <option value="اٹھارہ">اٹھارہ (مشترکہ 4 بندے)</option>
-                <option value="سیکشن">سیکشن</option>
-                <option value="ریسائز">ریسائز</option>
+                <option value="سیکشن">سیکشن (1 یا 2 بندے)</option>
+                <option value="ریسائز">ریسائز (1 یا 2 بندے)</option>
               </select>
             </div>
             <div>
@@ -356,17 +386,17 @@
             <div class="lbl">کل اجرت (روپے)</div>
           </div>
           <div class="stat-box">
-            <div class="num" id="totalBalance">0</div>
-            <div class="lbl">کل بقایا (روپے)</div>
+            <div class="num" id="totalFactoryPayable">0</div>
+            <div class="lbl">فیکٹری کے ذمے بقایا</div>
           </div>
           <div class="stat-box">
-            <div class="num" id="totalEntries">0</div>
-            <div class="lbl">کل انٹریز</div>
+            <div class="num" id="totalWorkerOwes">0</div>
+            <div class="lbl">مزدوروں کے ذمے بقایا</div>
           </div>
         </div>
-        <h2>مشینوں کے حساب سے کام (ورٹیکل + اٹھارہ مشترکہ)</h2>
+        <h2>مشینوں کے حساب سے کام</h2>
         <div id="machineBreakdown"></div>
-        <h2 style="margin-top: 16px;">ہر مزدور کا الگ خانہ (کام، ایڈوانس، بقایا، اسٹاپ / نیا بندہ)</h2>
+        <h2 style="margin-top: 16px;">ہر مزدور کا الگ خانہ (حتمی تصفیہ، ایڈوانس، اسٹاپ / نیا بندہ)</h2>
         <div id="workerBreakdown"></div>
       </div>
     </div>
@@ -437,31 +467,32 @@
       measurementId: "G-2M87407HCW"
     };
     const SUPERVISOR_PIN = "1234";
-    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v2";
-    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v2";
+    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v3";
+    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v3";
     const SLOT_DEFS = [
       { key: "vert_ustad", inputId: "slot_vert_ustad", label: "ورٹیکل استاد", group: "joint4" },
       { key: "vert_helper", inputId: "slot_vert_helper", label: "ورٹیکل ہیلپر", group: "joint4" },
       { key: "athara_ustad", inputId: "slot_athara_ustad", label: "اٹھارہ استاد", group: "joint4" },
       { key: "athara_helper", inputId: "slot_athara_helper", label: "اٹھارہ ہیلپر", group: "joint4" },
-      { key: "section_worker", inputId: "slot_section_worker", label: "سیکشن مزدور", group: "سیکشن" },
-      { key: "resize_worker", inputId: "slot_resize_worker", label: "ریسائز مزدور", group: "ریسائز" }
+      { key: "section_1", inputId: "slot_section_1", label: "سیکشن مزدور 1", group: "سیکشن" },
+      { key: "section_2", inputId: "slot_section_2", label: "سیکشن مزدور 2", group: "سیکشن" },
+      { key: "resize_1", inputId: "slot_resize_1", label: "ریسائز مزدور 1", group: "ریسائز" },
+      { key: "resize_2", inputId: "slot_resize_2", label: "ریسائز مزدور 2", group: "ریسائز" }
     ];
     const todayStr = new Date().toISOString().split("T")[0];
+    function createEmptySlots() {
+      const s = {};
+      SLOT_DEFS.forEach((d) => {
+        s[d.key] = { name: "", startDate: todayStr, endDate: "", active: true, history: [] };
+      });
+      return s;
+    }
     let isUnlocked = false;
     let latestProduction = {};
     let latestSecrets = {};
     let workerAdvances = JSON.parse(localStorage.getItem(ADVANCE_STORAGE_KEY) || "{}");
-    let rosterData = JSON.parse(localStorage.getItem(ROSTER_STORAGE_KEY) || "null") || {
-      slots: {
-        vert_ustad: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
-        vert_helper: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
-        athara_ustad: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
-        athara_helper: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
-        section_worker: { name: "", startDate: todayStr, endDate: "", active: true, history: [] },
-        resize_worker: { name: "", startDate: todayStr, endDate: "", active: true, history: [] }
-      }
-    };
+    let rosterData = JSON.parse(localStorage.getItem(ROSTER_STORAGE_KEY) || "null") || { slots: createEmptySlots() };
+    rosterData.slots = { ...createEmptySlots(), ...(rosterData.slots || {}) };
     let reportText = "";
     const dateInput = document.getElementById("entryDate");
     if (dateInput && !dateInput.value) dateInput.value = todayStr;
@@ -479,6 +510,32 @@
       toastEl.style.display = "block";
       setTimeout(() => { toastEl.style.display = "none"; }, 2600);
     }
+    function getSettlementInfo(wage, paid) {
+      const diff = Math.round(wage - paid);
+      if (diff > 0) {
+        return {
+          type: "factory_owes",
+          amount: diff,
+          css: "settle-factory-owes",
+          text: `فیکٹری پر مزدور کے ${diff.toLocaleString()} روپے بقایا (واجب الادا) ہیں`
+        };
+      }
+      if (diff < 0) {
+        const absVal = Math.abs(diff);
+        return {
+          type: "worker_owes",
+          amount: absVal,
+          css: "settle-worker-owes",
+          text: `مزدور کے ذمے فیکٹری کے ${absVal.toLocaleString()} روپے بقایا (واپس لینے ہیں)`
+        };
+      }
+      return {
+        type: "even",
+        amount: 0,
+        css: "settle-even",
+        text: "حساب بالکل برابر ہے (0 روپے بقایا)"
+      };
+    }
     function populateSlotInputs() {
       SLOT_DEFS.forEach((def) => {
         const inp = document.getElementById(def.inputId);
@@ -490,18 +547,68 @@
       localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(rosterData));
       set(rosterRef, rosterData).catch(() => {});
     }
+    function isWorkerEligibleOnDate(person, entryDate) {
+      if (!person || !person.name) return false;
+      const d = entryDate || todayStr;
+      if (person.startDate && d < person.startDate) return false;
+      if (person.endDate && d > person.endDate) return false;
+      return true;
+    }
+    function calculateSlotEarnings(slotKey) {
+      let feet = 0;
+      let wage = 0;
+      Object.values(latestProduction).forEach((item) => {
+        const f = Number(item.feet || 0);
+        const w = Number(item.wage || 0);
+        const m = item.machine || "";
+        const d = item.entryDate || todayStr;
+        if ((m === "ورٹیکل" || m == === "اٹھارہ") && ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"].includes(slotKey)) {
+          const jointKeys = ["vert_ustad", "vert_helper", "athara_ustad", "athara_helper"];
+          const activeJoint = jointKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d));
+          if (activeJoint.includes(slotKey)) {
+            const div = activeJoint.length > 0 ? activeJoint.length : 4;
+            feet += f / div;
+            wage += w / div;
+          }
+        } else if (m === "سیکشن" && ["section_1", "section_2"].includes(slotKey)) {
+          const secKeys = ["section_1", "section_2"];
+          const activeSec = secKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d));
+          if (activeSec.includes(slotKey)) {
+            const div = activeSec.length > 0 ? activeSec.length : 1;
+            feet += f / div;
+            wage += w / div;
+          }
+        } else if (m === "ریسائز" && ["resize_1", "resize_2"].includes(slotKey)) {
+          const resKeys = ["resize_1", "resize_2"];
+          const activeRes = resKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d));
+          if (activeRes.includes(slotKey)) {
+            const div = activeRes.length > 0 ? activeRes.length : 1;
+            feet += f / div;
+            wage += w / div;
+          }
+        }
+      });
+      return { feet, wage };
+    }
     window.saveAllSlots = function () {
       const chosenStart = document.getElementById("rosterStartDate").value || todayStr;
       SLOT_DEFS.forEach((def) => {
         const inp = document.getElementById(def.inputId);
         const newName = (inp ? inp.value : "").trim();
-        const current = rosterData.slots[def.key] || { name: "", startDate: chosenStart, endDate: "", active: true, history: [] };
+        const current = rosterData.slots[def.key] || { name: "", startDate: chosenStart, endDate: "", active: true, history: [] };ذ
         if (newName && current.name && newName !== current.name && current.active) {
+          const earned = calculateSlotEarnings(def.key);
+          const advKey = `${def.key}_${current.name}`;
+          const paid = Number(workerAdvances[advKey] || 0);
+          const settle = getSettlementInfo(earned.wage, paid);
           current.history = current.history || [];
           current.history.push({
             name: current.name,
             startDate: current.startDate || chosenStart,
-            endDate: chosenStart
+            endDate: chosenStart,
+            wage: Math.round(earned.wage),
+            paid,
+            settlementText: settle.text
           });
           current.name = newName;
           current.startDate = chosenStart;
@@ -528,7 +635,10 @@
       rosterData.slots[slotKey] = slot;
       persistRoster();
       computeSummary();
-      showToast(`${slot.name} کا حساب ${stopDate} تک روک دیا گیا۔`);
+      const earned = calculateSlotEarnings(slotKey);
+      const paid = Number(workerAdvances[`${slotKey}_${slot.name}`] || 0);
+      const settle = getSettlementInfo(earned.wage, paid);
+      showToast(`${slot.name} اسٹاپ: ${settle.text}`);
     };
     window.startNewSlotWorker = function (slotKey) {
       const nameInput = document.getElementById("newName-" + slotKey);
@@ -542,10 +652,16 @@
       const slot = rosterData.slots[slotKey];
       slot.history = slot.history || [];
       if (slot.name) {
+        const earned = calculateSlotEarnings(slotKey);
+        const paid = Number(workerAdvances[`${slotKey}_${slot.name}`] || 0);
+        const settle = getSettlementInfo(earned.wage, paid);
         slot.history.push({
           name: slot.name,
           startDate: slot.startDate || "",
-          endDate: slot.endDate || newStart
+          endDate: slot.endDate || newStart,
+          wage: Math.round(earned.wage),
+          paid,
+          settlementText: settle.text
         });
       }
       slot.name = newName;
@@ -583,18 +699,12 @@
       document.getElementById("entryDate").value = entryDate;
       showToast("پروڈکشن ریکارڈ لائیو محفوظ ہو گیا!");
     });
-    function isWorkerEligibleOnDate(person, entryDate) {
-      if (!person || !person.name) return false;
-      const d = entryDate || todayStr;
-      if (person.startDate && d < person.startDate) return false;
-      if (person.endDate && d > person.endDate) return false;
-      return true;
-    }
     function computeSummary() {
       const entries = Object.entries(latestProduction).reverse();
       let totalFeet = 0;
       let totalWage = 0;
-      let totalBalance = 0;
+      let totalFactoryPayable = 0;
+      let totalWorkerOwes = 0;
       const byMachine = { "ورٹیکل": 0, "اٹھارہ": 0, "سیکشن": 0, "ریسائز": 0 };
       const slotStats = {};
       SLOT_DEFS.forEach((def) => {
@@ -617,53 +727,78 @@
             slotStats[k].wage += wage / divisor;
           });
         } else if (machine === "سیکشن") {
-          if (isWorkerEligibleOnDate(rosterData.slots.section_worker, entryDate)) {
-            slotStats.section_worker.feet += feet;
-            slotStats.section_worker.wage += wage;
-          }
+          const secKeys = ["section_1", "section_2"];
+          const activeSec = secKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], entryDate));
+          const divisor = activeSec.length > 0 ? activeSec.length : 1;
+          activeSec.forEach((k) => {
+            slotStats[k].feet += feet / divisor;
+            slotStats[k].wage += wage / divisor;
+          });
         } else if (machine === "ریسائز") {
-          if (isWorkerEligibleOnDate(rosterData.slots.resize_worker, entryDate)) {
-            slotStats.resize_worker.feet += feet;
-            slotStats.resize_worker.wage += wage;
-          }
+          const resKeys = ["resize_1", "resize_2"];
+          const activeRes = resKeys.filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], entryDate));
+          const divisor = activeRes.length > 0 ? activeRes.length : 1;
+          activeRes.forEach((k) => {
+            slotStats[k].feet += feet / divisor;
+            slotStats[k].wage += wage / divisor;
+          });
         }
       });
       const jointFeet = (byMachine["ورٹیکل"] || 0) + (byMachine["اٹھارہ"] || 0);
+      const secActiveCount = ["section_1", "section_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], todayStr)).length || 1;
+      const resActiveCount = ["resize_1", "resize_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], todayStr)).length || 1;
       document.getElementById("totalFeet").textContent = totalFeet.toLocaleString();
-      document.getElementById("totalWage").textContent = totalWage.toLocaleString();
-      document.getElementById("totalEntries").textContent = entries.length;
+      document.getElementById("totalWage").textContent = Math.round(totalWage).toLocaleString();
       document.getElementById("machineBreakdown").innerHTML = `
         <div class="record-item">
           <div>
             <strong>ورٹیکل + اٹھارہ (مشترکہ ٹھیکہ — 4 حصے)</strong><br/>
             <span class="record-meta">ورٹیکل: ${(byMachine["ورٹیکل"] || 0).toLocaleString()} فٹ | اٹھارہ: ${(byMachine["اٹھارہ"] || 0).toLocaleString()} فٹ</span>
           </div>
-          <div><strong>${jointFeet.toLocaleString()} فٹ</strong> <span class="record-meta">(فی بندہ حصہ: ${(jointFeet / 4).toLocaleString()} فٹ)</span></div>
+          <div><strong>${jointFeet.toLocaleString()} فٹ</strong> <span class="record-meta">(فی بندہ: ${(jointFeet / 4).toFixed(1)} فٹ)</span></div>
         </div>
-        <div class="record-item"><span><strong>سیکشن</strong></span><span>${(byMachine["سیکشن"] || 0).toLocaleString()} فٹ</span></div>
-        <div class="record-item"><span><strong>ریسائز</strong></span><span>${(byMachine["ریسائز"] || 0).toLocaleString()} فٹ</span></div>
+        <div class="record-item">
+          <span><strong>سیکشن</strong> <span class="record-meta">(فعال مزدور: ${secActiveCount})</span></span>
+          <span>${(byMachine["سیکشن"] || 0).toLocaleString()} فٹ</span>
+        </div>
+        <div class="record-item">
+          <span><strong>ریسائز</strong> <span class="record-meta">(فعال مزدور: ${resActiveCount})</span></span>
+          <span>${(byMachine["ریسائز"] || 0).toLocaleString()} فٹ</span>
+        </div>
       `;
       const reportLines = [];
       document.getElementById("workerBreakdown").innerHTML = SLOT_DEFS.map((def) => {
         const slot = rosterData.slots[def.key] || { name: "", startDate: todayStr, endDate: "", active: true, history: [] };
+        const hasHistory = slot.history && slot.history.length > 0;
+        if (!slot.name && !hasHistory && (def.key === "section_2" || def.key === "resize_2")) {
+          return "";
+        }
         const displayName = slot.name || "(نام درج نہیں)";
         const st = slotStats[def.key] || { feet: 0, wage: 0 };
         const advKey = `${def.key}_${displayName}`;
         const paid = Number(workerAdvances[advKey] || 0);
-        const balance = st.wage - paid;
-        totalBalance += balance;
+        const settle = getSettlementInfo(st.wage, paid);
+        if (slot.name) {
+          if (settle.type === "factory_owes") totalFactoryPayable += settle.amount;
+          if (settle.type === "worker_owes") totalWorkerOwes += settle.amount;
+        }
         const isStopped = Boolean(slot.endDate) || slot.active === false;
         const statusBadge = isStopped
           ? `<span class="badge-stopped">کام چھوڑ چکا (آخری تاریخ: ${slot.endDate || "اسٹاپ"})</span>`
           : `<span class="badge-active">فعال (شروع: ${slot.startDate || todayStr})</span>`;
-        const shareNote = def.group === "joint4" ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)" : "";
+        const shareNote = def.group === "joint4"
+          ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)"
+          : ` (${def.group} — فعال مزدوروں پر تقسیم)`;
         if (slot.name) {
           reportLines.push(
-            `• ${displayName} [${def.label}${shareNote}]: ${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} | ادا ${paid.toLocaleString()} | بقایا ${Math.round(balance).toLocaleString()} روپے ${isStopped ? "[اسٹاپ]" : "[فعال]"}`
+            `• ${displayName} [${def.label}]: ${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} | ایڈوانس ${paid.toLocaleString()} | ${settle.text} ${isStopped ? "[اسٹاپ]" : "[فعال]"}`
           );
         }
-        const pastHtml = (slot.history && slot.history.length)
-          ? `<div class="record-meta" style="margin-top:6px;">سابقہ مزدور: ${slot.history.map(h => `${h.name} (${h.startDate || "-"} تا ${h.endDate || "-"})`).join(" ، ")}</div>`
+        const pastHtml = hasHistory
+          ? `<div class="record-meta" style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--border);">
+              <strong>سابقہ مزدوروں کا تصفیہ:</strong><br/>
+              ${slot.history.map(h => `• ${h.name} (${h.startDate || "-"} تا ${h.endDate || "-"}): اجرت ${(h.wage || 0).toLocaleString()} | ایڈوانس ${(h.paid || 0).toLocaleString()} — <strong>${h.settlementText || ""}</strong>`).join("<br/>")}
+            </div>`
           : "";
         return `
           <div class="worker-card">
@@ -676,12 +811,14 @@
             </div>
             <div style="margin-bottom:8px;">
               <span>کام: <strong>${st.feet.toFixed(1)} فٹ</strong></span> |
-              <span>اجرت: <strong>${Math.round(st.wage).toLocaleString()} روپے</strong></span> |
-              <span>ایڈوانس/ادا: <strong>${paid.toLocaleString()} روپے</strong></span> |
-              <span>بقایا: <strong style="color:#4ade80">${Math.round(balance).toLocaleString()} روپے</strong></span>
+              <span>کل اجرت: <strong>${Math.round(st.wage).toLocaleString()} روپے</strong></span> |
+              <span>ایڈوانس/ادا: <strong>${paid.toLocaleString()} روپے</strong></span>
+            </div>
+            <div class="settlement-box ${settle.css}">
+              ${settle.text}
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:8px;">
-              <input type="number" min="0" step="1" id="adv-${advKey}" value="${paid}" style="width:125px; padding:6px 8px;" placeholder="ایڈوانس/ادا" />
+              <input type="number" min="0" step="1" id="adv-${encodeURIComponent(advKey)}" value="${paid}" style="width:130px; padding:6px 8px;" placeholder="ایڈوانس/ادا" />
               <button type="button" class="btn-secondary" onclick="saveWorkerAdvance('${encodeURIComponent(advKey)}')">ایڈوانس محفوظ</button>
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; padding-top:8px; border-top:1px solid var(--border);">
@@ -696,11 +833,13 @@
           </div>
         `;
       }).join("");
-      document.getElementById("totalBalance").textContent = Math.round(totalBalance).toLocaleString();
+      document.getElementById("totalFactoryPayable").textContent = totalFactoryPayable.toLocaleString();
+      document.getElementById("totalWorkerOwes").textContent = totalWorkerOwes.toLocaleString();
       reportText =
 `یوسف خان ماربل فیکٹری
-ورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ (فی حصہ: ${(jointFeet / 4).toLocaleString()} فٹ)
-کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے | کل بقایا: ${Math.round(totalBalance).toLocaleString()} روپے
+ورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ
+کل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے
+فیکٹری کے ذمے بقایا: ${totalFactoryPayable.toLocaleString()} روپے | مزدوروں کے ذمے بقایا: ${totalWorkerOwes.toLocaleString()} روپے
 مزدور وار حساب:
 ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`;
     }
@@ -728,13 +867,23 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
       prodList.innerHTML = entries.map(([id, item]) => {
         const feet = Number(item.feet || 0);
         const wage = Number(item.wage || 0);
-        const isJoint = item.machine === "ورٹیکل" || item.machine === "اٹھارہ";
+        const d = item.entryDate || todayStr;
+        let shareInfo = "";
+        if (item.machine === "ورٹیکل" || item.machine === "اٹھارہ") {
+          shareInfo = `(مشترکہ 4 حصے: ${(feet / 4).toFixed(1)} فٹ / ${Math.round(wage / 4).toLocaleString()} روپے فی بندہ)`;
+        } else if (item.machine === "سیکشن") {
+          const cnt = ["section_1", "section_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d)).length || 1;
+          shareInfo = `(${cnt} مزدور پر تقسیم: ${(feet / cnt).toFixed(1)} فٹ فی بندہ)`;
+        } else if (item.machine === "ریسائز") {
+          const cnt = ["resize_1", "resize_2"].filter((k) => isWorkerEligibleOnDate(rosterData.slots[k], d)).length || 1;
+          shareInfo = `(${cnt} مزدور پر تقسیم: ${(feet / cnt).toFixed(1)} فٹ فی بندہ)`;
+        }
         return `
           <div class="record-item">
             <div>
               <strong style="color:#38bdf8">${item.machine || ""}</strong>
-              ${isJoint ? `<span class="record-meta">(مشترکہ 4 حصے: ${(feet / 4).toFixed(1)} فٹ / ${Math.round(wage / 4).toLocaleString()} روپے فی بندہ)</span>` : ""}
-              <span class="record-meta"> — تاریخ: ${item.entryDate || ""}</span><br/>
+              <span class="record-meta">${shareInfo}</span>
+              <span class="record-meta"> — تاریخ: ${d}</span><br/>
               <span>${feet} فٹ × ${item.rate} روپے = <strong>${wage.toLocaleString()} روپے</strong></span>
               <div class="record-meta">${item.createdAt || ""}</div>
             </div>
@@ -749,7 +898,7 @@ ${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`
         rosterData = {
           ...rosterData,
           ...remoteRoster,
-          slots: { ...rosterData.slots, ...remoteRoster.slots }
+          slots: { ...createEmptySlots(), ...rosterData.slots, ...remoteRoster.slots }
         };
         localStorage.setItem(ROSTER_STORAGE_KEY, JSON.stringify(rosterData));
         populateSlotInputs();
