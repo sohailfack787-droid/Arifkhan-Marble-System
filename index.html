@@ -17,7 +17,7 @@
       --danger: #f43f5e;
       --border: rgba(148, 163, 184, 0.2);
     }
-     { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, "Noto Nastaliq Urdu", sans-serif; }
     body { margin: 0; background: var(--bg); color: var(--text); padding: 16px; line-height: 1.6; }
     .container { max-width: 980px; margin: 0 auto; }
     .header { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
@@ -77,7 +77,9 @@
     <div id="tab-production" class="panel active">
       <div class="card">
         <h2>مزدوروں کے نام درج کریں (ورٹیکل+اٹھارہ 4 بندے | سیکشن و ریسائز 1 یا 2 بندے)</h2>
-        <p class="record-meta" style="margin-top:0; margin-bottom:12px;">ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں تقسیم ہوتا ہے۔ سیکشن اور ریسائز پر اگر 1 مزدور ہو تو پورا کام اسی کو ملتا ہے، اور اگر 2 ہوں تو خود بخود نصف نصف ہو جاتا ہے۔</p>
+        <p class="record-meta" style="margin-top:0; margin-bottom:12px;">
+          ورٹیکل اور اٹھارہ کا مشترکہ ٹھیکہ 4 بندوں میں تقسیم ہوتا ہے۔ سیکشن اور ریسائز پر اگر 1 مزدور ہو تو پورا کام اسی کو ملتا ہے، اور اگر 2 ہوں تو خود بخود نصف نصف ہو جاتا ہے۔
+        </p>
         <div class="grid">
           <div><label>ورٹیکل استاد</label><input type="text" id="slot_vert_ustad" placeholder="نام لکھیں..." /></div>
           <div><label>ورٹیکل ہیلپر</label><input type="text" id="slot_vert_helper" placeholder="نام لکھیں..." /></div>
@@ -155,7 +157,8 @@
               <select id="secretDept">
                 <option value="عمومی">عمومی</option>
                 <option value="ورٹیکل">ورٹیکل</option>
-                <option value="اٹھارہ">اٹھارہ</option>
+                <option value="اٹھارہ
+                  ">اٹھارہ</option>
                 <option value="سیکشن">سیکشن</option>
                 <option value="ریسائز">ریسائز</option>
               </select>
@@ -197,9 +200,9 @@
       measurementId: "G-2M87407HCW"
     };
     const SUPERVISOR_PIN = "1234";
-    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v4";
-    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v4";
-    const CYCLE_STORAGE_KEY = "yousaf_marble_cycle_v4";
+    const ADVANCE_STORAGE_KEY = "yousaf_marble_worker_advances_v5";
+    const ROSTER_STORAGE_KEY = "yousaf_marble_roster_v5";
+    const CYCLE_STORAGE_KEY = "yousaf_marble_cycle_v5";
     const SLOT_DEFS = [
       { key: "vert_ustad", inputId: "slot_vert_ustad", label: "ورٹیکل استاد", group: "joint4" },
       { key: "vert_helper", inputId: "slot_vert_helper", label: "ورٹیکل ہیلپر", group: "joint4" },
@@ -219,7 +222,8 @@
       const start = d >= 5 ? new Date(y, m, 5) : new Date(y, m - 1, 5);
       return start.toISOString().split("T")[0];
     }
-    function createEmptySlots() {
+    function create
+    EmptySlots() {
       const s = {};
       SLOT_DEFS.forEach((d) => { s[d.key] = { name: "", startDate: "", endDate: "", active: true, history: [] }; });
       return s;
@@ -436,7 +440,7 @@
       e.target.reset();
       document.getElementById("entryDate").value = entryDate;
       showToast("روزانہ پروڈکشن ریکارڈ جمع ہو گیا!");
-    }
+    });
     function renderFifthHistory() {
       const box = document.getElementById("fifthHistoryList");
       const list = cycleData.fifthStatements || [];
@@ -445,7 +449,7 @@
         return;
       }
       box.innerHTML = list.map((st) => {
-        const wLines = (st.workers || []).map((w) => `• <strong>${w.name}</strong> (${w.role}): ${w.feet.toFixed(1)} فٹ \vert{} اجرت ${Math.round(w.wage).toLocaleString()} | ایڈوانس ${w.paid.toLocaleString()} — <span>${w.settlementText}</span>`).join("<br/>");
+        const wLines = (st.workers || []).map((w) => `• <strong>${w.name}</strong> (${w.role}): ${w.feet.toFixed(1)} فٹ | اجرت ${Math.round(w.wage).toLocaleString()} | ایڈوانس ${w.paid.toLocaleString()} — <span>${w.settlementText}</span>`).join("<br/>");
         return `
           <div class="worker-card">
             <div class="worker-head">
@@ -464,6 +468,7 @@
         `;
       }).join("");
     }
+
     function computeSummary() {
       const entries = Object.entries(latestProduction).reverse();
       let totalFeet = 0;
@@ -507,7 +512,7 @@
       document.getElementById("totalWage").textContent = Math.round(totalWage).toLocaleString();
       document.getElementById("machineBreakdown").innerHTML = `
         <div class="record-item">
-          <div><strong>ورٹیکل + اٹھارہ (مشترکہ ٹھیکہ — 4 حصے)</strong><br/><span class="record-meta">ورٹیکل: ${(byMachine["ورٹیکل"] \vert{}\vert{} 0).toLocaleString()} فٹ \vert{} اٹھارہ: ${(byMachine["اٹھارہ"] || 0).toLocaleString()} فٹ</span></div>
+          <div><strong>ورٹیکل + اٹھارہ (مشترکہ ٹھیکہ — 4 حصے)</strong><br/><span class="record-meta">ورٹیکل: ${(byMachine["ورٹیکل"] || 0).toLocaleString()} فٹ | اٹھارہ: ${(byMachine["اٹھارہ"] || 0).toLocaleString()} فٹ</span></div>
           <div><strong>${jointFeet.toLocaleString()} فٹ</strong> <span class="record-meta">(فی بندہ کل حصہ: ${(jointFeet / 4).toFixed(1)} فٹ)</span></div>
         </div>
         <div class="record-item"><span><strong>سیکشن</strong> <span class="record-meta">(فعال مزدور: ${secActiveCount})</span></span><span>${(byMachine["سیکشن"] || 0).toLocaleString()} فٹ</span></div>
@@ -531,12 +536,14 @@
         }
         const isStopped = Boolean(slot.endDate) || slot.active === false;
         const statusBadge = isStopped ? `<span class="badge-stopped">کام چھوڑ چکا (آخری تاریخ: ${slot.endDate || "اسٹاپ"})</span>` : `<span class="badge-active">فعال${slot.startDate ? ` (شروع: ${slot.startDate})` : ""}</span>`;
-        const shareNote = def.group === "joint4" ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)" : ` (${def.group} — فعال مزدوروں پر تقسیم)`; if (slot.name) reportLines.push(`• ${displayName} [${def.label}]:${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} \vert{} ایڈوانس ${paid.toLocaleString()} | ${settle.text}${isStopped ? "[اسٹاپ]" : "[فعال]"}`);
+        const shareNote = def.group === "joint4" ? " (ورٹیکل+اٹھارہ کا 1/4 حصہ)" : ` (${def.group} — فعال مزدوروں پر تقسیم)`;
+        if (slot.name) reportLines.push(`• ${displayName} [${def.label}]: ${st.feet.toFixed(1)} فٹ | اجرت ${Math.round(st.wage).toLocaleString()} | ایڈوانس ${paid.toLocaleString()} | ${settle.text} ${isStopped ? "[اسٹاپ]" : "[فعال]"}`);
         const pastHtml = hasHistory ? `<div class="record-meta" style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--border);"><strong>سابقہ مزدوروں کا تصفیہ:</strong><br/>${slot.history.map(h => `• ${h.name} (${h.startDate || "-"} تا ${h.endDate || "-"}): اجرت ${(h.wage || 0).toLocaleString()} | ایڈوانس ${(h.paid || 0).toLocaleString()} — <strong>${h.settlementText || ""}</strong>`).join("<br/>")}</div>` : "";
         return `
           <div class="worker-card">
             <div class="worker-head">
-              <div><strong style="font-size:1.02rem;">${displayName}</strong><span class="record-meta"> — ${def.label}${shareNote}</span></div>${statusBadge}
+              <div><strong style="font-size:1.02rem;">${displayName}</strong><span class="record-meta"> — ${def.label}${shareNote}</span></div>
+              ${statusBadge}
             </div>
             <div style="margin-bottom:8px;">
               <span>جمع کام: <strong>${st.feet.toFixed(1)} فٹ</strong></span> |
@@ -564,8 +571,7 @@
       document.getElementById("totalWorkerOwes").textContent = totalWorkerOwes.toLocaleString();
       latestComputedSnapshot = { cycleStartDate: cycleData.cycleStartDate, totalFeet, totalWage, totalFactoryPayable, totalWorkerOwes, workers: snapshotWorkers };
       renderFifthHistory();
-      reportText = `یوسف خان ماربل فیکٹری (س
-    ائیکل شروع: ${cycleData.cycleStartDate})\nورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ\nکل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے\nفیکٹری کے ذمے بقایا: ${totalFactoryPayable.toLocaleString()} روپے | مزدوروں کے ذمے بقایا: ${totalWorkerOwes.toLocaleString()} روپے\nمزدور وار حساب:\n${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`;
+      reportText = `یوسف خان ماربل فیکٹری (سائیکل شروع: ${cycleData.cycleStartDate})\nورٹیکل+اٹھارہ مشترکہ: ${jointFeet.toLocaleString()} فٹ\nکل فٹ: ${totalFeet.toLocaleString()} | کل اجرت: ${Math.round(totalWage).toLocaleString()} روپے\nفیکٹری کے ذمے بقایا: ${totalFactoryPayable.toLocaleString()} روپے | مزدوروں کے ذمے بقایا: ${totalWorkerOwes.toLocaleString()} روپے\nمزدور وار حساب:\n${reportLines.join("\n") || "• ابھی کوئی مزدور درج نہیں"}`;
     }
     window.saveWorkerAdvance = function (encodedKey) {
       const key = decodeURIComponent(encodedKey);
@@ -704,7 +710,7 @@
         showToast("ان لاک ہو گیا۔");
       } else { showToast("غلط پن کوڈ!"); }
     };
-        window.lockSecrets = function () {
+    window.lockSecrets = function () {
       isUnlocked = false;
       document.getElementById("supervisorLockBox").style.display = "block";
       document.getElementById("supervisorUnlockedControls").style.display = "none";
